@@ -1,0 +1,3 @@
+[submodule "Flush/vendor/spdlog"]
+	path = Flush/vendor/spdlog
+	url = https://github.com/gabime/spdlog
