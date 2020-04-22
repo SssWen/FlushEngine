@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|x64">
@@ -57,7 +57,9 @@
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
       <PreprocessorDefinitions>FLUSH_PLATFORM_WINDOW;FLUSH_BUILD_DLL;_WINDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(SolutionDir)Flush\vendor\spdlog\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Flush\vendor\spdlog\include;$(SolutionDir)Flush\src\Flush;$(SolutionDir)Flush\src;</AdditionalIncludeDirectories>
+      <PrecompiledHeader>Create</PrecompiledHeader>
+      <PrecompiledHeaderFile>flushpch.h</PrecompiledHeaderFile>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -79,11 +81,17 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\flushpch.cpp" />
     <ClCompile Include="src\Flush\Log.cpp" />
     <ClCompile Include="src\Flush\Application.cpp" />
     <ClCompile Include="src\Flush\Core.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\flushpch.h" />
+    <ClInclude Include="src\Flush\Events\ApplicationEvent.h" />
+    <ClInclude Include="src\Flush\Events\Event.h" />
+    <ClInclude Include="src\Flush\Events\KeyEvent.h" />
+    <ClInclude Include="src\Flush\Events\MouseEvent.h" />
     <ClInclude Include="src\Flush\Log.h" />
     <ClInclude Include="src\Flush.h" />
     <ClInclude Include="src\Flush\Application.h" />

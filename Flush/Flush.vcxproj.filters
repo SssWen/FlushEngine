@@ -288,6 +288,21 @@
     <ClInclude Include="vendor\spdlog\include\spdlog\version.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\Flush\Events\Event.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Flush\Events\ApplicationEvent.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Flush\Events\KeyEvent.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Flush\Events\MouseEvent.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\flushpch.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Flush\Core.h">
@@ -297,6 +312,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\Flush\Log.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\flushpch.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

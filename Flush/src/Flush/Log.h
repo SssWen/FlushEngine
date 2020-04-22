@@ -1,10 +1,11 @@
 
 #pragma once
 
-#include <memory>
+
 
 #include "Core.h"
 #include "spdlog/spdlog.h"
+#include "spdlog/fmt/ostr.h" // to make a user-defined type formattable see\ https://fmt.dev/latest/api.html#formatting-user-defined-types
 
 
 namespace Flush {
