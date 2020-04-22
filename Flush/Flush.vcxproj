@@ -9,10 +9,15 @@
       <Configuration>Release</Configuration>
       <Platform>x64</Platform>
     </ProjectConfiguration>
+    <ProjectConfiguration Include="Dist|x64">
+      <Configuration>Dist</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <VCProjectVersion>15.0</VCProjectVersion>
-    <ProjectGuid>{5E8EC780-F58E-4741-AD99-732F7F51C16E}</ProjectGuid>
+    <ProjectGuid>{47ED2E0D-B301-57BE-7C83-FA1DE85653EF}</ProjectGuid>
+    <IgnoreWarnCompileDuplicatedFilename>true</IgnoreWarnCompileDuplicatedFilename>
+    <Keyword>Win32Proj</Keyword>
     <RootNamespace>Flush</RootNamespace>
     <WindowsTargetPlatformVersion>10.0.17763.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
@@ -20,20 +25,23 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
+    <CharacterSet>Unicode</CharacterSet>
     <PlatformToolset>v141</PlatformToolset>
-    <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
+    <CharacterSet>Unicode</CharacterSet>
     <PlatformToolset>v141</PlatformToolset>
-    <WholeProgramOptimization>true</WholeProgramOptimization>
-    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Dist|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <CharacterSet>Unicode</CharacterSet>
+    <PlatformToolset>v141</PlatformToolset>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
-  </ImportGroup>
-  <ImportGroup Label="Shared">
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
@@ -41,148 +49,120 @@
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Dist|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <OutDir>$(SolutionDir)bin\$(Configuration)-$(Platform)\$(ProjectName)\</OutDir>
-    <IntDir>$(SolutionDir)bin-int\$(Configuration)-$(Platform)\$(ProjectName)\</IntDir>
+    <LinkIncremental>true</LinkIncremental>
+    <OutDir>..\bin\Debug-windows-x86_64\Flush\</OutDir>
+    <IntDir>..\bin-int\Debug-windows-x86_64\Flush\</IntDir>
+    <TargetName>Flush</TargetName>
+    <TargetExt>.dll</TargetExt>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <OutDir>$(SolutionDir)bin\$(Configuration)-$(Platform)\$(ProjectName)\</OutDir>
-    <IntDir>$(SolutionDir)bin-int\$(Configuration)-$(Platform)\$(ProjectName)\</IntDir>
+    <LinkIncremental>false</LinkIncremental>
+    <OutDir>..\bin\Release-windows-x86_64\Flush\</OutDir>
+    <IntDir>..\bin-int\Release-windows-x86_64\Flush\</IntDir>
+    <TargetName>Flush</TargetName>
+    <TargetExt>.dll</TargetExt>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Dist|x64'">
+    <LinkIncremental>false</LinkIncremental>
+    <OutDir>..\bin\Dist-windows-x86_64\Flush\</OutDir>
+    <IntDir>..\bin-int\Dist-windows-x86_64\Flush\</IntDir>
+    <TargetName>Flush</TargetName>
+    <TargetExt>.dll</TargetExt>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
-      <WarningLevel>Level3</WarningLevel>
-      <Optimization>Disabled</Optimization>
-      <SDLCheck>true</SDLCheck>
-      <ConformanceMode>true</ConformanceMode>
-      <PreprocessorDefinitions>FLUSH_PLATFORM_WINDOW;FLUSH_BUILD_DLL;_WINDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(SolutionDir)Flush\vendor\spdlog\include;$(SolutionDir)Flush\src\Flush;$(SolutionDir)Flush\src;</AdditionalIncludeDirectories>
-      <PrecompiledHeader>Create</PrecompiledHeader>
+      <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>flushpch.h</PrecompiledHeaderFile>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>FLUSH_PLATFORM_WINDOW;FLUSH_BUILD_DLL;FLUSH_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>vendor\spdlog\include;src;src\Flush;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
+      <Optimization>Disabled</Optimization>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
-      <SubSystem>Console</SubSystem>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <ImportLibrary>..\bin\Debug-windows-x86_64\Flush\Flush.lib</ImportLibrary>
     </Link>
+    <PostBuildEvent>
+      <Command>IF EXIST ..\bin\Debug-windows-x86_64\Flush\Flush.dll\ (xcopy /Q /E /Y /I ..\bin\Debug-windows-x86_64\Flush\Flush.dll ..\bin\Debug-windows-x86_64\Sandbox &gt; nul) ELSE (xcopy /Q /Y /I ..\bin\Debug-windows-x86_64\Flush\Flush.dll ..\bin\Debug-windows-x86_64\Sandbox &gt; nul)</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>flushpch.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
-      <Optimization>MaxSpeed</Optimization>
+      <PreprocessorDefinitions>FLUSH_PLATFORM_WINDOW;FLUSH_BUILD_DLL;FLUSH_RELEASE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>vendor\spdlog\include;src;src\Flush;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <Optimization>Full</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <SDLCheck>true</SDLCheck>
-      <ConformanceMode>true</ConformanceMode>
+      <MinimalRebuild>false</MinimalRebuild>
+      <StringPooling>true</StringPooling>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
-      <SubSystem>Console</SubSystem>
+      <SubSystem>Windows</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
+      <ImportLibrary>..\bin\Release-windows-x86_64\Flush\Flush.lib</ImportLibrary>
     </Link>
+    <PostBuildEvent>
+      <Command>IF EXIST ..\bin\Release-windows-x86_64\Flush\Flush.dll\ (xcopy /Q /E /Y /I ..\bin\Release-windows-x86_64\Flush\Flush.dll ..\bin\Release-windows-x86_64\Sandbox &gt; nul) ELSE (xcopy /Q /Y /I ..\bin\Release-windows-x86_64\Flush\Flush.dll ..\bin\Release-windows-x86_64\Sandbox &gt; nul)</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Dist|x64'">
+    <ClCompile>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>flushpch.h</PrecompiledHeaderFile>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>FLUSH_PLATFORM_WINDOW;FLUSH_BUILD_DLL;FLUSH_DIST;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>vendor\spdlog\include;src;src\Flush;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <Optimization>Full</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <MinimalRebuild>false</MinimalRebuild>
+      <StringPooling>true</StringPooling>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <ImportLibrary>..\bin\Dist-windows-x86_64\Flush\Flush.lib</ImportLibrary>
+    </Link>
+    <PostBuildEvent>
+      <Command>IF EXIST ..\bin\Dist-windows-x86_64\Flush\Flush.dll\ (xcopy /Q /E /Y /I ..\bin\Dist-windows-x86_64\Flush\Flush.dll ..\bin\Dist-windows-x86_64\Sandbox &gt; nul) ELSE (xcopy /Q /Y /I ..\bin\Dist-windows-x86_64\Flush\Flush.dll ..\bin\Dist-windows-x86_64\Sandbox &gt; nul)</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="src\flushpch.cpp" />
-    <ClCompile Include="src\Flush\Log.cpp" />
-    <ClCompile Include="src\Flush\Application.cpp" />
-    <ClCompile Include="src\Flush\Core.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="src\flushpch.h" />
+    <ClInclude Include="src\Flush.h" />
+    <ClInclude Include="src\Flush\Application.h" />
+    <ClInclude Include="src\Flush\Core.h" />
+    <ClInclude Include="src\Flush\EntryPoint.h" />
     <ClInclude Include="src\Flush\Events\ApplicationEvent.h" />
     <ClInclude Include="src\Flush\Events\Event.h" />
     <ClInclude Include="src\Flush\Events\KeyEvent.h" />
     <ClInclude Include="src\Flush\Events\MouseEvent.h" />
     <ClInclude Include="src\Flush\Log.h" />
-    <ClInclude Include="src\Flush.h" />
-    <ClInclude Include="src\Flush\Application.h" />
-    <ClInclude Include="src\Flush\EntryPoint.h" />
-    <ClInclude Include="vendor\spdlog\include\spdlog\async.h" />
-    <ClInclude Include="vendor\spdlog\include\spdlog\async_logger-inl.h" />
-    <ClInclude Include="vendor\spdlog\include\spdlog\async_logger.h" />
-    <ClInclude Include="vendor\spdlog\include\spdlog\cfg\argv.h" />
-    <ClInclude Include="vendor\spdlog\include\spdlog\cfg\env.h" />
-    <ClInclude Include="vendor\spdlog\include\spdlog\cfg\helpers-inl.h" />
-    <ClInclude Include="vendor\spdlog\include\spdlog\cfg\helpers.h" />
-    <ClInclude Include="vendor\spdlog\include\spdlog\cfg\log_levels.h" />
-    <ClInclude Include="vendor\spdlog\include\spdlog\common-inl.h" />
-    <ClInclude Include="vendor\spdlog\include\spdlog\common.h" />
-    <ClInclude Include="vendor\spdlog\include\spdlog\details\backtracer-inl.h" />
-    <ClInclude Include="vendor\spdlog\include\spdlog\details\backtracer.h" />
-    <ClInclude Include="vendor\spdlog\include\spdlog\details\circular_q.h" />
-    <ClInclude Include="vendor\spdlog\include\spdlog\details\console_globals.h" />
-    <ClInclude Include="vendor\spdlog\include\spdlog\details\file_helper-inl.h" />
-    <ClInclude Include="vendor\spdlog\include\spdlog\details\file_helper.h" />
-    <ClInclude Include="vendor\spdlog\include\spdlog\details\fmt_helper.h" />
-    <ClInclude Include="vendor\spdlog\include\spdlog\details\log_msg-inl.h" />
-    <ClInclude Include="vendor\spdlog\include\spdlog\details\log_msg.h" />
-    <ClInclude Include="vendor\spdlog\include\spdlog\details\log_msg_buffer-inl.h" />
-    <ClInclude Include="vendor\spdlog\include\spdlog\details\log_msg_buffer.h" />
-    <ClInclude Include="vendor\spdlog\include\spdlog\details\mpmc_blocking_q.h" />
-    <ClInclude Include="vendor\spdlog\include\spdlog\details\null_mutex.h" />
-    <ClInclude Include="vendor\spdlog\include\spdlog\details\os-inl.h" />
-    <ClInclude Include="vendor\spdlog\include\spdlog\details\os.h" />
-    <ClInclude Include="vendor\spdlog\include\spdlog\details\periodic_worker-inl.h" />
-    <ClInclude Include="vendor\spdlog\include\spdlog\details\periodic_worker.h" />
-    <ClInclude Include="vendor\spdlog\include\spdlog\details\registry-inl.h" />
-    <ClInclude Include="vendor\spdlog\include\spdlog\details\registry.h" />
-    <ClInclude Include="vendor\spdlog\include\spdlog\details\synchronous_factory.h" />
-    <ClInclude Include="vendor\spdlog\include\spdlog\details\tcp_client-windows.h" />
-    <ClInclude Include="vendor\spdlog\include\spdlog\details\tcp_client.h" />
-    <ClInclude Include="vendor\spdlog\include\spdlog\details\thread_pool-inl.h" />
-    <ClInclude Include="vendor\spdlog\include\spdlog\details\thread_pool.h" />
-    <ClInclude Include="vendor\spdlog\include\spdlog\details\windows_include.h" />
-    <ClInclude Include="vendor\spdlog\include\spdlog\fmt\bin_to_hex.h" />
-    <ClInclude Include="vendor\spdlog\include\spdlog\fmt\bundled\chrono.h" />
-    <ClInclude Include="vendor\spdlog\include\spdlog\fmt\bundled\color.h" />
-    <ClInclude Include="vendor\spdlog\include\spdlog\fmt\bundled\compile.h" />
-    <ClInclude Include="vendor\spdlog\include\spdlog\fmt\bundled\core.h" />
-    <ClInclude Include="vendor\spdlog\include\spdlog\fmt\bundled\format-inl.h" />
-    <ClInclude Include="vendor\spdlog\include\spdlog\fmt\bundled\format.h" />
-    <ClInclude Include="vendor\spdlog\include\spdlog\fmt\bundled\locale.h" />
-    <ClInclude Include="vendor\spdlog\include\spdlog\fmt\bundled\ostream.h" />
-    <ClInclude Include="vendor\spdlog\include\spdlog\fmt\bundled\posix.h" />
-    <ClInclude Include="vendor\spdlog\include\spdlog\fmt\bundled\printf.h" />
-    <ClInclude Include="vendor\spdlog\include\spdlog\fmt\bundled\ranges.h" />
-    <ClInclude Include="vendor\spdlog\include\spdlog\fmt\fmt.h" />
-    <ClInclude Include="vendor\spdlog\include\spdlog\fmt\ostr.h" />
-    <ClInclude Include="vendor\spdlog\include\spdlog\formatter.h" />
-    <ClInclude Include="vendor\spdlog\include\spdlog\fwd.h" />
-    <ClInclude Include="vendor\spdlog\include\spdlog\logger-inl.h" />
-    <ClInclude Include="vendor\spdlog\include\spdlog\logger.h" />
-    <ClInclude Include="vendor\spdlog\include\spdlog\pattern_formatter-inl.h" />
-    <ClInclude Include="vendor\spdlog\include\spdlog\pattern_formatter.h" />
-    <ClInclude Include="vendor\spdlog\include\spdlog\sinks\android_sink.h" />
-    <ClInclude Include="vendor\spdlog\include\spdlog\sinks\ansicolor_sink-inl.h" />
-    <ClInclude Include="vendor\spdlog\include\spdlog\sinks\ansicolor_sink.h" />
-    <ClInclude Include="vendor\spdlog\include\spdlog\sinks\base_sink-inl.h" />
-    <ClInclude Include="vendor\spdlog\include\spdlog\sinks\base_sink.h" />
-    <ClInclude Include="vendor\spdlog\include\spdlog\sinks\basic_file_sink-inl.h" />
-    <ClInclude Include="vendor\spdlog\include\spdlog\sinks\basic_file_sink.h" />
-    <ClInclude Include="vendor\spdlog\include\spdlog\sinks\daily_file_sink.h" />
-    <ClInclude Include="vendor\spdlog\include\spdlog\sinks\dist_sink.h" />
-    <ClInclude Include="vendor\spdlog\include\spdlog\sinks\dup_filter_sink.h" />
-    <ClInclude Include="vendor\spdlog\include\spdlog\sinks\msvc_sink.h" />
-    <ClInclude Include="vendor\spdlog\include\spdlog\sinks\null_sink.h" />
-    <ClInclude Include="vendor\spdlog\include\spdlog\sinks\ostream_sink.h" />
-    <ClInclude Include="vendor\spdlog\include\spdlog\sinks\ringbuffer_sink.h" />
-    <ClInclude Include="vendor\spdlog\include\spdlog\sinks\rotating_file_sink-inl.h" />
-    <ClInclude Include="vendor\spdlog\include\spdlog\sinks\rotating_file_sink.h" />
-    <ClInclude Include="vendor\spdlog\include\spdlog\sinks\sink-inl.h" />
-    <ClInclude Include="vendor\spdlog\include\spdlog\sinks\sink.h" />
-    <ClInclude Include="vendor\spdlog\include\spdlog\sinks\stdout_color_sinks-inl.h" />
-    <ClInclude Include="vendor\spdlog\include\spdlog\sinks\stdout_color_sinks.h" />
-    <ClInclude Include="vendor\spdlog\include\spdlog\sinks\stdout_sinks-inl.h" />
-    <ClInclude Include="vendor\spdlog\include\spdlog\sinks\stdout_sinks.h" />
-    <ClInclude Include="vendor\spdlog\include\spdlog\sinks\syslog_sink.h" />
-    <ClInclude Include="vendor\spdlog\include\spdlog\sinks\systemd_sink.h" />
-    <ClInclude Include="vendor\spdlog\include\spdlog\sinks\tcp_sink.h" />
-    <ClInclude Include="vendor\spdlog\include\spdlog\sinks\wincolor_sink-inl.h" />
-    <ClInclude Include="vendor\spdlog\include\spdlog\sinks\wincolor_sink.h" />
-    <ClInclude Include="vendor\spdlog\include\spdlog\sinks\win_eventlog_sink.h" />
-    <ClInclude Include="vendor\spdlog\include\spdlog\spdlog-inl.h" />
-    <ClInclude Include="vendor\spdlog\include\spdlog\spdlog.h" />
-    <ClInclude Include="vendor\spdlog\include\spdlog\tweakme.h" />
-    <ClInclude Include="vendor\spdlog\include\spdlog\version.h" />
+    <ClInclude Include="src\flushpch.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\Flush\Application.cpp" />
+    <ClCompile Include="src\Flush\Log.cpp" />
+    <ClCompile Include="src\flushpch.cpp">
+      <PrecompiledHeader>Create</PrecompiledHeader>
+    </ClCompile>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

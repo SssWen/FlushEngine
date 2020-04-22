@@ -8,8 +8,15 @@ workspace "Flush"
 		"Dist"
 	}
 
-outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
+	--$(SolutionDir) = E:\Code\FlushEngine\Flush\
+	--$(Configurations) = Debug
+	--$(Platform) = x64
+	--$(ProjectName) = Sandbox
 
+	
+
+-- outputdir = "%{cfg.buildcfg}-%{cfg.system}%{cfg.architecture}"
+outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 project "Flush"
 	location "Flush"
 	kind "SharedLib"
@@ -17,6 +24,10 @@ project "Flush"
 
 	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
 	objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
+
+
+	pchheader "flushpch.h"
+	pchsource "Flush/src/flushpch.cpp"
 
 	files
 	{
@@ -26,20 +37,21 @@ project "Flush"
 
 	includedirs
 	{
-		"%{prj.name}/vendor/spdlog/include"
+		"%{prj.name}/vendor/spdlog/include",
+		"%{prj.name}/src",
+		"%{prj.name}/src/Flush",
 	}
 
 	filter "system:windows"
 		cppdialect "C++17"
 		staticruntime "On"		
-		systemversion "10.0.17763.0"
+		systemversion "latest"
 
 		defines
 		{
-			"FLUSH_PLATFORM_WINDOWS",
+			"FLUSH_PLATFORM_WINDOW",
 			"FLUSH_BUILD_DLL"
 		}
-
 		postbuildcommands
 		{
 			("{COPY} %{cfg.buildtarget.relpath} ../bin/" .. outputdir .. "/Sandbox")
@@ -62,6 +74,7 @@ project "Sandbox"
 	kind "ConsoleApp"
 	language "C++"
 
+	--targetdir: sets the destination dir for the compiled binary target.
 	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
 	objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
 
@@ -74,7 +87,9 @@ project "Sandbox"
 	includedirs
 	{
 		"Flush/vendor/spdlog/include",
-		"Flush/src"
+		"Flush/src",
+		"Flush/src/Flush",
+		"Flush/vendor",
 	}
 
 	links
@@ -85,15 +100,15 @@ project "Sandbox"
 	filter "system:windows"
 		cppdialect "C++17"
 		staticruntime "On"        
-        systemversion "10.0.17763.0"
+        systemversion "latest"
 
 		defines
 		{
-			"FLUSH_PLATFORM_WINDOWS"
+			"FLUSH_PLATFORM_WINDOW"
 		}
 
 	filter "configurations:Debug"
-		defines "HZ_DEBUG"
+		defines "FLUSH_DEBUG"
 		symbols "On"
 
 	filter "configurations:Release"
