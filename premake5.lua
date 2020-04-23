@@ -17,6 +17,11 @@ workspace "Flush"
 
 -- outputdir = "%{cfg.buildcfg}-%{cfg.system}%{cfg.architecture}"
 outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
+
+IncludeDir = {}
+IncludeDir["GLFW"] = "Flush/vendor/GLFW/include"
+include "Flush/vendor/GLFW" -- ÃÌº”¡Ì“ª∏ˆpremake
+
 project "Flush"
 	location "Flush"
 	kind "SharedLib"
@@ -40,8 +45,14 @@ project "Flush"
 		"%{prj.name}/vendor/spdlog/include",
 		"%{prj.name}/src",
 		"%{prj.name}/src/Flush",
+		"%{IncludeDir.GLFW}",
 	}
 
+	links
+	{
+		"GLFW",
+		"opengl32.lib"
+	}
 	filter "system:windows"
 		cppdialect "C++17"
 		staticruntime "On"		
