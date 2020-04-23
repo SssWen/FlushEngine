@@ -35,6 +35,8 @@
       <Filter>Flush</Filter>
     </ClInclude>
     <ClInclude Include="src\flushpch.h" />
+    <ClInclude Include="src\Platform\Windows\WindowsWindow.h" />
+    <ClInclude Include="src\Flush\Window.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Flush\Application.cpp">
@@ -44,5 +46,6 @@
       <Filter>Flush</Filter>
     </ClCompile>
     <ClCompile Include="src\flushpch.cpp" />
+    <ClCompile Include="src\Platform\Windows\WindowsWindow.cpp" />
   </ItemGroup>
 </Project>
