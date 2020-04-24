@@ -55,7 +55,7 @@ namespace Flush {
 	class EventDispatcher
 	{
 		template<typename T>
-		using EventFn = std::function<bool(T&)>;
+		using EventFn = std::function<bool(T&)>; // int &a;
 	public:
 		EventDispatcher(Event& event)
 			: m_Event(event)
