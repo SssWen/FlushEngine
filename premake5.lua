@@ -20,7 +20,7 @@ outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 
 IncludeDir = {}
 IncludeDir["GLFW"] = "Flush/vendor/GLFW/include"
-include "Flush/vendor/GLFW" -- Ìí¼ÓÁíÒ»¸öpremake
+include "Flush/vendor/GLFW" -- ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½premake
 
 project "Flush"
 	location "Flush"
@@ -55,7 +55,7 @@ project "Flush"
 	}
 	filter "system:windows"
 		cppdialect "C++17"
-		staticruntime "On"		
+		staticruntime "Off"		
 		systemversion "latest"
 
 		defines
@@ -70,10 +70,12 @@ project "Flush"
 
 	filter "configurations:Debug"
 		defines "FLUSH_DEBUG"
+		buildoptions {"/MDd"}
 		symbols "On"
 
 	filter "configurations:Release"
 		defines "FLUSH_RELEASE"
+		buildoptions "/MDd"
 		optimize "On"
 
 	filter "configurations:Dist"
@@ -109,8 +111,8 @@ project "Sandbox"
 	}
 
 	filter "system:windows"
-		cppdialect "C++17"
-		staticruntime "On"        
+		cppdialect "C++17"		
+		staticruntime "Off"		
         systemversion "latest"
 
 		defines
@@ -119,11 +121,13 @@ project "Sandbox"
 		}
 
 	filter "configurations:Debug"
-		defines "FLUSH_DEBUG"
+		defines "FLUSH_DEBUG"		
+		buildoptions {"/MDd"}
 		symbols "On"
 
 	filter "configurations:Release"
-		defines "FLUSH_RELEASE"
+		defines "FLUSH_RELEASE"	
+		buildoptions "/MDd"	
 		optimize "On"
 
 	filter "configurations:Dist"

@@ -37,6 +37,12 @@
     <ClInclude Include="src\Flush\Events\MouseEvent.h">
       <Filter>Flush\Events</Filter>
     </ClInclude>
+    <ClInclude Include="src\Flush\Layer.h">
+      <Filter>Flush</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Flush\LayerStack.h">
+      <Filter>Flush</Filter>
+    </ClInclude>
     <ClInclude Include="src\Flush\Log.h">
       <Filter>Flush</Filter>
     </ClInclude>
@@ -50,6 +56,12 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Flush\Application.cpp">
+      <Filter>Flush</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Flush\Layer.cpp">
+      <Filter>Flush</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Flush\LayerStack.cpp">
       <Filter>Flush</Filter>
     </ClCompile>
     <ClCompile Include="src\Flush\Log.cpp">
