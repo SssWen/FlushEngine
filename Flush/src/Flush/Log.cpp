@@ -10,7 +10,8 @@ namespace Flush {
 	void Log::Init()
 	{
 		//spdlog::set_pattern("*** [%H:%M:%S] [thread %t] %v ***"); 
-		spdlog::set_pattern("***[thread %t] %^[%T] %n: %v%$ ***"); 
+		//spdlog::set_pattern("***[thread %t] %^[%T] %n: %v%$ ***"); 
+		spdlog::set_pattern("%^[%T] %n: %v%$");
 		s_CoreLogger = spdlog::stdout_color_mt("Flush");			
 		s_CoreLogger->set_level(spdlog::level::trace);
 

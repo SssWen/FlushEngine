@@ -161,9 +161,11 @@
     <ClInclude Include="src\Flush\Events\MouseEvent.h" />
     <ClInclude Include="src\Flush\ImGui\ImGuiLayer.h" />
     <ClInclude Include="src\Flush\Input.h" />
+    <ClInclude Include="src\Flush\KeyCodes.h" />
     <ClInclude Include="src\Flush\Layer.h" />
     <ClInclude Include="src\Flush\LayerStack.h" />
     <ClInclude Include="src\Flush\Log.h" />
+    <ClInclude Include="src\Flush\MouseButtonCodes.h" />
     <ClInclude Include="src\Flush\Window.h" />
     <ClInclude Include="src\Platform\OpenGL\imgui_impl_opengl3.h" />
     <ClInclude Include="src\Platform\Windows\WindowsInput.h" />

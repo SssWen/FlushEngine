@@ -67,6 +67,8 @@
     <ClInclude Include="src\flushpch.h" />
     <ClInclude Include="src\Flush\Input.h" />
     <ClInclude Include="src\Platform\Windows\WindowsInput.h" />
+    <ClInclude Include="src\Flush\MouseButtonCodes.h" />
+    <ClInclude Include="src\Flush\KeyCodes.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Flush\Application.cpp">
