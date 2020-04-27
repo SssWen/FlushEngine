@@ -47,6 +47,9 @@ namespace Flush {
 
 		m_Window = glfwCreateWindow((int)props.Width, (int)props.Height, m_Data.Title.c_str(), nullptr, nullptr);
 		glfwMakeContextCurrent(m_Window);
+
+		int status = gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
+		Flush_CORE_WARN("-----status:{0}", status);
 		glfwSetWindowUserPointer(m_Window, &m_Data);
 		SetVSync(true);
 
