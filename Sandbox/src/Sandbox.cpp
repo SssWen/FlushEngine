@@ -26,6 +26,7 @@ class Sandbox : public Flush::Application
 public:
 	Sandbox() {
 		PushLayer(new ExampleLayer());
+		PushLayer(new Flush::ImGuiLayer());
 	}
 	~Sandbox() {
 

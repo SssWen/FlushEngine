@@ -21,9 +21,11 @@ outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 IncludeDir = {}
 IncludeDir["GLFW"] = "Flush/vendor/GLFW/include"
 IncludeDir["glad"] = "Flush/vendor/glad/include"
+IncludeDir["ImGui"] = "Flush/vendor/imgui"
 
 include "Flush/vendor/GLFW" -- 另一个项目的premake
 include "Flush/vendor/glad" 
+include "Flush/vendor/imgui" 
 
 project "Flush"
 	location "Flush"
@@ -50,12 +52,14 @@ project "Flush"
 		"%{prj.name}/src/Flush",
 		"%{IncludeDir.GLFW}",
 		"%{IncludeDir.glad}",
+		"%{IncludeDir.ImGui}",
 	}
 
 	links
 	{		
 		"GLFW",
 		"glad",
+		"ImGui",
 		"opengl32.lib"
 	}
 	filter "system:windows"

@@ -4,3 +4,6 @@
 [submodule "Flush/vendor/GLFW"]
 	path = Flush/vendor/GLFW
 	url = https://github.com/SssWen/glfw
+[submodule "Flush/vendor/imgui"]
+	path = Flush/vendor/imgui
+	url = https://github.com/SssWen/imgui
