@@ -151,7 +151,6 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="src\Flush\ImGui\ImGuiLayer.h" />
     <ClInclude Include="src\Flush.h" />
     <ClInclude Include="src\Flush\Application.h" />
     <ClInclude Include="src\Flush\Core.h" />
@@ -160,6 +159,7 @@
     <ClInclude Include="src\Flush\Events\Event.h" />
     <ClInclude Include="src\Flush\Events\KeyEvent.h" />
     <ClInclude Include="src\Flush\Events\MouseEvent.h" />
+    <ClInclude Include="src\Flush\ImGui\ImGuiLayer.h" />
     <ClInclude Include="src\Flush\Layer.h" />
     <ClInclude Include="src\Flush\LayerStack.h" />
     <ClInclude Include="src\Flush\Log.h" />
@@ -169,8 +169,8 @@
     <ClInclude Include="src\flushpch.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\Flush\ImGui\ImGuiLayer.cpp" />
     <ClCompile Include="src\Flush\Application.cpp" />
+    <ClCompile Include="src\Flush\ImGui\ImGuiLayer.cpp" />
     <ClCompile Include="src\Flush\Layer.cpp" />
     <ClCompile Include="src\Flush\LayerStack.cpp" />
     <ClCompile Include="src\Flush\Log.cpp" />

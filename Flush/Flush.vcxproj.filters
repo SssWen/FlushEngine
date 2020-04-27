@@ -7,8 +7,14 @@
     <Filter Include="Flush\Events">
       <UniqueIdentifier>{4B033AF1-3766-C995-E0EB-014CCC2D9518}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Flush\ImGui">
+      <UniqueIdentifier>{B1FB5B2E-1DB1-D423-A6A5-CEFA125ACB27}</UniqueIdentifier>
+    </Filter>
     <Filter Include="Platform">
       <UniqueIdentifier>{2AC788B4-1694-E3BF-3FAD-D1672BD9184E}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Platform\OpenGL">
+      <UniqueIdentifier>{1E7D2C1D-8A08-9AE1-9319-1DD6FF23F6E1}</UniqueIdentifier>
     </Filter>
     <Filter Include="Platform\Windows">
       <UniqueIdentifier>{64FBD71A-50F4-F66C-7926-DCF1657ED678}</UniqueIdentifier>
@@ -37,6 +43,9 @@
     <ClInclude Include="src\Flush\Events\MouseEvent.h">
       <Filter>Flush\Events</Filter>
     </ClInclude>
+    <ClInclude Include="src\Flush\ImGui\ImGuiLayer.h">
+      <Filter>Flush\ImGui</Filter>
+    </ClInclude>
     <ClInclude Include="src\Flush\Layer.h">
       <Filter>Flush</Filter>
     </ClInclude>
@@ -49,16 +58,20 @@
     <ClInclude Include="src\Flush\Window.h">
       <Filter>Flush</Filter>
     </ClInclude>
+    <ClInclude Include="src\Platform\OpenGL\imgui_impl_opengl3.h">
+      <Filter>Platform\OpenGL</Filter>
+    </ClInclude>
     <ClInclude Include="src\Platform\Windows\WindowsWindow.h">
       <Filter>Platform\Windows</Filter>
     </ClInclude>
     <ClInclude Include="src\flushpch.h" />
-    <ClInclude Include="src\Flush\ImGui\ImGuiLayer.h" />
-    <ClInclude Include="src\Platform\OpenGL\imgui_impl_opengl3.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Flush\Application.cpp">
       <Filter>Flush</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Flush\ImGui\ImGuiLayer.cpp">
+      <Filter>Flush\ImGui</Filter>
     </ClCompile>
     <ClCompile Include="src\Flush\Layer.cpp">
       <Filter>Flush</Filter>
@@ -69,11 +82,12 @@
     <ClCompile Include="src\Flush\Log.cpp">
       <Filter>Flush</Filter>
     </ClCompile>
+    <ClCompile Include="src\Platform\OpenGL\imgui_impl_opengl3.cpp">
+      <Filter>Platform\OpenGL</Filter>
+    </ClCompile>
     <ClCompile Include="src\Platform\Windows\WindowsWindow.cpp">
       <Filter>Platform\Windows</Filter>
     </ClCompile>
     <ClCompile Include="src\flushpch.cpp" />
-    <ClCompile Include="src\Flush\ImGui\ImGuiLayer.cpp" />
-    <ClCompile Include="src\Platform\OpenGL\imgui_impl_opengl3.cpp" />
   </ItemGroup>
 </Project>
