@@ -23,21 +23,22 @@ namespace Flush {
 
 	void ImGuiLayer::OnAttach()
 	{
+
+		// Setup Dear ImGui context
 		IMGUI_CHECKVERSION();
 		ImGui::CreateContext();
-		ImGui::StyleColorsDark();
-
-		ImGuiIO& io = ImGui::GetIO();
-		//io.BackendFlags |= ImGuiBackendFlags_HasMouseCursors;
-		//io.BackendFlags |= ImGuiBackendFlags_HasSetMousePos;
+		ImGuiIO& io = ImGui::GetIO(); (void)io;
 		io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;       // Enable Keyboard Controls
 		//io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;      // Enable Gamepad Controls
 		io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;           // Enable Docking
 		io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;         // Enable Multi-Viewport / Platform Windows
+		//io.ConfigFlags |= ImGuiConfigFlags_ViewportsNoTaskBarIcons;
+		//io.ConfigFlags |= ImGuiConfigFlags_ViewportsNoMerge;
 
 		// Setup Dear ImGui style
 		ImGui::StyleColorsDark();
 		//ImGui::StyleColorsClassic();
+
 		// When viewports are enabled we tweak WindowRounding/WindowBg so platform windows can look identical to regular ones.
 		ImGuiStyle& style = ImGui::GetStyle();
 		if (io.ConfigFlags & ImGuiConfigFlags_ViewportsEnable)
@@ -95,6 +96,7 @@ namespace Flush {
 		See imgui example 
 		https://github.com/SssWen/imgui/blob/master/examples/example_glfw_opengl3/main.cpp
 	*/
+	/*
 	void ImGuiLayer::OnUpdate()
 	{
 		ImGuiIO& io = ImGui::GetIO();
@@ -127,10 +129,10 @@ namespace Flush {
 		dispatcher.Dispatch<KeyReleasedEvent>(FLUSH_BIND_EVENT_FN(ImGuiLayer::OnKeyReleasedEvent));
 		dispatcher.Dispatch<WindowResizeEvent>(FLUSH_BIND_EVENT_FN(ImGuiLayer::OnWindowResizeEvent));
 	}
+	*/
 
 
-
-
+	/*
 
 	bool ImGuiLayer::OnMouseButtonPressedEvent(MouseButtonPressedEvent& e)
 	{
@@ -204,4 +206,5 @@ namespace Flush {
 
 		return false;
 	}
+	*/
 }
