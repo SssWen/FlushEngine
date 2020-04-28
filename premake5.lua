@@ -1,6 +1,6 @@
 workspace "Flush"
 	architecture "x64"
-
+	startproject "Sandbox"
 	configurations
 	{
 		"Debug",
@@ -23,9 +23,12 @@ IncludeDir["GLFW"] = "Flush/vendor/GLFW/include"
 IncludeDir["glad"] = "Flush/vendor/glad/include"
 IncludeDir["ImGui"] = "Flush/vendor/imgui"
 
-include "Flush/vendor/GLFW" -- 另一个项目的premake
-include "Flush/vendor/glad" 
-include "Flush/vendor/imgui" 
+group "Dependencies"
+	include "Flush/vendor/GLFW" -- 另一个项目的premake
+	include "Flush/vendor/glad" 
+	include "Flush/vendor/imgui" 
+	
+group ""	
 
 project "Flush"
 	location "Flush"
@@ -74,7 +77,8 @@ project "Flush"
 		}
 		postbuildcommands
 		{
-			("{COPY} %{cfg.buildtarget.relpath} ../bin/" .. outputdir .. "/Sandbox")
+			--("{COPY} %{cfg.buildtarget.relpath} ../bin/" .. outputdir .. "/Sandbox")
+			("{COPY} %{cfg.buildtarget.relpath} \"../bin/" .. outputdir .. "/Sandbox/\"")
 		}
 
 	filter "configurations:Debug"

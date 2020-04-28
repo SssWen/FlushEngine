@@ -46,6 +46,12 @@
     <ClInclude Include="src\Flush\ImGui\ImGuiLayer.h">
       <Filter>Flush\ImGui</Filter>
     </ClInclude>
+    <ClInclude Include="src\Flush\Input.h">
+      <Filter>Flush</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Flush\KeyCodes.h">
+      <Filter>Flush</Filter>
+    </ClInclude>
     <ClInclude Include="src\Flush\Layer.h">
       <Filter>Flush</Filter>
     </ClInclude>
@@ -55,20 +61,22 @@
     <ClInclude Include="src\Flush\Log.h">
       <Filter>Flush</Filter>
     </ClInclude>
+    <ClInclude Include="src\Flush\MouseButtonCodes.h">
+      <Filter>Flush</Filter>
+    </ClInclude>
     <ClInclude Include="src\Flush\Window.h">
       <Filter>Flush</Filter>
     </ClInclude>
     <ClInclude Include="src\Platform\OpenGL\imgui_impl_opengl3.h">
       <Filter>Platform\OpenGL</Filter>
     </ClInclude>
+    <ClInclude Include="src\Platform\Windows\WindowsInput.h">
+      <Filter>Platform\Windows</Filter>
+    </ClInclude>
     <ClInclude Include="src\Platform\Windows\WindowsWindow.h">
       <Filter>Platform\Windows</Filter>
     </ClInclude>
     <ClInclude Include="src\flushpch.h" />
-    <ClInclude Include="src\Flush\Input.h" />
-    <ClInclude Include="src\Platform\Windows\WindowsInput.h" />
-    <ClInclude Include="src\Flush\MouseButtonCodes.h" />
-    <ClInclude Include="src\Flush\KeyCodes.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Flush\Application.cpp">
@@ -89,10 +97,12 @@
     <ClCompile Include="src\Platform\OpenGL\imgui_impl_opengl3.cpp">
       <Filter>Platform\OpenGL</Filter>
     </ClCompile>
+    <ClCompile Include="src\Platform\Windows\WindowsInput.cpp">
+      <Filter>Platform\Windows</Filter>
+    </ClCompile>
     <ClCompile Include="src\Platform\Windows\WindowsWindow.cpp">
       <Filter>Platform\Windows</Filter>
     </ClCompile>
     <ClCompile Include="src\flushpch.cpp" />
-    <ClCompile Include="src\Platform\Windows\WindowsInput.cpp" />
   </ItemGroup>
 </Project>
