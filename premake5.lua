@@ -22,12 +22,13 @@ IncludeDir = {}
 IncludeDir["GLFW"] = "Flush/vendor/GLFW/include"
 IncludeDir["glad"] = "Flush/vendor/glad/include"
 IncludeDir["ImGui"] = "Flush/vendor/imgui"
+IncludeDir["glm"] = "Flush/vendor/glm"
 
 group "Dependencies"
 	include "Flush/vendor/GLFW" -- 另一个项目的premake
 	include "Flush/vendor/glad" 
 	include "Flush/vendor/imgui" 
-	
+
 group ""	
 
 project "Flush"
@@ -45,7 +46,9 @@ project "Flush"
 	files
 	{
 		"%{prj.name}/src/**.h",
-		"%{prj.name}/src/**.cpp"
+		"%{prj.name}/src/**.cpp",
+		"%{prj.name}/vendor/glm/**.hpp",
+		"%{prj.name}/vendor/glm/**.inl",
 	}
 
 	includedirs
@@ -56,6 +59,7 @@ project "Flush"
 		"%{IncludeDir.GLFW}",
 		"%{IncludeDir.glad}",
 		"%{IncludeDir.ImGui}",
+		"%{IncludeDir.glm}",
 	}
 
 	links
@@ -107,7 +111,7 @@ project "Sandbox"
 	files
 	{
 		"%{prj.name}/src/**.h",
-		"%{prj.name}/src/**.cpp"
+		"%{prj.name}/src/**.cpp",
 	}
 
 	includedirs
@@ -115,7 +119,8 @@ project "Sandbox"
 		"Flush/vendor/spdlog/include",
 		"Flush/src",
 		"Flush/src/Flush",
-		"Flush/vendor",
+		"Flush/vendor",		
+		"%{IncludeDir.glm}",
 	}
 
 	links
