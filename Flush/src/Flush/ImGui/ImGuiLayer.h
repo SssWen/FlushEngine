@@ -17,6 +17,10 @@ namespace Flush {
 		void OnDetach();
 		void OnUpdate();
 		void OnEvent(Event& event);
+
+		void OnImGuiRender();
+		void Begin();
+		void End();
 	private:
 		bool OnMouseButtonPressedEvent(MouseButtonPressedEvent& e);
 		bool OnMouseButtonReleasedEvent(MouseButtonReleasedEvent& e);

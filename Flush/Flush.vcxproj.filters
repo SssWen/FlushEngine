@@ -93,9 +93,6 @@
     <ClInclude Include="src\Flush\Window.h">
       <Filter>src\Flush</Filter>
     </ClInclude>
-    <ClInclude Include="src\Platform\OpenGL\imgui_impl_opengl3.h">
-      <Filter>src\Platform\OpenGL</Filter>
-    </ClInclude>
     <ClInclude Include="src\Platform\Windows\WindowsInput.h">
       <Filter>src\Platform\Windows</Filter>
     </ClInclude>
@@ -1346,9 +1343,6 @@
     <ClCompile Include="src\Flush\Log.cpp">
       <Filter>src\Flush</Filter>
     </ClCompile>
-    <ClCompile Include="src\Platform\OpenGL\imgui_impl_opengl3.cpp">
-      <Filter>src\Platform\OpenGL</Filter>
-    </ClCompile>
     <ClCompile Include="src\Platform\Windows\WindowsInput.cpp">
       <Filter>src\Platform\Windows</Filter>
     </ClCompile>
@@ -1358,5 +1352,6 @@
     <ClCompile Include="src\flushpch.cpp">
       <Filter>src</Filter>
     </ClCompile>
+    <ClCompile Include="src\Flush\ImGui\ImGuiBuild.cpp" />
   </ItemGroup>
 </Project>

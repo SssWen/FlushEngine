@@ -5,7 +5,7 @@
 #include "Window.h"
 #include "Flush/LayerStack.h"
 #include "Events/ApplicationEvent.h"
-
+#include "Flush/ImGui/ImGuiLayer.h"
 namespace Flush {
 	
 	class FLUSH_API Application // __declspec(dllexport)
@@ -28,6 +28,7 @@ namespace Flush {
 		bool OnWindowClose(WindowCloseEvent& e);
 		
 		std::unique_ptr<Window> m_Window;
+		ImGuiLayer* m_ImGuiLayer;
 		bool m_Running = true;
 		LayerStack m_LayerStack;
 	private:
