@@ -141,6 +141,10 @@ namespace Flush {
 
 	void WindowsWindow::OnUpdate()
 	{
+		/*
+		  Poll and handle events (inputs, window resize, etc.)
+		  Generally you may always pass all inputs to dear imgui, and hide them from your application based on those two flags.
+		*/
 		glfwPollEvents();
 		glfwSwapBuffers(m_Window);
 	}

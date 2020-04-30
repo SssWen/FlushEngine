@@ -18,7 +18,7 @@ namespace Flush {
 
 		m_Window->SetEventCallback(BIND_EVENT_FN(OnEvent));
 
-		m_ImGuiLayer = new ImGuiLayer();
+		m_ImGuiLayer = new ImGuiLayer(); // 创建一个GUI 
 		PushOverlay(m_ImGuiLayer);
 		
 	}
@@ -63,9 +63,10 @@ namespace Flush {
 			for (Layer* layer : m_LayerStack)
 				layer->OnUpdate();
 			
+			// ImGui demo
 			m_ImGuiLayer->Begin();
 			for (Layer* layer : m_LayerStack)
-				layer->OnImGuiRender();
+				layer->OnImGuiRender(); // ShowDemoWindow
 			m_ImGuiLayer->End();
 
 			m_Window->OnUpdate();

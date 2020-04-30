@@ -1,5 +1,7 @@
 
 #include <Flush.h>
+#include "imgui/imgui.h"
+
 class ExampleLayer : public Flush::Layer 
 {
 public:
@@ -12,7 +14,7 @@ public:
 		//Flush_ERROR("ExampleLayer::Update");
 		if (Flush::Input::IsKeyPressed(F_KEY_TAB))
 		{
-			Flush_TRACE("Tab key is pressed(poll)!");;
+			Flush_TRACE("Tab key is pressed(poll)!");
 		}
 	}
 
@@ -27,6 +29,13 @@ public:
 		}
 	}
 
+	virtual void OnImGuiRender() override
+	{
+	/*	ImGui::Begin("Test");
+		ImGui::Text("This is some useful text.");
+		ImGui::End();*/
+	}
+
 };
 
 class Sandbox : public Flush::Application
@@ -34,6 +43,7 @@ class Sandbox : public Flush::Application
 public:
 	Sandbox() {
 		PushLayer(new ExampleLayer());
+		
 		//PushLayer(new Flush::ImGuiLayer());
 	}
 	~Sandbox() {

@@ -1,6 +1,6 @@
 #pragma once
 
-#ifdef FLUSH_PLATFORM_WINDOW
+//#ifdef FLUSH_PLATFORM_WINDOW
 
 extern Flush::Application* Flush::CreateApplication();
 
@@ -20,4 +20,4 @@ int main(int argc, char** argv)
 	delete app;
 }
 
-#endif
+//#endif

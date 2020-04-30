@@ -5,7 +5,6 @@ workspace "Flush"
 	{
 		"Debug",
 		"Release",
-		"Dist"
 	}
 
 	--$(SolutionDir) = E:\Code\FlushEngine\Flush\
@@ -33,8 +32,10 @@ group ""
 
 project "Flush"
 	location "Flush"
-	kind "SharedLib"
+	kind "StaticLib"
 	language "C++"
+	cppdialect "C++17"	
+	staticruntime "on"		
 
 	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
 	objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
@@ -50,7 +51,10 @@ project "Flush"
 		"%{prj.name}/vendor/glm/**.hpp",
 		"%{prj.name}/vendor/glm/**.inl",
 	}
-
+	-- defines
+	-- {
+	-- 	"_CRT_SECURE_NO_WARNINGS"
+	-- }
 	includedirs
 	{
 		"%{prj.name}/vendor/spdlog/include",
@@ -69,40 +73,29 @@ project "Flush"
 		"ImGui",
 		"opengl32.lib"
 	}
-	filter "system:windows"
-		cppdialect "C++17"
-		staticruntime "Off"		
+	filter "system:windows"			
 		systemversion "latest"
-
-		defines
-		{
-			"FLUSH_PLATFORM_WINDOW",
-			"FLUSH_BUILD_DLL"
-		}
-		postbuildcommands
-		{
-			--("{COPY} %{cfg.buildtarget.relpath} ../bin/" .. outputdir .. "/Sandbox")
-			("{COPY} %{cfg.buildtarget.relpath} \"../bin/" .. outputdir .. "/Sandbox/\"")
-		}
+		-- postbuildcommands -- 不在使用dll了,所以不进行copy dll
+		-- {			
+		-- 	("{COPY} %{cfg.buildtarget.relpath} \"../bin/" .. outputdir .. "/Sandbox/\"")
+		-- }
 
 	filter "configurations:Debug"
-		defines "FLUSH_DEBUG"
-		buildoptions {"/MDd"}
+		defines "FLUSH_DEBUG"		
+		runtime "Debug"
 		symbols "On"
 
 	filter "configurations:Release"
 		defines "FLUSH_RELEASE"
-		buildoptions "/MDd"
-		optimize "On"
-
-	filter "configurations:Dist"
-		defines "FLUSH_DIST"
+		runtime "Release"		
 		optimize "On"
 
 project "Sandbox"
 	location "Sandbox"
 	kind "ConsoleApp"
 	language "C++"
+	cppdialect "C++17"
+	staticruntime "on"
 
 	--targetdir: sets the destination dir for the compiled binary target.
 	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
@@ -128,26 +121,19 @@ project "Sandbox"
 		"Flush"
 	}
 
-	filter "system:windows"
-		cppdialect "C++17"		
-		staticruntime "Off"		
+	filter "system:windows"						
         systemversion "latest"
 
-		defines
-		{
-			"FLUSH_PLATFORM_WINDOW"
-		}
+		-- defines
+		-- {
+		-- 	"FLUSH_PLATFORM_WINDOW" -- 暂时不处理平台问题
+		-- }
 
 	filter "configurations:Debug"
-		defines "FLUSH_DEBUG"		
-		buildoptions {"/MDd"}
+		defines "FLUSH_DEBUG"	
+		runtime "Debug"			
 		symbols "On"
 
 	filter "configurations:Release"
-		defines "FLUSH_RELEASE"	
-		buildoptions "/MDd"	
-		optimize "On"
-
-	filter "configurations:Dist"
-		defines "FLUSH_DIST"
+		defines "FLUSH_RELEASE"			
 		optimize "On"
