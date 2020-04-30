@@ -51,10 +51,10 @@ project "Flush"
 		"%{prj.name}/vendor/glm/**.hpp",
 		"%{prj.name}/vendor/glm/**.inl",
 	}
-	-- defines
-	-- {
-	-- 	"_CRT_SECURE_NO_WARNINGS"
-	-- }
+	defines
+	{
+		"_CRT_SECURE_NO_WARNINGS"
+	}
 	includedirs
 	{
 		"%{prj.name}/vendor/spdlog/include",

@@ -3,6 +3,7 @@
 #include "Window.h"
 #include "glad/glad.h"
 #include <GLFW/glfw3.h>
+#include "Renderer/GraphicsContext.h"
 
 namespace Flush {
 
@@ -37,6 +38,7 @@ namespace Flush {
 		virtual void Shutdown();
 	private:
 		GLFWwindow* m_Window;
+		GraphicsContext* m_Context;
 
 		struct WindowData
 		{

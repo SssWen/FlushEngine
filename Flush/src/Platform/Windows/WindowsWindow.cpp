@@ -3,6 +3,7 @@
 #include "Log.h"
 #include "Flush/Events/MouseEvent.h"
 #include "Flush/Events/KeyEvent.h"
+#include "Platform/OpenGL/OpenGLContext.h"
 
 namespace Flush {
 
@@ -46,10 +47,13 @@ namespace Flush {
 		}
 
 		m_Window = glfwCreateWindow((int)props.Width, (int)props.Height, m_Data.Title.c_str(), nullptr, nullptr);
-		glfwMakeContextCurrent(m_Window);
 
-		int status = gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
-		Flush_CORE_WARN("-----status:{0}", status);
+		//glfwMakeContextCurrent(m_Window);
+		//int status = gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
+		//Flush_CORE_WARN("-----status:{0}", status);
+		m_Context = new OpenGLContext(m_Window);
+		m_Context->Init();
+
 		glfwSetWindowUserPointer(m_Window, &m_Data);
 		SetVSync(true);
 
@@ -146,7 +150,8 @@ namespace Flush {
 		  Generally you may always pass all inputs to dear imgui, and hide them from your application based on those two flags.
 		*/
 		glfwPollEvents();
-		glfwSwapBuffers(m_Window);
+		//glfwSwapBuffers(m_Window);
+		m_Context->SwapBuffers();
 	}
 
 	void WindowsWindow::SetVSync(bool enabled)
