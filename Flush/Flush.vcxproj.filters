@@ -13,8 +13,14 @@
     <Filter Include="src\Flush\ImGui">
       <UniqueIdentifier>{482F3646-B4BA-A30A-BDCB-26FF29D6FF0A}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Flush\Renderer">
+      <UniqueIdentifier>{0431A77C-F014-68D2-5975-622545785254}</UniqueIdentifier>
+    </Filter>
     <Filter Include="src\Platform">
       <UniqueIdentifier>{21CA02E5-0D2D-9289-B6B2-CA3FA2F45D0C}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Platform\OpenGL">
+      <UniqueIdentifier>{35A49437-A105-7245-2A73-B8F796D3A804}</UniqueIdentifier>
     </Filter>
     <Filter Include="src\Platform\Windows">
       <UniqueIdentifier>{5B054582-4794-CE4B-F0B2-E246DC20DFF1}</UniqueIdentifier>
@@ -87,8 +93,17 @@
     <ClInclude Include="src\Flush\MouseButtonCodes.h">
       <Filter>src\Flush</Filter>
     </ClInclude>
+    <ClInclude Include="src\Flush\Renderer\GraphicsContext.h">
+      <Filter>src\Flush\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Flush\Renderer\Shader.h">
+      <Filter>src\Flush\Renderer</Filter>
+    </ClInclude>
     <ClInclude Include="src\Flush\Window.h">
       <Filter>src\Flush</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Platform\OpenGL\OpenGLContext.h">
+      <Filter>src\Platform\OpenGL</Filter>
     </ClInclude>
     <ClInclude Include="src\Platform\Windows\WindowsInput.h">
       <Filter>src\Platform\Windows</Filter>
@@ -1323,8 +1338,6 @@
     <ClInclude Include="vendor\glm\glm\vector_relational.hpp">
       <Filter>vendor\glm\glm</Filter>
     </ClInclude>
-    <ClInclude Include="src\Flush\Renderer\GraphicsContext.h" />
-    <ClInclude Include="src\Platform\OpenGL\OpenGLContext.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Flush\Application.cpp">
@@ -1345,6 +1358,12 @@
     <ClCompile Include="src\Flush\Log.cpp">
       <Filter>src\Flush</Filter>
     </ClCompile>
+    <ClCompile Include="src\Flush\Renderer\Shader.cpp">
+      <Filter>src\Flush\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Platform\OpenGL\OpenGLContext.cpp">
+      <Filter>src\Platform\OpenGL</Filter>
+    </ClCompile>
     <ClCompile Include="src\Platform\Windows\WindowsInput.cpp">
       <Filter>src\Platform\Windows</Filter>
     </ClCompile>
@@ -1354,6 +1373,5 @@
     <ClCompile Include="src\flushpch.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="src\Platform\OpenGL\OpenGLContext.cpp" />
   </ItemGroup>
 </Project>

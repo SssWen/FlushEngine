@@ -97,7 +97,6 @@
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="src\Platform\OpenGL\OpenGLContext.h" />
     <ClInclude Include="src\Flush.h" />
     <ClInclude Include="src\Flush\Application.h" />
     <ClInclude Include="src\Flush\Core.h" />
@@ -114,7 +113,9 @@
     <ClInclude Include="src\Flush\Log.h" />
     <ClInclude Include="src\Flush\MouseButtonCodes.h" />
     <ClInclude Include="src\Flush\Renderer\GraphicsContext.h" />
+    <ClInclude Include="src\Flush\Renderer\Shader.h" />
     <ClInclude Include="src\Flush\Window.h" />
+    <ClInclude Include="src\Platform\OpenGL\OpenGLContext.h" />
     <ClInclude Include="src\Platform\Windows\WindowsInput.h" />
     <ClInclude Include="src\Platform\Windows\WindowsWindow.h" />
     <ClInclude Include="src\flushpch.h" />
@@ -528,13 +529,14 @@
     <ClInclude Include="vendor\glm\glm\vector_relational.hpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\Platform\OpenGL\OpenGLContext.cpp" />
     <ClCompile Include="src\Flush\Application.cpp" />
     <ClCompile Include="src\Flush\ImGui\ImGuiBuild.cpp" />
     <ClCompile Include="src\Flush\ImGui\ImGuiLayer.cpp" />
     <ClCompile Include="src\Flush\Layer.cpp" />
     <ClCompile Include="src\Flush\LayerStack.cpp" />
     <ClCompile Include="src\Flush\Log.cpp" />
+    <ClCompile Include="src\Flush\Renderer\Shader.cpp" />
+    <ClCompile Include="src\Platform\OpenGL\OpenGLContext.cpp" />
     <ClCompile Include="src\Platform\Windows\WindowsInput.cpp" />
     <ClCompile Include="src\Platform\Windows\WindowsWindow.cpp" />
     <ClCompile Include="src\flushpch.cpp">
