@@ -2,6 +2,8 @@
 .vs/
 bin/
 bin-int/
+Flush/vendor/imgui/bin-int/
+Flush/vendor/imgui/bin/
 
 # Files
 *.user
