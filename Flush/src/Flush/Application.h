@@ -7,6 +7,7 @@
 #include "Events/ApplicationEvent.h"
 #include "Flush/ImGui/ImGuiLayer.h"
 #include "Flush/Renderer/Shader.h"
+#include "Flush/Renderer/Buffer.h"
 
 namespace Flush {
 	
@@ -34,7 +35,9 @@ namespace Flush {
 		bool m_Running = true;
 		LayerStack m_LayerStack;
 
-		unsigned int m_VertexArray, m_VertexBuffer, m_IndexBuffer;
+		unsigned int m_VertexArray; // vao		
+		std::unique_ptr<VertexBuffer> m_VertexBuffer;//vbo
+		std::unique_ptr<IndexBuffer> m_IndexBuffer;//ibo
 		std::unique_ptr<Shader> m_Shader;
 
 

@@ -93,7 +93,13 @@
     <ClInclude Include="src\Flush\MouseButtonCodes.h">
       <Filter>src\Flush</Filter>
     </ClInclude>
+    <ClInclude Include="src\Flush\Renderer\Buffer.h">
+      <Filter>src\Flush\Renderer</Filter>
+    </ClInclude>
     <ClInclude Include="src\Flush\Renderer\GraphicsContext.h">
+      <Filter>src\Flush\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Flush\Renderer\Renderer.h">
       <Filter>src\Flush\Renderer</Filter>
     </ClInclude>
     <ClInclude Include="src\Flush\Renderer\Shader.h">
@@ -101,6 +107,9 @@
     </ClInclude>
     <ClInclude Include="src\Flush\Window.h">
       <Filter>src\Flush</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Platform\OpenGL\OpenGLBuffer.h">
+      <Filter>src\Platform\OpenGL</Filter>
     </ClInclude>
     <ClInclude Include="src\Platform\OpenGL\OpenGLContext.h">
       <Filter>src\Platform\OpenGL</Filter>
@@ -1358,8 +1367,17 @@
     <ClCompile Include="src\Flush\Log.cpp">
       <Filter>src\Flush</Filter>
     </ClCompile>
+    <ClCompile Include="src\Flush\Renderer\Buffer.cpp">
+      <Filter>src\Flush\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Flush\Renderer\Renderer.cpp">
+      <Filter>src\Flush\Renderer</Filter>
+    </ClCompile>
     <ClCompile Include="src\Flush\Renderer\Shader.cpp">
       <Filter>src\Flush\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Platform\OpenGL\OpenGLBuffer.cpp">
+      <Filter>src\Platform\OpenGL</Filter>
     </ClCompile>
     <ClCompile Include="src\Platform\OpenGL\OpenGLContext.cpp">
       <Filter>src\Platform\OpenGL</Filter>
