@@ -66,8 +66,6 @@ namespace Flush {
 
 			m_VertexBuffer->SetLayout(layout);
 		}
-#pragma endregion 
-#pragma region ---------------create ibo---------------		
 		uint32_t index = 0;
 		const auto& layout = m_VertexBuffer->GetLayout();
 		for (const auto& element : layout)
@@ -81,6 +79,9 @@ namespace Flush {
 				(const void*)element.Offset);
 			index++;
 		}
+#pragma endregion 
+#pragma region ---------------create ibo---------------		
+		
 		uint32_t indices[3] = { 0,1,2 };
 		m_IndexBuffer.reset(IndexBuffer::Create(indices, sizeof(indices) / sizeof(uint32_t)));
 #pragma endregion 	
