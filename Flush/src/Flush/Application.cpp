@@ -4,6 +4,8 @@
 #include "Log.h"
 #include "glad/glad.h"
 #include "Flush/Input.h"
+#include "Flush/Renderer/Renderer.h"
+
 
 namespace Flush {
 
@@ -193,29 +195,33 @@ namespace Flush {
 	void Application::Run()
 	{
 		while (m_Running)
-		{
-			glClearColor(0.1f, 0.1f, 0.1f, 1);
-			glClear(GL_COLOR_BUFFER_BIT);
+		{			
+			RenderCommand::SetClearColor({ 0.1f, 0.1f, 0.1f, 1 });
+			RenderCommand::Clear();
 
+#pragma region --------Update Mesh-------------
+			// ÖØ¹¹ refractor
+			// draw square 
+			Renderer::BeginScene();
+			m_BlueShader->Bind();
+			Renderer::Submit(m_SquareVA);
+			// draw triangle
+			m_Shader->Bind();
+			Renderer::Submit(m_VertexArray);
+
+			Renderer::EndScene();
+#pragma endregion
+
+#pragma region --------Update UI-------------
 			for (Layer* layer : m_LayerStack)
 				layer->OnUpdate();
-			
+
 			// draw gui
 			m_ImGuiLayer->Begin();
 			for (Layer* layer : m_LayerStack)
 				layer->OnImGuiRender(); // ShowDemoWindow
 			m_ImGuiLayer->End();
-
-			// draw square
-			m_BlueShader->Bind();
-			m_SquareVA->Bind();
-			glDrawElements(GL_TRIANGLES, m_SquareVA->GetIndexBuffer()->GetCount(), GL_UNSIGNED_INT, nullptr);
-
-
-			// draw triangle
-			m_Shader->Bind();
-			m_VertexArray->Bind();
-			glDrawElements(GL_TRIANGLES, 3, GL_UNSIGNED_INT, nullptr);
+#pragma endregion
 
 			m_Window->OnUpdate();
 

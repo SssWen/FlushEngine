@@ -36,15 +36,15 @@ namespace Flush {
 		bool m_Running = true;
 		LayerStack m_LayerStack;
 		
-		std::unique_ptr<VertexArray> m_VertexArray;// vao
+		std::shared_ptr<VertexArray> m_VertexArray;// vao
 		//std::unique_ptr<VertexBuffer> m_VertexBuffer;//vbo
 		//std::unique_ptr<IndexBuffer> m_IndexBuffer;//ibo
-		std::unique_ptr<Shader> m_Shader;
+		std::shared_ptr<Shader> m_Shader;
 
-		std::unique_ptr<VertexArray> m_SquareVA;// vao
+		std::shared_ptr<VertexArray> m_SquareVA;// vao
 		//std::unique_ptr<VertexBuffer> m_VertexBuffer;//vbo
 		//std::unique_ptr<IndexBuffer> m_IndexBuffer;//ibo
-		std::unique_ptr<Shader> m_BlueShader;
+		std::shared_ptr<Shader> m_BlueShader;
 
 
 	private:
