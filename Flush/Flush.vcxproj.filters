@@ -105,6 +105,9 @@
     <ClInclude Include="src\Flush\Renderer\Shader.h">
       <Filter>src\Flush\Renderer</Filter>
     </ClInclude>
+    <ClInclude Include="src\Flush\Renderer\VertexArray.h">
+      <Filter>src\Flush\Renderer</Filter>
+    </ClInclude>
     <ClInclude Include="src\Flush\Window.h">
       <Filter>src\Flush</Filter>
     </ClInclude>
@@ -112,6 +115,9 @@
       <Filter>src\Platform\OpenGL</Filter>
     </ClInclude>
     <ClInclude Include="src\Platform\OpenGL\OpenGLContext.h">
+      <Filter>src\Platform\OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Platform\OpenGL\OpenGLVertexArray.h">
       <Filter>src\Platform\OpenGL</Filter>
     </ClInclude>
     <ClInclude Include="src\Platform\Windows\WindowsInput.h">
@@ -1347,8 +1353,6 @@
     <ClInclude Include="vendor\glm\glm\vector_relational.hpp">
       <Filter>vendor\glm\glm</Filter>
     </ClInclude>
-    <ClInclude Include="src\Platform\OpenGL\OpenGLVertexArray.h" />
-    <ClInclude Include="src\Flush\Renderer\VertexArray.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Flush\Application.cpp">
@@ -1378,10 +1382,16 @@
     <ClCompile Include="src\Flush\Renderer\Shader.cpp">
       <Filter>src\Flush\Renderer</Filter>
     </ClCompile>
+    <ClCompile Include="src\Flush\Renderer\VertexArray.cpp">
+      <Filter>src\Flush\Renderer</Filter>
+    </ClCompile>
     <ClCompile Include="src\Platform\OpenGL\OpenGLBuffer.cpp">
       <Filter>src\Platform\OpenGL</Filter>
     </ClCompile>
     <ClCompile Include="src\Platform\OpenGL\OpenGLContext.cpp">
+      <Filter>src\Platform\OpenGL</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Platform\OpenGL\OpenGLVertexArray.cpp">
       <Filter>src\Platform\OpenGL</Filter>
     </ClCompile>
     <ClCompile Include="src\Platform\Windows\WindowsInput.cpp">
@@ -1393,7 +1403,5 @@
     <ClCompile Include="src\flushpch.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="src\Platform\OpenGL\OpenGLVertexArray.cpp" />
-    <ClCompile Include="src\Flush\Renderer\VertexArray.cpp" />
   </ItemGroup>
 </Project>

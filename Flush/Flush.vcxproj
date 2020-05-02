@@ -97,7 +97,6 @@
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="src\Platform\OpenGL\OpenGLVertexArray.h" />
     <ClInclude Include="src\Flush.h" />
     <ClInclude Include="src\Flush\Application.h" />
     <ClInclude Include="src\Flush\Core.h" />
@@ -117,9 +116,11 @@
     <ClInclude Include="src\Flush\Renderer\GraphicsContext.h" />
     <ClInclude Include="src\Flush\Renderer\Renderer.h" />
     <ClInclude Include="src\Flush\Renderer\Shader.h" />
+    <ClInclude Include="src\Flush\Renderer\VertexArray.h" />
     <ClInclude Include="src\Flush\Window.h" />
     <ClInclude Include="src\Platform\OpenGL\OpenGLBuffer.h" />
     <ClInclude Include="src\Platform\OpenGL\OpenGLContext.h" />
+    <ClInclude Include="src\Platform\OpenGL\OpenGLVertexArray.h" />
     <ClInclude Include="src\Platform\Windows\WindowsInput.h" />
     <ClInclude Include="src\Platform\Windows\WindowsWindow.h" />
     <ClInclude Include="src\flushpch.h" />
@@ -531,10 +532,8 @@
     <ClInclude Include="vendor\glm\glm\vec3.hpp" />
     <ClInclude Include="vendor\glm\glm\vec4.hpp" />
     <ClInclude Include="vendor\glm\glm\vector_relational.hpp" />
-    <ClInclude Include="src\Flush\Renderer\VertexArray.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\Platform\OpenGL\OpenGLVertexArray.cpp" />
     <ClCompile Include="src\Flush\Application.cpp" />
     <ClCompile Include="src\Flush\ImGui\ImGuiBuild.cpp" />
     <ClCompile Include="src\Flush\ImGui\ImGuiLayer.cpp" />
@@ -544,14 +543,15 @@
     <ClCompile Include="src\Flush\Renderer\Buffer.cpp" />
     <ClCompile Include="src\Flush\Renderer\Renderer.cpp" />
     <ClCompile Include="src\Flush\Renderer\Shader.cpp" />
+    <ClCompile Include="src\Flush\Renderer\VertexArray.cpp" />
     <ClCompile Include="src\Platform\OpenGL\OpenGLBuffer.cpp" />
     <ClCompile Include="src\Platform\OpenGL\OpenGLContext.cpp" />
+    <ClCompile Include="src\Platform\OpenGL\OpenGLVertexArray.cpp" />
     <ClCompile Include="src\Platform\Windows\WindowsInput.cpp" />
     <ClCompile Include="src\Platform\Windows\WindowsWindow.cpp" />
     <ClCompile Include="src\flushpch.cpp">
       <PrecompiledHeader>Create</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="src\Flush\Renderer\VertexArray.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="vendor\GLFW\GLFW.vcxproj">
