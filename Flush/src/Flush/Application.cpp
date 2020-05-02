@@ -42,12 +42,13 @@ namespace Flush {
 		m_ImGuiLayer = new ImGuiLayer(); // 创建一个GUI 
 		PushOverlay(m_ImGuiLayer);
 		
-		// 创建一个三角形
-		
+
 #pragma region ---------------create vao---------------
 
-		glGenVertexArrays(1, &m_VertexArray);
-		glBindVertexArray(m_VertexArray);
+		/*glGenVertexArrays(1, &m_VertexArray);
+		glBindVertexArray(m_VertexArray);*/
+
+		m_VertexArray.reset(VertexArray::Create());
 			
 		float vertices[3 * 7] = {
 				-0.5f, -0.5f, 0.0f, 0.8f, 0.2f, 0.8f, 1.0f,
@@ -56,34 +57,23 @@ namespace Flush {
 		};
 #pragma endregion 		
 #pragma region ---------------create vbo---------------
-		m_VertexBuffer.reset(VertexBuffer::Create(vertices, sizeof(vertices)));
 
-		{
-			BufferLayout layout = {
+		std::shared_ptr<VertexBuffer> vertexBuffer;
+		vertexBuffer.reset(VertexBuffer::Create(vertices, sizeof(vertices)));
+		BufferLayout layout = {
 				{ ShaderDataType::Float3, "a_Position" },
 				{ ShaderDataType::Float4, "a_Color" }
-			};
-
-			m_VertexBuffer->SetLayout(layout);
-		}
-		uint32_t index = 0;
-		const auto& layout = m_VertexBuffer->GetLayout();
-		for (const auto& element : layout)
-		{
-			glEnableVertexAttribArray(index);
-			glVertexAttribPointer(index,
-				element.GetComponentCount(),
-				ShaderDataTypeToOpenGLBaseType(element.Type),
-				element.Normalized ? GL_TRUE : GL_FALSE,
-				layout.GetStride(),
-				(const void*)element.Offset);
-			index++;
-		}
-#pragma endregion 
-#pragma region ---------------create ibo---------------		
+		};
+		vertexBuffer->SetLayout(layout);
+		m_VertexArray->AddVertexBuffer(vertexBuffer);
 		
+#pragma endregion 
+#pragma region ---------------create ibo---------------						
 		uint32_t indices[3] = { 0,1,2 };
-		m_IndexBuffer.reset(IndexBuffer::Create(indices, sizeof(indices) / sizeof(uint32_t)));
+		std::shared_ptr<IndexBuffer> indexBuffer;
+		indexBuffer.reset(IndexBuffer::Create(indices, sizeof(indices) / sizeof(uint32_t)));
+		m_VertexArray->SetIndexBuffer(indexBuffer);
+
 #pragma endregion 	
 #pragma region ---------------create shader obj---------------		
 		std::string vertexSrc = R"(
@@ -112,7 +102,62 @@ namespace Flush {
 		m_Shader.reset(new Shader(vertexSrc, fragmentSrc));
 #pragma endregion 
 
+	//  Create Square 
+#pragma region ---------------create vao---------------
+		m_SquareVA.reset(VertexArray::Create());
+		float squareVertices[3 * 4] = {
+			-0.75f, -0.75f, 0.0f,
+			 0.75f, -0.75f, 0.0f,
+			 0.75f,  0.75f, 0.0f,
+			-0.75f,  0.75f, 0.0f
+		};
+#pragma endregion 	
+#pragma region ---------------create vbo---------------
+		std::shared_ptr<VertexBuffer> squareVB;
+		squareVB.reset(VertexBuffer::Create(squareVertices, sizeof(squareVertices)));
+		squareVB->SetLayout({
+			{ ShaderDataType::Float3, "a_Position" }
+			});
+		m_SquareVA->AddVertexBuffer(squareVB);
+#pragma endregion
 
+#pragma region ---------------create ibo---------------
+		uint32_t squareIndices[6] = { 0, 1, 2, 2, 3, 0 };
+		std::shared_ptr<IndexBuffer> squareIB;
+		squareIB.reset(IndexBuffer::Create(squareIndices, sizeof(squareIndices) / sizeof(uint32_t)));
+		m_SquareVA->SetIndexBuffer(squareIB);
+#pragma endregion
+#pragma region ---------------create shader---------------
+		
+		std::string blueShaderVertexSrc = R"(
+			#version 330 core
+			
+			layout(location = 0) in vec3 a_Position;
+
+			out vec3 v_Position;
+
+			void main()
+			{
+				v_Position = a_Position;
+				gl_Position = vec4(a_Position, 1.0);	
+			}
+		)";
+
+		std::string blueShaderFragmentSrc = R"(
+			#version 330 core
+			
+			layout(location = 0) out vec4 color;
+
+			in vec3 v_Position;
+
+			void main()
+			{
+				color = vec4(0.2, 0.3, 0.8, 1.0);
+			}
+		)";
+
+		m_BlueShader.reset(new Shader(blueShaderVertexSrc, blueShaderFragmentSrc));
+#pragma endregion
 	}
 	Application::~Application()
 	{
@@ -161,9 +206,15 @@ namespace Flush {
 				layer->OnImGuiRender(); // ShowDemoWindow
 			m_ImGuiLayer->End();
 
+			// draw square
+			m_BlueShader->Bind();
+			m_SquareVA->Bind();
+			glDrawElements(GL_TRIANGLES, m_SquareVA->GetIndexBuffer()->GetCount(), GL_UNSIGNED_INT, nullptr);
+
+
 			// draw triangle
 			m_Shader->Bind();
-			glBindVertexArray(m_VertexArray);
+			m_VertexArray->Bind();
 			glDrawElements(GL_TRIANGLES, 3, GL_UNSIGNED_INT, nullptr);
 
 			m_Window->OnUpdate();
