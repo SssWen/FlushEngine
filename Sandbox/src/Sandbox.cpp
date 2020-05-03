@@ -2,7 +2,9 @@
 #include <Flush.h>
 #include "imgui/imgui.h"
 
+#include "Platform/OpenGL/OpenGLShader.h"
 #include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/type_ptr.hpp>
 
 class ExampleLayer : public Flush::Layer 
 {
@@ -81,7 +83,7 @@ public:
 			}
 		)";
 
-		m_Shader.reset(new Flush::Shader(vertexSrc, fragmentSrc));
+		m_Shader.reset(Flush::Shader::Create(vertexSrc, fragmentSrc));
 
 
 #pragma endregion 
@@ -112,7 +114,7 @@ public:
 		m_SquareVA->SetIndexBuffer(squareIB);
 #pragma endregion
 #pragma region ---------------create shader---------------
-		std::string blueShaderVertexSrc = R"(
+		std::string flatColorShaderVertexSrc  = R"(
 			#version 330 core
 			
 			layout(location = 0) in vec3 a_Position;
@@ -129,20 +131,21 @@ public:
 			}
 		)";
 
-		std::string blueShaderFragmentSrc = R"(
+		std::string flatColorShaderFragmentSrc  = R"(
 			#version 330 core
 			
 			layout(location = 0) out vec4 color;
 
 			in vec3 v_Position;
+			uniform vec3 u_Color;
 
 			void main()
 			{
-				color = vec4(0.2, 0.3, 0.8, 1.0);
+				color = vec4(u_Color, 1.0);
 			}
 		)";
 
-		m_BlueShader.reset(new Flush::Shader(blueShaderVertexSrc, blueShaderFragmentSrc));
+		m_FlatColorShader.reset(Flush::Shader::Create(flatColorShaderVertexSrc , flatColorShaderFragmentSrc ));
 
 
 #pragma endregion
@@ -178,13 +181,17 @@ public:
 		Flush::Renderer::BeginScene(m_Camera);
 		glm::mat4 scale = glm::scale(glm::mat4(1.0f), glm::vec3(0.1f));
 
+
+		std::dynamic_pointer_cast<Flush::OpenGLShader>(m_FlatColorShader)->Bind();
+		std::dynamic_pointer_cast<Flush::OpenGLShader>(m_FlatColorShader)->UploadUniformFloat3("u_Color", m_SquareColor);
+
 		for (int y = 0; y < 20; y++)
 		{
 			for (int x = 0; x < 20; x++)
 			{
 				glm::vec3 pos(x * 0.11f, y * 0.11f, 0.0f);
 				glm::mat4 transform = glm::translate(glm::mat4(1.0f), pos) * scale;
-				Flush::Renderer::Submit(m_BlueShader, m_SquareVA, transform);
+				Flush::Renderer::Submit(m_FlatColorShader, m_SquareVA, transform);
 			}
 		}		
 		// draw triangle			
@@ -216,7 +223,7 @@ private:
 	std::shared_ptr<Flush::Shader> m_Shader;
 
 	std::shared_ptr<Flush::VertexArray> m_SquareVA;// vao				
-	std::shared_ptr<Flush::Shader> m_BlueShader;
+	std::shared_ptr<Flush::Shader> m_FlatColorShader;
 	Flush::OrthographicCamera m_Camera;
 
 	glm::vec3 m_CameraPosition;
@@ -224,7 +231,7 @@ private:
 
 	float m_CameraRotation = 0.0f;
 	float m_CameraRotationSpeed = 180.0f;
-
+	glm::vec3 m_SquareColor = { 0.2f, 0.3f, 0.8f };
 };
 
 class Sandbox : public Flush::Application

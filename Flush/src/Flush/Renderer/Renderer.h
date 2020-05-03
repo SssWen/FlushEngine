@@ -19,7 +19,7 @@ namespace Flush {
 		struct SceneData {
 			glm::mat4 ViewProjectionMatrix;
 		};	
-		static SceneData* m_SceneData;//s_ prefix for static fields
+		static SceneData* s_SceneData;//s_ prefix for static fields
 
 	};
 
