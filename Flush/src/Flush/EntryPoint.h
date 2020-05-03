@@ -11,13 +11,14 @@ int main(int argc, char** argv)
 	Flush::Log::GetCoreLogger()->warn("Hello World!");
 	
 	// Use Macro
-	Flush_CORE_TRACE("Flush_CORE_TRACE"); 
+	//Flush_CORE_TRACE("Flush_CORE_TRACE"); 
 	int a = 5;
-	Flush_ERROR("Flush_ERROR a =  {0}", a );
+	//Flush_ERROR("Flush_ERROR a =  {0}", a );
 
 	auto app = Flush::CreateApplication();
 	app->Run();
 	delete app;
+	return 0;
 }
 
 //#endif

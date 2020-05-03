@@ -100,6 +100,7 @@
     <ClInclude Include="src\Flush.h" />
     <ClInclude Include="src\Flush\Application.h" />
     <ClInclude Include="src\Flush\Core.h" />
+    <ClInclude Include="src\Flush\Core\Timestep.h" />
     <ClInclude Include="src\Flush\EntryPoint.h" />
     <ClInclude Include="src\Flush\Events\ApplicationEvent.h" />
     <ClInclude Include="src\Flush\Events\Event.h" />

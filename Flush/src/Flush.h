@@ -10,7 +10,17 @@
 
 #include "Flush/Layer.h"
 #include "Flush/ImGui/ImGuiLayer.h"
+#include "Flush/Core/Timestep.h"
 
+// ---Renderer------------------------
+#include "Flush/Renderer/Renderer.h"
+#include "Flush/Renderer/RenderCommand.h"
+
+#include "Flush/Renderer/Buffer.h"
+#include "Flush/Renderer/Shader.h"
+#include "Flush/Renderer/VertexArray.h"
+#include "Flush/Renderer/OrthographicCamera.h"
+// -----------------------------------
 // ----------------Entry Point ----------------
 #include "Flush/EntryPoint.h"
 // --------------------------------------------

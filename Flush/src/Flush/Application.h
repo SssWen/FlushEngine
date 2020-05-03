@@ -6,10 +6,8 @@
 #include "Flush/LayerStack.h"
 #include "Events/ApplicationEvent.h"
 #include "Flush/ImGui/ImGuiLayer.h"
-#include "Flush/Renderer/Shader.h"
-#include "Flush/Renderer/Buffer.h"
-#include "Flush/Renderer/VertexArray.h"
-#include "Flush/Renderer/OrthographicCamera.h"
+
+
 
 namespace Flush {
 	
@@ -17,7 +15,7 @@ namespace Flush {
 	{	
 	public:
 		Application();
-		virtual ~Application();
+		virtual ~Application() = default;
 
 		void Run();
 
@@ -36,18 +34,9 @@ namespace Flush {
 		ImGuiLayer* m_ImGuiLayer;
 		bool m_Running = true;
 		LayerStack m_LayerStack;
+		float m_LastFrameTime = 0.0f;
 		
-		std::shared_ptr<VertexArray> m_VertexArray;// vao
-		//std::unique_ptr<VertexBuffer> m_VertexBuffer;//vbo
-		//std::unique_ptr<IndexBuffer> m_IndexBuffer;//ibo
-		std::shared_ptr<Shader> m_Shader;
 
-		std::shared_ptr<VertexArray> m_SquareVA;// vao
-		//std::unique_ptr<VertexBuffer> m_VertexBuffer;//vbo
-		//std::unique_ptr<IndexBuffer> m_IndexBuffer;//ibo
-		std::shared_ptr<Shader> m_BlueShader;
-
-		OrthographicCamera m_Camera;
 	private:
 		static Application* s_Instance;
 	};

@@ -2,6 +2,7 @@
 
 #include "Flush/Core.h"
 #include "Flush/Events/Event.h"
+#include "Flush/Core/Timestep.h"
 
 namespace Flush 
 {
@@ -13,7 +14,7 @@ namespace Flush
 
 		virtual void OnAttach() {}
 		virtual void OnDetach() {}
-		virtual void OnUpdate() {}
+		virtual void OnUpdate(Timestep ts) {}
 		virtual void OnImGuiRender() {}
 		virtual void OnEvent(Event& event) {}
 
