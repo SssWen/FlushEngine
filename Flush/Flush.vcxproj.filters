@@ -120,6 +120,9 @@
     <ClInclude Include="src\Flush\Renderer\Shader.h">
       <Filter>src\Flush\Renderer</Filter>
     </ClInclude>
+    <ClInclude Include="src\Flush\Renderer\Texture.h">
+      <Filter>src\Flush\Renderer</Filter>
+    </ClInclude>
     <ClInclude Include="src\Flush\Renderer\VertexArray.h">
       <Filter>src\Flush\Renderer</Filter>
     </ClInclude>
@@ -136,6 +139,9 @@
       <Filter>src\Platform\OpenGL</Filter>
     </ClInclude>
     <ClInclude Include="src\Platform\OpenGL\OpenGLShader.h">
+      <Filter>src\Platform\OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Platform\OpenGL\OpenGLTexture.h">
       <Filter>src\Platform\OpenGL</Filter>
     </ClInclude>
     <ClInclude Include="src\Platform\OpenGL\OpenGLVertexArray.h">
@@ -1412,6 +1418,9 @@
     <ClCompile Include="src\Flush\Renderer\Shader.cpp">
       <Filter>src\Flush\Renderer</Filter>
     </ClCompile>
+    <ClCompile Include="src\Flush\Renderer\Texture.cpp">
+      <Filter>src\Flush\Renderer</Filter>
+    </ClCompile>
     <ClCompile Include="src\Flush\Renderer\VertexArray.cpp">
       <Filter>src\Flush\Renderer</Filter>
     </ClCompile>
@@ -1425,6 +1434,9 @@
       <Filter>src\Platform\OpenGL</Filter>
     </ClCompile>
     <ClCompile Include="src\Platform\OpenGL\OpenGLShader.cpp">
+      <Filter>src\Platform\OpenGL</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Platform\OpenGL\OpenGLTexture.cpp">
       <Filter>src\Platform\OpenGL</Filter>
     </ClCompile>
     <ClCompile Include="src\Platform\OpenGL\OpenGLVertexArray.cpp">
