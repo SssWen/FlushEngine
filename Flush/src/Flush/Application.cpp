@@ -33,9 +33,9 @@ namespace Flush {
 	}
 	
 	Application* Application::s_Instance = nullptr;
-	Application::Application()
+	Application::Application():m_Camera(-1.6f,1.6f,-0.9f,0.8f)
 	{
-		//HZ_CORE_ASSERT(!s_Instance, "Application already exists!");
+		//FLUSH_CORE_ASSERT(!s_Instance, "Application already exists!");
 		s_Instance = this;
 		m_Window = std::unique_ptr<Window>(Window::Create());
 
@@ -52,13 +52,15 @@ namespace Flush {
 
 		m_VertexArray.reset(VertexArray::Create());
 			
-		float vertices[3 * 7] = {
-				-0.5f, -0.5f, 0.0f, 0.8f, 0.2f, 0.8f, 1.0f,
-				 0.5f, -0.5f, 0.0f, 0.2f, 0.3f, 0.8f, 1.0f,
-				 0.0f,  0.5f, 0.0f, 0.8f, 0.8f, 0.2f, 1.0f
-		};
+
 #pragma endregion 		
 #pragma region ---------------create vbo---------------
+
+		float vertices[3 * 7] = {
+		-0.5f, -0.5f, 0.0f, 0.8f, 0.2f, 0.8f, 1.0f,
+		 0.5f, -0.5f, 0.0f, 0.2f, 0.3f, 0.8f, 1.0f,
+		 0.0f,  0.5f, 0.0f, 0.8f, 0.8f, 0.2f, 1.0f
+		};
 
 		std::shared_ptr<VertexBuffer> vertexBuffer;
 		vertexBuffer.reset(VertexBuffer::Create(vertices, sizeof(vertices)));
@@ -82,11 +84,18 @@ namespace Flush {
 			#version 330 core
 			
 			layout(location = 0) in vec3 a_Position;
+			layout(location = 1) in vec4 a_Color;
+
+			uniform mat4 u_ViewProjection;
+
 			out vec3 v_Position;
+			out vec4 v_Color;
+
 			void main()
 			{
 				v_Position = a_Position;
-				gl_Position = vec4(a_Position, 1.0);	
+				v_Color = a_Color;
+				gl_Position = u_ViewProjection * vec4(a_Position, 1.0);	
 			}
 		)";
 
@@ -94,14 +103,20 @@ namespace Flush {
 			#version 330 core
 			
 			layout(location = 0) out vec4 color;
+
 			in vec3 v_Position;
+			in vec4 v_Color;
+
 			void main()
 			{
 				color = vec4(v_Position * 0.5 + 0.5, 1.0);
+				color = v_Color;
 			}
 		)";
 
 		m_Shader.reset(new Shader(vertexSrc, fragmentSrc));
+
+		
 #pragma endregion 
 
 	//  Create Square 
@@ -130,18 +145,19 @@ namespace Flush {
 		m_SquareVA->SetIndexBuffer(squareIB);
 #pragma endregion
 #pragma region ---------------create shader---------------
-		
 		std::string blueShaderVertexSrc = R"(
 			#version 330 core
 			
 			layout(location = 0) in vec3 a_Position;
+
+			uniform mat4 u_ViewProjection;
 
 			out vec3 v_Position;
 
 			void main()
 			{
 				v_Position = a_Position;
-				gl_Position = vec4(a_Position, 1.0);	
+				gl_Position = u_ViewProjection * vec4(a_Position, 1.0);	
 			}
 		)";
 
@@ -159,6 +175,8 @@ namespace Flush {
 		)";
 
 		m_BlueShader.reset(new Shader(blueShaderVertexSrc, blueShaderFragmentSrc));
+
+		
 #pragma endregion
 	}
 	Application::~Application()
@@ -202,13 +220,12 @@ namespace Flush {
 #pragma region --------Update Mesh-------------
 			// ÖØ¹¹ refractor
 			// draw square 
-			Renderer::BeginScene();
-			m_BlueShader->Bind();
-			Renderer::Submit(m_SquareVA);
-			// draw triangle
-			m_Shader->Bind();
-			Renderer::Submit(m_VertexArray);
-
+			m_Camera.SetPosition({ 0.5f,0.5f,0.0f });
+			m_Camera.SetRotation(45.0f);
+			Renderer::BeginScene(m_Camera);			
+			Renderer::Submit(m_BlueShader,m_SquareVA);
+			// draw triangle			
+			Renderer::Submit(m_Shader,m_VertexArray);
 			Renderer::EndScene();
 #pragma endregion
 

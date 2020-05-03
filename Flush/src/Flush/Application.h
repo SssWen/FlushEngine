@@ -9,6 +9,7 @@
 #include "Flush/Renderer/Shader.h"
 #include "Flush/Renderer/Buffer.h"
 #include "Flush/Renderer/VertexArray.h"
+#include "Flush/Renderer/OrthographicCamera.h"
 
 namespace Flush {
 	
@@ -46,7 +47,7 @@ namespace Flush {
 		//std::unique_ptr<IndexBuffer> m_IndexBuffer;//ibo
 		std::shared_ptr<Shader> m_BlueShader;
 
-
+		OrthographicCamera m_Camera;
 	private:
 		static Application* s_Instance;
 	};
