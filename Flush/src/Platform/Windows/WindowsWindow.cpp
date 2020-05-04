@@ -11,7 +11,7 @@ namespace Flush {
 
 	static void GLFWErrorCallback(int error, const char* description)
 	{
-		Flush_CORE_ERROR("GLFW Error ({0}): {1}", error, description);
+		FLUSH_CORE_ERROR("GLFW Error ({0}): {1}", error, description);
 	}
 
 	Window* Window::Create(const WindowProps& props)
@@ -41,7 +41,7 @@ namespace Flush {
 		{
 			// TODO: glfwTerminate on system shutdown
 			int success = glfwInit();
-			Flush_CORE_ERROR("Could not intialize GLFW!");
+			FLUSH_CORE_ERROR("Could not intialize GLFW!");
 			glfwSetErrorCallback(GLFWErrorCallback);
 			s_GLFWInitialized = true;
 		}

@@ -91,11 +91,11 @@ public:
 		//  Create Square 
 #pragma region ---------------create vao---------------
 		m_SquareVA.reset(Flush::VertexArray::Create());
-		float squareVertices[3 * 4] = {
-			-0.5f, -0.5f, 0.0f,
-			 0.5f, -0.5f, 0.0f,
-			 0.5f,  0.5f, 0.0f,
-			-0.5f,  0.5f, 0.0f
+		float squareVertices[5*4] = {
+			-0.5f, -0.5f, 0.0f, 0.0f, 0.0f,
+			 0.5f, -0.5f, 0.0f, 1.0f, 0.0f,
+			 0.5f,  0.5f, 0.0f, 1.0f, 1.0f,
+			-0.5f,  0.5f, 0.0f, 0.0f, 1.0f,
 		};
 #pragma endregion 	
 #pragma region ---------------create vbo---------------
@@ -148,6 +148,42 @@ public:
 		m_FlatColorShader.reset(Flush::Shader::Create(flatColorShaderVertexSrc , flatColorShaderFragmentSrc ));
 
 
+#pragma endregion
+#pragma region ---------------create textureShader---------------
+		std::string textureShaderVertexSrc = R"(
+			#version 330 core
+			
+			layout(location = 0) in vec3 a_Position;
+			layout(location = 1) in vec2 a_TexCoord;
+			uniform mat4 u_ViewProjection;
+			uniform mat4 u_Transform;
+			out vec2 v_TexCoord;
+			void main()
+			{
+				v_TexCoord = a_TexCoord;
+				gl_Position = u_ViewProjection * u_Transform * vec4(a_Position, 1.0);	
+			}
+		)";
+
+		std::string textureShaderFragmentSrc = R"(
+			#version 330 core
+			
+			layout(location = 0) out vec4 color;
+			in vec2 v_TexCoord;
+			
+			uniform sampler2D u_Texture;
+			void main()
+			{
+				color = texture(u_Texture, v_TexCoord);
+			}
+		)";
+
+		m_TextureShader.reset(Flush::Shader::Create(textureShaderVertexSrc, textureShaderFragmentSrc));
+
+		m_Texture = Flush::Texture2D::Create("assets/textures/Checkerboard.png");
+
+		std::dynamic_pointer_cast<Flush::OpenGLShader>(m_TextureShader)->Bind();
+		std::dynamic_pointer_cast<Flush::OpenGLShader>(m_TextureShader)->UploadUniformInt("u_Texture", 0);
 #pragma endregion
 	}
 
@@ -208,8 +244,8 @@ public:
 		{
 			Flush::KeyPressedEvent& e = (Flush::KeyPressedEvent&)event;
 			if (e.GetKeyCode() == F_KEY_TAB)
-				Flush_TRACE("Tab key is pressed (event)!");
-			Flush_TRACE("{0}", (char)e.GetKeyCode());
+				FLUSH_TRACE("Tab key is pressed (event)!");
+			FLUSH_TRACE("{0}", (char)e.GetKeyCode());
 		}
 	}
 
@@ -232,6 +268,9 @@ private:
 	float m_CameraRotation = 0.0f;
 	float m_CameraRotationSpeed = 180.0f;
 	glm::vec3 m_SquareColor = { 0.2f, 0.3f, 0.8f };
+
+	Flush::Ref<Flush::Texture2D> m_Texture;
+	std::shared_ptr<Flush::Shader> m_TextureShader;
 };
 
 class Sandbox : public Flush::Application

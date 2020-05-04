@@ -28,10 +28,27 @@
 #ifdef FLUSH_ENABLE_ASSERTS 
 	#define FLUSH_ASSERT(x, ... )  {\
 		if(!x) {\
-			Flush_ERROR("Assertion failed: {0}",__VA_ARGS__);\
+			FLUSH_ERROR("Assertion failed: {0}",__VA_ARGS__);\
 			__debugbreak();\
 		}}
+	#define FLUSH_CORE_ASSERT(x, ... )  {\
+		if(!x) {\
+			FLUSH_CORE_ERROR("Assertion failed: {0}",__VA_ARGS__);\
+			__debugbreak();\
+		}}
+	
 #else
 	#define Flush_ASSERT(x, ...)
 	#define Flush_CORE_ASSERT(x, ...)
 #endif
+
+namespace Flush {
+#ifndef SCOPE_REF
+#define SCOPE_REF
+	template<typename T>
+	using Scope = std::unique_ptr<T>;
+
+	template<typename T>
+	using Ref = std::shared_ptr<T>;
+#endif
+}

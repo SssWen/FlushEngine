@@ -68,7 +68,7 @@ namespace Flush {
 			glDeleteShader(vertexShader);
 
 			// Use the infoLog as you see fit.
-			//Flush_CORE_ERROR("Shader compile error!");
+			//FLUSH_CORE_ERROR("Shader compile error!");
 			// In this simple program, we'll just leave
 			return;
 		}

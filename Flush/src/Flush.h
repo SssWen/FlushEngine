@@ -14,6 +14,8 @@
 
 // ---Renderer------------------------
 #include "Flush/Renderer/Renderer.h"
+#include "Flush/Renderer/Texture.h"
+
 #include "Flush/Renderer/RenderCommand.h"
 
 #include "Flush/Renderer/Buffer.h"

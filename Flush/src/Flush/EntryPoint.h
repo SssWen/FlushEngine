@@ -13,7 +13,7 @@ int main(int argc, char** argv)
 	// Use Macro
 	//Flush_CORE_TRACE("Flush_CORE_TRACE"); 
 	int a = 5;
-	//Flush_ERROR("Flush_ERROR a =  {0}", a );
+	//FLUSH_ERROR("FLUSH_ERROR a =  {0}", a );
 
 	auto app = Flush::CreateApplication();
 	app->Run();

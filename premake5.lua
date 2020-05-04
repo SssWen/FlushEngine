@@ -18,10 +18,11 @@ workspace "Flush"
 outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 
 IncludeDir = {}
-IncludeDir["GLFW"] = "Flush/vendor/GLFW/include"
-IncludeDir["glad"] = "Flush/vendor/glad/include"
-IncludeDir["ImGui"] = "Flush/vendor/imgui"
-IncludeDir["glm"] = "Flush/vendor/glm"
+IncludeDir["GLFW"] 			= "Flush/vendor/GLFW/include"
+IncludeDir["glad"] 			= "Flush/vendor/glad/include"
+IncludeDir["ImGui"] 		= "Flush/vendor/imgui"
+IncludeDir["glm"] 			= "Flush/vendor/glm"
+IncludeDir["stb_image"] 	= "Flush/vendor/stb_image"
 
 group "Dependencies"
 	include "Flush/vendor/GLFW" -- 另一个项目的premake
@@ -50,6 +51,8 @@ project "Flush"
 		"%{prj.name}/src/**.cpp",
 		"%{prj.name}/vendor/glm/**.hpp",
 		"%{prj.name}/vendor/glm/**.inl",
+		"%{prj.name}/vendor/stb_image/**.h",
+		"%{prj.name}/vendor/stb_image/**.cpp",
 	}
 	defines
 	{
@@ -66,6 +69,7 @@ project "Flush"
 		"%{IncludeDir.glad}",
 		"%{IncludeDir.ImGui}",
 		"%{IncludeDir.glm}",
+		"%{IncludeDir.stb_image}",
 	}
 
 	links

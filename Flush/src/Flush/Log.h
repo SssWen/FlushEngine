@@ -28,22 +28,15 @@ namespace Flush {
 #define Flush_CORE_TRACE(...)    ::Flush::Log::GetCoreLogger()->trace(__VA_ARGS__)
 #define Flush_CORE_INFO(...)     ::Flush::Log::GetCoreLogger()->info(__VA_ARGS__)
 #define Flush_CORE_WARN(...)     ::Flush::Log::GetCoreLogger()->warn(__VA_ARGS__)
-#define Flush_CORE_ERROR(...)    ::Flush::Log::GetCoreLogger()->error(__VA_ARGS__)
+#define FLUSH_CORE_ERROR(...)    ::Flush::Log::GetCoreLogger()->error(__VA_ARGS__)
 #define Flush_CORE_CRITICAL(...) ::Flush::Log::GetCoreLogger()->critical(__VA_ARGS__)
 
 // Client log macros
-#define Flush_TRACE(...)	      ::Flush::Log::GetClientLogger()->trace(__VA_ARGS__)
-#define Flush_INFO(...)			  ::Flush::Log::GetClientLogger()->info(__VA_ARGS__)
-#define Flush_WARN(...)			  ::Flush::Log::GetClientLogger()->warn(__VA_ARGS__)
-#define Flush_ERROR(...)	      ::Flush::Log::GetClientLogger()->error(__VA_ARGS__)
-#define Flush_CRITICAL(...)       ::Flush::Log::GetClientLogger()->critical(__VA_ARGS__)
+#define FLUSH_TRACE(...)	      ::Flush::Log::GetClientLogger()->trace(__VA_ARGS__)
+#define FLUSH_INFO(...)			  ::Flush::Log::GetClientLogger()->info(__VA_ARGS__)
+#define FLUSH_WARN(...)			  ::Flush::Log::GetClientLogger()->warn(__VA_ARGS__)
+#define FLUSH_ERROR(...)	      ::Flush::Log::GetClientLogger()->error(__VA_ARGS__)
+#define FLUSH_CRITICAL(...)       ::Flush::Log::GetClientLogger()->critical(__VA_ARGS__)
 
 // if dist build
 // #def ...
-namespace Flush {
-	template<typename T>
-	using Scope = std::unique_ptr<T>;
-
-	template<typename T>
-	using Ref = std::shared_ptr<T>;
-}
