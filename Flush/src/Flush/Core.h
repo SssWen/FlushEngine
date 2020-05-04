@@ -1,5 +1,6 @@
 #pragma once
 #include "flushpch.h"
+
 // 暂时不处理平台问题, 如果使用dll,预编译FLUSH_BUILD_DLL
 #ifdef FLUSH_PLATFORM_WINDOW
 	#if FLUSH_DYNAMIC_LINK

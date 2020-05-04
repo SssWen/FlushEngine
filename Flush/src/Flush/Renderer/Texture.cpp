@@ -2,7 +2,8 @@
 #include "Texture.h"
 #include "Renderer.h"
 #include "Platform/OpenGL/OpenGLTexture.h"
-//#include "Flush/Core.h"
+#include "Flush/Core.h"
+#include "Log.h"
 
 
 namespace Flush {
@@ -11,11 +12,11 @@ namespace Flush {
 	{
 		switch (Renderer::GetAPI())
 		{
-		//case RendererAPI::API::None:    HZ_CORE_ASSERT(false, "RendererAPI::None is currently not supported!"); return nullptr;
+		case RendererAPI::API::None:    FLUSH_CORE_ASSERT(false, "RendererAPI::None is currently not supported!"); return nullptr;
 		case RendererAPI::API::OpenGL:  return std::make_shared<OpenGLTexture2D>(path);
 		}
 
-		//FLUSH_CORE_ASSERT(false, "Unknown RendererAPI!");
+		FLUSH_CORE_ASSERT(false, "Unknown RendererAPI!");
 		return nullptr;
 	}
 }
