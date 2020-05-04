@@ -43,6 +43,8 @@ namespace Flush {
 
 		m_Window->SetEventCallback(BIND_EVENT_FN(OnEvent));
 
+		Renderer::Init();
+
 		m_ImGuiLayer = new ImGuiLayer(); // 创建一个GUI 
 		PushOverlay(m_ImGuiLayer);
 		

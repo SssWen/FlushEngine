@@ -182,7 +182,7 @@ public:
 		m_TextureShader.reset(Flush::Shader::Create(textureShaderVertexSrc, textureShaderFragmentSrc));
 
 		m_Texture = Flush::Texture2D::Create("assets/textures/Checkerboard.png");
-		//m_AlphaTexture = Flush::Texture2D::Create("assets/textures/Alphaboard.png");
+		m_AlphaTexture = Flush::Texture2D::Create("assets/textures/Alphaboard.png");
 
 		std::dynamic_pointer_cast<Flush::OpenGLShader>(m_TextureShader)->Bind();
 		std::dynamic_pointer_cast<Flush::OpenGLShader>(m_TextureShader)->UploadUniformInt("u_Texture", 0);
@@ -236,8 +236,8 @@ public:
 		m_Texture->Bind();
 		Flush::Renderer::Submit(m_TextureShader, m_SquareVA, glm::scale(glm::mat4(1.0f), glm::vec3(1.5f)));
 
-		/*m_AlphaTexture->Bind();
-		Flush::Renderer::Submit(m_TextureShader, m_SquareVA, glm::scale(glm::mat4(1.0f), glm::vec3(1.5f)));*/
+		m_AlphaTexture->Bind();
+		Flush::Renderer::Submit(m_TextureShader, m_SquareVA, glm::scale(glm::mat4(1.0f), glm::vec3(1.5f)));
 
 		Flush::Renderer::EndScene();
 
