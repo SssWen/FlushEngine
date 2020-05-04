@@ -102,7 +102,8 @@ public:
 		std::shared_ptr<Flush::VertexBuffer> squareVB;
 		squareVB.reset(Flush::VertexBuffer::Create(squareVertices, sizeof(squareVertices)));
 		squareVB->SetLayout({
-			{ Flush::ShaderDataType::Float3, "a_Position" }
+			{ Flush::ShaderDataType::Float3, "a_Position" },
+			{ Flush::ShaderDataType::Float2, "a_TexCoord" },
 			});
 		m_SquareVA->AddVertexBuffer(squareVB);
 #pragma endregion
@@ -181,6 +182,7 @@ public:
 		m_TextureShader.reset(Flush::Shader::Create(textureShaderVertexSrc, textureShaderFragmentSrc));
 
 		m_Texture = Flush::Texture2D::Create("assets/textures/Checkerboard.png");
+		//m_AlphaTexture = Flush::Texture2D::Create("assets/textures/Alphaboard.png");
 
 		std::dynamic_pointer_cast<Flush::OpenGLShader>(m_TextureShader)->Bind();
 		std::dynamic_pointer_cast<Flush::OpenGLShader>(m_TextureShader)->UploadUniformInt("u_Texture", 0);
@@ -230,8 +232,13 @@ public:
 				Flush::Renderer::Submit(m_FlatColorShader, m_SquareVA, transform);
 			}
 		}		
-		// draw triangle			
-		Flush::Renderer::Submit(m_Shader, m_VertexArray);
+		// draw texture		
+		m_Texture->Bind();
+		Flush::Renderer::Submit(m_TextureShader, m_SquareVA, glm::scale(glm::mat4(1.0f), glm::vec3(1.5f)));
+
+		/*m_AlphaTexture->Bind();
+		Flush::Renderer::Submit(m_TextureShader, m_SquareVA, glm::scale(glm::mat4(1.0f), glm::vec3(1.5f)));*/
+
 		Flush::Renderer::EndScene();
 
 
@@ -269,7 +276,7 @@ private:
 	float m_CameraRotationSpeed = 180.0f;
 	glm::vec3 m_SquareColor = { 0.2f, 0.3f, 0.8f };
 
-	Flush::Ref<Flush::Texture2D> m_Texture;
+	Flush::Ref<Flush::Texture2D> m_Texture, m_AlphaTexture;
 	std::shared_ptr<Flush::Shader> m_TextureShader;
 };
 
