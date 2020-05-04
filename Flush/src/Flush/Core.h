@@ -25,21 +25,22 @@
 #define FLUSH_ENABLE_ASSERTS
 #endif
 
+// 这里if(!(x))中,x需要带上括号,否则容易出错
 #ifdef FLUSH_ENABLE_ASSERTS 
 	#define FLUSH_ASSERT(x, ... )  {\
-		if(!x) {\
+		if(!(x)) {\
 			FLUSH_ERROR("Assertion failed: {0}",__VA_ARGS__);\
 			__debugbreak();\
 		}}
 	#define FLUSH_CORE_ASSERT(x, ... )  {\
-		if(!x) {\
+		if(!(x)) {\
 			FLUSH_CORE_ERROR("Assertion failed: {0}",__VA_ARGS__);\
 			__debugbreak();\
 		}}
 	
 #else
-	#define Flush_ASSERT(x, ...)
-	#define Flush_CORE_ASSERT(x, ...)
+	#define FLUSH_ASSERT(x, ...)
+	#define FLUSH_CORE_ASSERT(x, ...)
 #endif
 
 namespace Flush {

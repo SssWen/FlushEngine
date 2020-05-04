@@ -1,6 +1,7 @@
 #include "flushpch.h"
 #include "OpenGLRendererAPI.h"
 #include <glad/glad.h>
+#include "Log.h"
 
 namespace Flush 
 {
@@ -21,7 +22,7 @@ namespace Flush
 	}
 
 	void OpenGLRendererAPI::DrawIndexed(const std::shared_ptr<VertexArray>& vertexArray)
-	{
+	{		
 		glDrawElements(GL_TRIANGLES, vertexArray->GetIndexBuffer()->GetCount(), GL_UNSIGNED_INT, nullptr);
 	}
 }
