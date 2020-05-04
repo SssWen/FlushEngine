@@ -53,8 +53,10 @@ project "Flush"
 	}
 	defines
 	{
-		"_CRT_SECURE_NO_WARNINGS"
+		"FLUSH_PLATFORM_WINDOW", -- use windows plantform
+		"_CRT_SECURE_NO_WARNINGS", -- skip secure warning 		
 	}
+
 	includedirs
 	{
 		"%{prj.name}/vendor/spdlog/include",
@@ -123,11 +125,10 @@ project "Sandbox"
 
 	filter "system:windows"						
         systemversion "latest"
-
-		-- defines
-		-- {
-		-- 	"FLUSH_PLATFORM_WINDOW" -- 暂时不处理平台问题
-		-- }
+		defines
+		{
+			"FLUSH_PLATFORM_WINDOW", -- 使用windows平台
+		}
 
 	filter "configurations:Debug"
 		defines "FLUSH_DEBUG"	
