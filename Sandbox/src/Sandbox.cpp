@@ -83,7 +83,7 @@ public:
 			}
 		)";
 
-		m_Shader.reset(Flush::Shader::Create(vertexSrc, fragmentSrc));
+		m_Shader = Flush::Shader::Create("VertexPosColor",vertexSrc, fragmentSrc);
 
 
 #pragma endregion 
@@ -146,18 +146,18 @@ public:
 			}
 		)";
 
-		m_FlatColorShader.reset(Flush::Shader::Create(flatColorShaderVertexSrc , flatColorShaderFragmentSrc ));
+		m_FlatColorShader = Flush::Shader::Create("FlatColor",flatColorShaderVertexSrc , flatColorShaderFragmentSrc );
 
 
 #pragma endregion
 #pragma region ---------------create textureShader---------------
-		m_TextureShader.reset(Flush::Shader::Create("assets/shaders/Texture.glsl"));
+		auto textureShader = m_ShaderLibrary.Load("assets/shaders/Texture.glsl");
 		
 		m_Texture = Flush::Texture2D::Create("assets/textures/Checkerboard.png");
 		m_AlphaTexture = Flush::Texture2D::Create("assets/textures/Alphaboard.png");
 
-		std::dynamic_pointer_cast<Flush::OpenGLShader>(m_TextureShader)->Bind();
-		std::dynamic_pointer_cast<Flush::OpenGLShader>(m_TextureShader)->UploadUniformInt("u_Texture", 0);
+		std::dynamic_pointer_cast<Flush::OpenGLShader>(textureShader)->Bind();
+		std::dynamic_pointer_cast<Flush::OpenGLShader>(textureShader)->UploadUniformInt("u_Texture", 0);
 #pragma endregion
 	}
 
@@ -206,10 +206,11 @@ public:
 		}		
 		// draw texture		
 		m_Texture->Bind();
-		Flush::Renderer::Submit(m_TextureShader, m_SquareVA, glm::scale(glm::mat4(1.0f), glm::vec3(1.5f)));
+		auto textureShader = m_ShaderLibrary.Get("Texture");
+		Flush::Renderer::Submit(textureShader, m_SquareVA, glm::scale(glm::mat4(1.0f), glm::vec3(1.5f)));
 
 		m_AlphaTexture->Bind();
-		Flush::Renderer::Submit(m_TextureShader, m_SquareVA, glm::scale(glm::mat4(1.0f), glm::vec3(1.5f)));
+		Flush::Renderer::Submit(textureShader, m_SquareVA, glm::scale(glm::mat4(1.0f), glm::vec3(1.5f)));
 
 		Flush::Renderer::EndScene();
 
@@ -234,8 +235,9 @@ public:
 	}
 
 private:
+	Flush::ShaderLibrary m_ShaderLibrary;
 	std::shared_ptr<Flush::VertexArray> m_VertexArray;// vao		
-	std::shared_ptr<Flush::Shader> m_Shader;
+	Flush::Ref<Flush::Shader> m_Shader;
 
 	std::shared_ptr<Flush::VertexArray> m_SquareVA;// vao				
 	std::shared_ptr<Flush::Shader> m_FlatColorShader;
@@ -249,7 +251,7 @@ private:
 	glm::vec3 m_SquareColor = { 0.2f, 0.3f, 0.8f };
 
 	Flush::Ref<Flush::Texture2D> m_Texture, m_AlphaTexture;
-	std::shared_ptr<Flush::Shader> m_TextureShader;
+	
 };
 
 class Sandbox : public Flush::Application
