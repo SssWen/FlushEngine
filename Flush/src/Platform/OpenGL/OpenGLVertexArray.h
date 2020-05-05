@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Flush/Renderer/VertexArray.h"
+#include "Renderer/VertexArray.h"
 
 namespace Flush {
 

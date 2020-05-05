@@ -1,8 +1,8 @@
 #include "flushpch.h"
 #include "WindowsWindow.h"
-#include "Log.h"
-#include "Flush/Events/MouseEvent.h"
-#include "Flush/Events/KeyEvent.h"
+#include "Core/Log.h"
+#include "Events/MouseEvent.h"
+#include "Events/KeyEvent.h"
 #include "Platform/OpenGL/OpenGLContext.h"
 
 namespace Flush {

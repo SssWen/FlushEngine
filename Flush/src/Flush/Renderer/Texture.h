@@ -1,7 +1,7 @@
 #pragma once
 #include <string>
 
-#include "Flush/Core.h"
+#include "Core/Core.h"
 
 namespace Flush {
 

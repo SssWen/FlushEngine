@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Flush/Input.h"
+#include "Core/Input.h"
 
 namespace Flush {
 

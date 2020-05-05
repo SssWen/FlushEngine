@@ -1,8 +1,8 @@
 #pragma once
 
-#include "Flush/Core.h"
-#include "Flush/Events/Event.h"
-#include "Flush/Core/Timestep.h"
+#include "Core/Core.h"
+#include "Events/Event.h"
+#include "Core/Timestep.h"
 
 namespace Flush 
 {

@@ -2,7 +2,7 @@
 #include "Shader.h"
 
 #include "glad/glad.h"
-#include "Log.h"
+#include "Core/Log.h"
 
 #include "Renderer.h"
 #include "Platform/OpenGL/OpenGLShader.h"

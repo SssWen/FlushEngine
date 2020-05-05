@@ -1,11 +1,10 @@
 #include "flushpch.h"
 #include "Application.h"
 #include "Events/ApplicationEvent.h"
-#include "Log.h"
 #include "glad/glad.h"
-#include "Flush/Input.h"
-#include "Flush/Renderer/Renderer.h"
-#include "Flush/Core/Timestep.h"
+#include "Core/Input.h"
+#include "Renderer/Renderer.h"
+#include "Core/Timestep.h"
 
 #include <glfw/glfw3.h>
 

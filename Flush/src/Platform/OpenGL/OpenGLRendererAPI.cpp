@@ -1,7 +1,7 @@
 #include "flushpch.h"
 #include "OpenGLRendererAPI.h"
 #include <glad/glad.h>
-#include "Log.h"
+#include "Core/Log.h"
 
 namespace Flush 
 {

@@ -97,23 +97,24 @@
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="src\Flush\OrthographicCameraController.h" />
     <ClInclude Include="src\Flush.h" />
-    <ClInclude Include="src\Flush\Application.h" />
-    <ClInclude Include="src\Flush\Core.h" />
+    <ClInclude Include="src\Flush\Core\Application.h" />
+    <ClInclude Include="src\Flush\Core\Core.h" />
+    <ClInclude Include="src\Flush\Core\EntryPoint.h" />
+    <ClInclude Include="src\Flush\Core\Input.h" />
+    <ClInclude Include="src\Flush\Core\KeyCodes.h" />
+    <ClInclude Include="src\Flush\Core\Layer.h" />
+    <ClInclude Include="src\Flush\Core\LayerStack.h" />
+    <ClInclude Include="src\Flush\Core\Log.h" />
+    <ClInclude Include="src\Flush\Core\MouseButtonCodes.h" />
+    <ClInclude Include="src\Flush\Core\OrthographicCameraController.h" />
     <ClInclude Include="src\Flush\Core\Timestep.h" />
-    <ClInclude Include="src\Flush\EntryPoint.h" />
+    <ClInclude Include="src\Flush\Core\Window.h" />
     <ClInclude Include="src\Flush\Events\ApplicationEvent.h" />
     <ClInclude Include="src\Flush\Events\Event.h" />
     <ClInclude Include="src\Flush\Events\KeyEvent.h" />
     <ClInclude Include="src\Flush\Events\MouseEvent.h" />
     <ClInclude Include="src\Flush\ImGui\ImGuiLayer.h" />
-    <ClInclude Include="src\Flush\Input.h" />
-    <ClInclude Include="src\Flush\KeyCodes.h" />
-    <ClInclude Include="src\Flush\Layer.h" />
-    <ClInclude Include="src\Flush\LayerStack.h" />
-    <ClInclude Include="src\Flush\Log.h" />
-    <ClInclude Include="src\Flush\MouseButtonCodes.h" />
     <ClInclude Include="src\Flush\Renderer\Buffer.h" />
     <ClInclude Include="src\Flush\Renderer\GraphicsContext.h" />
     <ClInclude Include="src\Flush\Renderer\OrthographicCamera.h" />
@@ -123,7 +124,6 @@
     <ClInclude Include="src\Flush\Renderer\Shader.h" />
     <ClInclude Include="src\Flush\Renderer\Texture.h" />
     <ClInclude Include="src\Flush\Renderer\VertexArray.h" />
-    <ClInclude Include="src\Flush\Window.h" />
     <ClInclude Include="src\Platform\OpenGL\OpenGLBuffer.h" />
     <ClInclude Include="src\Platform\OpenGL\OpenGLContext.h" />
     <ClInclude Include="src\Platform\OpenGL\OpenGLRendererAPI.h" />
@@ -544,13 +544,13 @@
     <ClInclude Include="vendor\stb_image\stb_image.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\Flush\OrthographicCameraController.cpp" />
-    <ClCompile Include="src\Flush\Application.cpp" />
+    <ClCompile Include="src\Flush\Core\Application.cpp" />
+    <ClCompile Include="src\Flush\Core\Layer.cpp" />
+    <ClCompile Include="src\Flush\Core\LayerStack.cpp" />
+    <ClCompile Include="src\Flush\Core\Log.cpp" />
+    <ClCompile Include="src\Flush\Core\OrthographicCameraController.cpp" />
     <ClCompile Include="src\Flush\ImGui\ImGuiBuild.cpp" />
     <ClCompile Include="src\Flush\ImGui\ImGuiLayer.cpp" />
-    <ClCompile Include="src\Flush\Layer.cpp" />
-    <ClCompile Include="src\Flush\LayerStack.cpp" />
-    <ClCompile Include="src\Flush\Log.cpp" />
     <ClCompile Include="src\Flush\Renderer\Buffer.cpp" />
     <ClCompile Include="src\Flush\Renderer\OrthographicCamera.cpp" />
     <ClCompile Include="src\Flush\Renderer\RenderCommand.cpp" />

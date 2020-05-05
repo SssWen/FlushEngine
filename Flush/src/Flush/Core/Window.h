@@ -2,7 +2,7 @@
 
 #include "flushpch.h"
 
-#include "Flush/Core.h"
+#include "Core/Core.h"
 #include "Events/Event.h"
 #include "Events/ApplicationEvent.h"
 

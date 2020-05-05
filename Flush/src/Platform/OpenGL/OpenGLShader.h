@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Flush/Renderer/Shader.h"
+#include "Renderer/Shader.h"
 #include <glm/glm.hpp>
 
 // TODO: REMOVE!

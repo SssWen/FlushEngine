@@ -2,8 +2,7 @@
 #include "Texture.h"
 #include "Renderer.h"
 #include "Platform/OpenGL/OpenGLTexture.h"
-#include "Flush/Core.h"
-#include "Log.h"
+#include "Core/Log.h"
 
 
 namespace Flush {

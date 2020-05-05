@@ -1,7 +1,7 @@
 #pragma once
 
-#include "Flush/Core.h"
-#include "Flush/Layer.h"
+#include "Core/Core.h"
+#include "Core/Layer.h"
 
 namespace Flush 
 {

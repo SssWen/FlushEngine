@@ -1,31 +1,31 @@
 #pragma once
 // For use by Flush Application
 
-#include "Flush/Application.h"
+#include "Core/Application.h"
 
-#include "Flush/Log.h"
-#include "Flush/Input.h"
-#include "Flush/KeyCodes.h"
-#include "Flush/MouseButtonCodes.h"
-#include "Flush/OrthographicCameraController.h"
+#include "Core/Log.h"
+#include "Core/Input.h"
+#include "Core/KeyCodes.h"
+#include "Core/MouseButtonCodes.h"
+#include "Core/OrthographicCameraController.h"
 
-#include "Flush/Layer.h"
-#include "Flush/ImGui/ImGuiLayer.h"
-#include "Flush/Core/Timestep.h"
+#include "Core/Layer.h"
+#include "ImGui/ImGuiLayer.h"
+#include "Core/Timestep.h"
 
 // ---Renderer------------------------
-#include "Flush/Renderer/Renderer.h"
-#include "Flush/Renderer/Texture.h"
+#include "Renderer/Renderer.h"
+#include "Renderer/Texture.h"
 
-#include "Flush/Renderer/RenderCommand.h"
+#include "Renderer/RenderCommand.h"
 
-#include "Flush/Renderer/Buffer.h"
-#include "Flush/Renderer/Shader.h"
-#include "Flush/Renderer/VertexArray.h"
-#include "Flush/Renderer/OrthographicCamera.h"
+#include "Renderer/Buffer.h"
+#include "Renderer/Shader.h"
+#include "Renderer/VertexArray.h"
+#include "Renderer/OrthographicCamera.h"
 // -----------------------------------
 // ----------------Entry Point ----------------
-#include "Flush/EntryPoint.h"
+#include "Core/EntryPoint.h"
 // --------------------------------------------
 
 

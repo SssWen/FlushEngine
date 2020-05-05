@@ -3,7 +3,7 @@
 
 #include "stb_image.h"
 #include <glad/glad.h>
-#include <Flush/Log.h>
+#include <Core/Log.h>
 
 namespace Flush {
 	

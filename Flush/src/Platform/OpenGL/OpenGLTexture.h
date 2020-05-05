@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Flush/Renderer/Texture.h"
+#include "Renderer/Texture.h"
 
 namespace Flush {
 

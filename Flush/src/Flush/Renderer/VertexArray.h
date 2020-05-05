@@ -2,7 +2,7 @@
 #pragma once
 
 #include <memory>
-#include "Flush/Renderer/Buffer.h"
+#include "Renderer/Buffer.h"
 
 namespace Flush {
 

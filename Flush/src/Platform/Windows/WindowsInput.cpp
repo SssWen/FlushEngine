@@ -1,7 +1,7 @@
 #include "flushpch.h"
 #include "WindowsInput.h"
 
-#include "Flush/Application.h"
+#include "Core/Application.h"
 #include <GLFW/glfw3.h>
 
 namespace Flush {

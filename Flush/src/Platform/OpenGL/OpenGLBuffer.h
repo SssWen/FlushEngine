@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Flush/Renderer/Buffer.h"
+#include "Renderer/Buffer.h"
 
 namespace Flush {
 

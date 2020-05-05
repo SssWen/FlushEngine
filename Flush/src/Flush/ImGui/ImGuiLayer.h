@@ -1,9 +1,9 @@
 #pragma once
 
-#include "Flush/Layer.h"
-#include "Flush/Events/MouseEvent.h"
-#include "Flush/Events/KeyEvent.h"
-#include "Flush/Events/ApplicationEvent.h"
+#include "Core/Layer.h"
+#include "Events/MouseEvent.h"
+#include "Events/KeyEvent.h"
+#include "Events/ApplicationEvent.h"
 
 namespace Flush {
 

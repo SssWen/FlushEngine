@@ -57,17 +57,41 @@
     <ClInclude Include="src\Flush.h">
       <Filter>src</Filter>
     </ClInclude>
-    <ClInclude Include="src\Flush\Application.h">
-      <Filter>src\Flush</Filter>
+    <ClInclude Include="src\Flush\Core\Application.h">
+      <Filter>src\Flush\Core</Filter>
     </ClInclude>
-    <ClInclude Include="src\Flush\Core.h">
-      <Filter>src\Flush</Filter>
+    <ClInclude Include="src\Flush\Core\Core.h">
+      <Filter>src\Flush\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Flush\Core\EntryPoint.h">
+      <Filter>src\Flush\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Flush\Core\Input.h">
+      <Filter>src\Flush\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Flush\Core\KeyCodes.h">
+      <Filter>src\Flush\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Flush\Core\Layer.h">
+      <Filter>src\Flush\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Flush\Core\LayerStack.h">
+      <Filter>src\Flush\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Flush\Core\Log.h">
+      <Filter>src\Flush\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Flush\Core\MouseButtonCodes.h">
+      <Filter>src\Flush\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Flush\Core\OrthographicCameraController.h">
+      <Filter>src\Flush\Core</Filter>
     </ClInclude>
     <ClInclude Include="src\Flush\Core\Timestep.h">
       <Filter>src\Flush\Core</Filter>
     </ClInclude>
-    <ClInclude Include="src\Flush\EntryPoint.h">
-      <Filter>src\Flush</Filter>
+    <ClInclude Include="src\Flush\Core\Window.h">
+      <Filter>src\Flush\Core</Filter>
     </ClInclude>
     <ClInclude Include="src\Flush\Events\ApplicationEvent.h">
       <Filter>src\Flush\Events</Filter>
@@ -83,24 +107,6 @@
     </ClInclude>
     <ClInclude Include="src\Flush\ImGui\ImGuiLayer.h">
       <Filter>src\Flush\ImGui</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Flush\Input.h">
-      <Filter>src\Flush</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Flush\KeyCodes.h">
-      <Filter>src\Flush</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Flush\Layer.h">
-      <Filter>src\Flush</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Flush\LayerStack.h">
-      <Filter>src\Flush</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Flush\Log.h">
-      <Filter>src\Flush</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Flush\MouseButtonCodes.h">
-      <Filter>src\Flush</Filter>
     </ClInclude>
     <ClInclude Include="src\Flush\Renderer\Buffer.h">
       <Filter>src\Flush\Renderer</Filter>
@@ -128,9 +134,6 @@
     </ClInclude>
     <ClInclude Include="src\Flush\Renderer\VertexArray.h">
       <Filter>src\Flush\Renderer</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Flush\Window.h">
-      <Filter>src\Flush</Filter>
     </ClInclude>
     <ClInclude Include="src\Platform\OpenGL\OpenGLBuffer.h">
       <Filter>src\Platform\OpenGL</Filter>
@@ -1386,26 +1389,28 @@
     <ClInclude Include="vendor\stb_image\stb_image.h">
       <Filter>vendor\stb_image</Filter>
     </ClInclude>
-    <ClInclude Include="src\Flush\OrthographicCameraController.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\Flush\Application.cpp">
-      <Filter>src\Flush</Filter>
+    <ClCompile Include="src\Flush\Core\Application.cpp">
+      <Filter>src\Flush\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Flush\Core\Layer.cpp">
+      <Filter>src\Flush\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Flush\Core\LayerStack.cpp">
+      <Filter>src\Flush\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Flush\Core\Log.cpp">
+      <Filter>src\Flush\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Flush\Core\OrthographicCameraController.cpp">
+      <Filter>src\Flush\Core</Filter>
     </ClCompile>
     <ClCompile Include="src\Flush\ImGui\ImGuiBuild.cpp">
       <Filter>src\Flush\ImGui</Filter>
     </ClCompile>
     <ClCompile Include="src\Flush\ImGui\ImGuiLayer.cpp">
       <Filter>src\Flush\ImGui</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Flush\Layer.cpp">
-      <Filter>src\Flush</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Flush\LayerStack.cpp">
-      <Filter>src\Flush</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Flush\Log.cpp">
-      <Filter>src\Flush</Filter>
     </ClCompile>
     <ClCompile Include="src\Flush\Renderer\Buffer.cpp">
       <Filter>src\Flush\Renderer</Filter>
@@ -1461,6 +1466,5 @@
     <ClCompile Include="vendor\stb_image\stb_image.cpp">
       <Filter>vendor\stb_image</Filter>
     </ClCompile>
-    <ClCompile Include="src\Flush\OrthographicCameraController.cpp" />
   </ItemGroup>
 </Project>

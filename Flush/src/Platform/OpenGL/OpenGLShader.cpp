@@ -5,7 +5,7 @@
 #include <glad/glad.h>
 
 #include <glm/gtc/type_ptr.hpp>
-#include <Log.h>
+#include <Core/Log.h>
 
 namespace Flush {
 

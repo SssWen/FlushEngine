@@ -3,7 +3,7 @@
 
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
-#include "log.h"
+#include "Core/Log.h"
 
 namespace Flush 
 {
