@@ -7,6 +7,7 @@
 #include "Flush/Input.h"
 #include "Flush/KeyCodes.h"
 #include "Flush/MouseButtonCodes.h"
+#include "Flush/OrthographicCameraController.h"
 
 #include "Flush/Layer.h"
 #include "Flush/ImGui/ImGuiLayer.h"

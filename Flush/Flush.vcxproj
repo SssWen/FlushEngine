@@ -97,6 +97,7 @@
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="src\Flush\OrthographicCameraController.h" />
     <ClInclude Include="src\Flush.h" />
     <ClInclude Include="src\Flush\Application.h" />
     <ClInclude Include="src\Flush\Core.h" />
@@ -543,6 +544,7 @@
     <ClInclude Include="vendor\stb_image\stb_image.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\Flush\OrthographicCameraController.cpp" />
     <ClCompile Include="src\Flush\Application.cpp" />
     <ClCompile Include="src\Flush\ImGui\ImGuiBuild.cpp" />
     <ClCompile Include="src\Flush\ImGui\ImGuiLayer.cpp" />
