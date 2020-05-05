@@ -6,7 +6,7 @@
 
 namespace Flush {
 
-	Input* Input::s_Instance = new WindowsInput();
+	Input* Input::s_Instance = new WindowsInput(); // s_Instance ¡¾ÄÚ´æÐ¹Â©¡¿,use CreateRef<WindowsInput> instead.
 
 	bool WindowsInput::IsKeyPressedImpl(int keycode)
 	{

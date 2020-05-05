@@ -38,7 +38,7 @@ namespace Flush {
 		virtual void Shutdown();
 	private:
 		GLFWwindow* m_Window;
-		GraphicsContext* m_Context;
+		GraphicsContext* m_Context; // [memory leak] used "Scope<GraphicsContext> m_Context" instead.
 
 		struct WindowData
 		{

@@ -4,7 +4,7 @@
 
 namespace Flush {
 
-	Renderer::SceneData* Renderer::s_SceneData = new Renderer::SceneData;
+	Renderer::SceneData* Renderer::s_SceneData = new Renderer::SceneData; // ÄÚ´æĞ¹Â©£¬used  CreateScope<Renderer::SceneData>(); 
 
 	void Renderer::Init()
 	{

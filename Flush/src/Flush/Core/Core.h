@@ -45,12 +45,25 @@
 #endif
 
 namespace Flush {
-#ifndef SCOPE_REF
-#define SCOPE_REF
+#ifndef INSTEAD_RAW_POINT
+#define INSTEAD_RAW_POINT
 	template<typename T>
 	using Scope = std::unique_ptr<T>;
+	// [mem leak]
+	template<typename T, typename ... Args>
+	constexpr Scope<T> CreateScope(Args&& ... args)
+	{
+		return std::make_unique<T>(std::forward<Args>(args)...);
+	}
 
 	template<typename T>
 	using Ref = std::shared_ptr<T>;
+
+	// [mem leak]
+	template<typename T, typename ... Args>
+	constexpr Ref<T> CreateRef(Args&& ... args)
+	{
+		return std::make_shared<T>(std::forward<Args>(args)...);
+	}
 #endif
 }

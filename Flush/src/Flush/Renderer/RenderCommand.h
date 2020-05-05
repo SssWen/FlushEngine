@@ -32,7 +32,7 @@ namespace Flush {
 			s_RendererAPI->DrawIndexed(vertexArray);
 		}
 	private:
-		static RendererAPI* s_RendererAPI;
+		static RendererAPI* s_RendererAPI; //[memory leak] Scope<RendererAPI> s_RendererAPI;
 	};
 
 }
