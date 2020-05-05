@@ -1,10 +1,12 @@
 
 #include <Flush.h>
+#include "Core/EntryPoint.h"
 #include "imgui/imgui.h"
 
 #include "Platform/OpenGL/OpenGLShader.h"
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
+#include "Sandbox2D.h"
 
 class ExampleLayer : public Flush::Layer 
 {
@@ -18,7 +20,8 @@ public:
 		/*glGenVertexArrays(1, &m_VertexArray);
 		glBindVertexArray(m_VertexArray);*/
 
-		m_VertexArray.reset(Flush::VertexArray::Create());
+		//m_VertexArray.reset(Flush::VertexArray::Create());
+		m_VertexArray = Flush::VertexArray::Create();
 
 
 #pragma endregion 		
@@ -90,7 +93,8 @@ public:
 
 		//  Create Square 
 #pragma region ---------------create vao---------------
-		m_SquareVA.reset(Flush::VertexArray::Create());
+		//m_SquareVA.reset(Flush::VertexArray::Create());
+		m_SquareVA = Flush::VertexArray::Create();
 		float squareVertices[5*4] = {
 			-0.5f, -0.5f, 0.0f, 0.0f, 0.0f,
 			 0.5f, -0.5f, 0.0f, 1.0f, 0.0f,
@@ -246,7 +250,8 @@ class Sandbox : public Flush::Application
 {
 public:
 	Sandbox() {
-		PushLayer(new ExampleLayer());				
+		//PushLayer(new ExampleLayer());				
+		PushLayer(new Sandbox2D());
 	}
 	~Sandbox() {
 

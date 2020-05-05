@@ -15,6 +15,7 @@
 
 // ---Renderer------------------------
 #include "Renderer/Renderer.h"
+#include "Renderer/Renderer2D.h"
 #include "Renderer/Texture.h"
 
 #include "Renderer/RenderCommand.h"
@@ -25,7 +26,7 @@
 #include "Renderer/OrthographicCamera.h"
 // -----------------------------------
 // ----------------Entry Point ----------------
-#include "Core/EntryPoint.h"
+//#include "Core/EntryPoint.h"
 // --------------------------------------------
 
 
