@@ -82,11 +82,12 @@ namespace Flush {
 	{
 		while (m_Running)
 		{			
-#pragma region --------Update UI-------------
+#pragma region --------Update Renderer-------------
 			float time = (float)glfwGetTime();
 			auto timestep = time - m_LastFrameTime;
 			m_LastFrameTime = time;
 
+			// 2D 3d renderer
 			if (!m_Minimized)
 			{
 				for (Layer* layer : m_LayerStack)

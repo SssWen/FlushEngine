@@ -41,7 +41,7 @@ namespace Flush {
 		{
 			// TODO: glfwTerminate on system shutdown
 			int success = glfwInit();
-			FLUSH_CORE_ERROR("Could not intialize GLFW!");
+			/*FLUSH_CORE_ERROR("Could not intialize GLFW!");*/
 			glfwSetErrorCallback(GLFWErrorCallback);
 			s_GLFWInitialized = true;
 		}
