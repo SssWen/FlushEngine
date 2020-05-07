@@ -160,8 +160,10 @@ public:
 		m_Texture = Flush::Texture2D::Create("assets/textures/Checkerboard.png");
 		m_AlphaTexture = Flush::Texture2D::Create("assets/textures/Alphaboard.png");
 
-		std::dynamic_pointer_cast<Flush::OpenGLShader>(textureShader)->Bind();
-		std::dynamic_pointer_cast<Flush::OpenGLShader>(textureShader)->UploadUniformInt("u_Texture", 0);
+		//std::dynamic_pointer_cast<Flush::OpenGLShader>(textureShader)->Bind();//向下转换使用dynamic_pointer_cast[子类 = 父类对象], 
+		//std::dynamic_pointer_cast<Flush::OpenGLShader>(textureShader)->UploadUniformInt("u_Texture", 0);
+		textureShader->Bind();
+		textureShader->SetInt("u_Texture", 0);
 #pragma endregion
 	}
 

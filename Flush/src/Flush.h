@@ -2,6 +2,7 @@
 // For use by Flush Application
 
 #include "Core/Application.h"
+#include "Core/Core.h"
 
 #include "Core/Log.h"
 #include "Core/Input.h"
