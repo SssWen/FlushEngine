@@ -14,6 +14,8 @@
 #include "ImGui/ImGuiLayer.h"
 #include "Core/Timestep.h"
 
+#include "Debug/Profiler.h"
+
 // ---Renderer------------------------
 #include "Renderer/Renderer.h"
 #include "Renderer/Renderer2D.h"

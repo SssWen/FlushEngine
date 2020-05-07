@@ -1,5 +1,6 @@
 #pragma once
 
+#include "Flush.h"
 //#ifdef FLUSH_PLATFORM_WINDOW
 
 //extern Flush::Application* Flush::CreateApplication();
@@ -10,14 +11,12 @@ int main(int argc, char** argv)
 	Flush::Log::GetCoreLogger()->info("Initianlize FlushEngine!");
 	Flush::Log::GetCoreLogger()->warn("Hello World!");
 	
-	// Use Macro
-	//Flush_CORE_TRACE("Flush_CORE_TRACE"); 
-	int a = 5;
-	//FLUSH_ERROR("FLUSH_ERROR a =  {0}", a );
+	FLUSH_PROFILE_BEGIN_SESSION("Startup", "HazelProfile-Startup.json");
 
 	auto app = Flush::CreateApplication();
 	app->Run();
 	delete app;
+	FLUSH_PROFILE_END_SESSION();
 	return 0;
 }
 
