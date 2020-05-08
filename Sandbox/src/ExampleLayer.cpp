@@ -22,8 +22,8 @@
 		 0.0f,  0.5f, 0.0f, 0.8f, 0.8f, 0.2f, 1.0f
 		};
 
-		std::shared_ptr<Flush::VertexBuffer> vertexBuffer;
-		vertexBuffer.reset(Flush::VertexBuffer::Create(vertices, sizeof(vertices)));
+		std::shared_ptr<Flush::VertexBuffer> vertexBuffer = Flush::VertexBuffer::Create(vertices, sizeof(vertices));
+		
 		Flush::BufferLayout layout = {
 				{ Flush::ShaderDataType::Float3, "a_Position" },
 				{ Flush::ShaderDataType::Float4, "a_Color" }
@@ -34,8 +34,7 @@
 #pragma endregion 
 #pragma region ---------------create ibo---------------						
 		uint32_t indices[3] = { 0,1,2 };
-		std::shared_ptr<Flush::IndexBuffer> indexBuffer;
-		indexBuffer.reset(Flush::IndexBuffer::Create(indices, sizeof(indices) / sizeof(uint32_t)));
+		std::shared_ptr<Flush::IndexBuffer> indexBuffer = Flush::IndexBuffer::Create(indices, sizeof(indices) / sizeof(uint32_t));		
 		m_VertexArray->SetIndexBuffer(indexBuffer);
 
 #pragma endregion 	
@@ -92,8 +91,8 @@
 		};
 #pragma endregion 	
 #pragma region ---------------create vbo---------------
-		std::shared_ptr<Flush::VertexBuffer> squareVB;
-		squareVB.reset(Flush::VertexBuffer::Create(squareVertices, sizeof(squareVertices)));
+		std::shared_ptr<Flush::VertexBuffer> squareVB = Flush::VertexBuffer::Create(squareVertices, sizeof(squareVertices));
+		
 		squareVB->SetLayout({
 			{ Flush::ShaderDataType::Float3, "a_Position" },
 			{ Flush::ShaderDataType::Float2, "a_TexCoord" },
@@ -103,8 +102,8 @@
 
 #pragma region ---------------create ibo---------------
 		uint32_t squareIndices[6] = { 0, 1, 2, 2, 3, 0 };
-		std::shared_ptr<Flush::IndexBuffer> squareIB;
-		squareIB.reset(Flush::IndexBuffer::Create(squareIndices, sizeof(squareIndices) / sizeof(uint32_t)));
+		
+		std::shared_ptr<Flush::IndexBuffer> squareIB = Flush::IndexBuffer::Create(squareIndices, sizeof(squareIndices) / sizeof(uint32_t));
 		m_SquareVA->SetIndexBuffer(squareIB);
 #pragma endregion
 #pragma region ---------------create shader---------------

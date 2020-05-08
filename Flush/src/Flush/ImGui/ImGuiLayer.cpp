@@ -93,12 +93,7 @@ namespace Flush {
 
 	void ImGuiLayer::OnImGuiRender()
 	{
-		static bool show = true;
-		ImGui::ShowDemoWindow(&show);
 
-		ImGui::Begin("Hello World");
-		ImGui::Text("tTTTTTTt.");
-		ImGui::End();
 	}
 	/*
 		See imgui example 

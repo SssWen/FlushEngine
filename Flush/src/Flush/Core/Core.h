@@ -65,5 +65,6 @@ namespace Flush {
 	{
 		return std::make_shared<T>(std::forward<Args>(args)...);
 	}
+	// std::make_shared
 #endif
 }

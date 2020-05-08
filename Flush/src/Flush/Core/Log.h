@@ -25,11 +25,11 @@ namespace Flush {
 }
 // __VA_ARGS__ macro 表明你可以使用任何个数的参数
 //// Core log macros
-#define Flush_CORE_TRACE(...)    ::Flush::Log::GetCoreLogger()->trace(__VA_ARGS__)
-#define Flush_CORE_INFO(...)     ::Flush::Log::GetCoreLogger()->info(__VA_ARGS__)
-#define Flush_CORE_WARN(...)     ::Flush::Log::GetCoreLogger()->warn(__VA_ARGS__)
+#define FLUSH_CORE_TRACE(...)    ::Flush::Log::GetCoreLogger()->trace(__VA_ARGS__)
+#define FLUSH_CORE_INFO(...)     ::Flush::Log::GetCoreLogger()->info(__VA_ARGS__)
+#define FLUSH_CORE_WARN(...)     ::Flush::Log::GetCoreLogger()->warn(__VA_ARGS__)
 #define FLUSH_CORE_ERROR(...)    ::Flush::Log::GetCoreLogger()->error(__VA_ARGS__)
-#define Flush_CORE_CRITICAL(...) ::Flush::Log::GetCoreLogger()->critical(__VA_ARGS__)
+#define FLUSH_CORE_CRITICAL(...) ::Flush::Log::GetCoreLogger()->critical(__VA_ARGS__)
 
 // Client log macros
 #define FLUSH_TRACE(...)	      ::Flush::Log::GetClientLogger()->trace(__VA_ARGS__)

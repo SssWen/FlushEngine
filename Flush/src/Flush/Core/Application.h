@@ -8,7 +8,7 @@
 #include "Flush/ImGui/ImGuiLayer.h"
 
 
-
+int main(int argc, char** argv);
 namespace Flush {
 	
 	class FLUSH_API Application // __declspec(dllexport)
@@ -17,7 +17,7 @@ namespace Flush {
 		Application();
 		virtual ~Application() = default;
 
-		void Run();
+		
 
 		void OnEvent(Event& e);
 
@@ -28,6 +28,7 @@ namespace Flush {
 		inline static Application& Get() { return *s_Instance; }
 
 	private:
+		void Run(); // make runloop only accessible on the engine side.
 		bool OnWindowClose(WindowCloseEvent& e);
 		bool OnWindowResize(WindowResizeEvent& e);
 		std::unique_ptr<Window> m_Window;
@@ -39,6 +40,7 @@ namespace Flush {
 
 	private:
 		static Application* s_Instance;
+		friend int ::main(int argc, char** argv);
 	};
 
 	// to be define in client

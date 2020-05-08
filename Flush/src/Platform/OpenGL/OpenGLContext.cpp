@@ -18,10 +18,10 @@ namespace Flush
 		glfwMakeContextCurrent(m_WindowHandle);
 		int status = gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
 
-		Flush_CORE_INFO("OpenGL Info: ");
-		Flush_CORE_INFO(" Vendor: {0} ", glGetString(GL_VENDOR));		
-		Flush_CORE_INFO(" Renderer: {0}", glGetString(GL_RENDERER));		
-		Flush_CORE_INFO(" Version: {0}", glGetString(GL_VERSION));
+		FLUSH_CORE_INFO("OpenGL Info: ");
+		FLUSH_CORE_INFO(" Vendor: {0} ", glGetString(GL_VENDOR));		
+		FLUSH_CORE_INFO(" Renderer: {0}", glGetString(GL_RENDERER));		
+		FLUSH_CORE_INFO(" Version: {0}", glGetString(GL_VERSION));
 
 #ifdef FLUSH_ENABLE_ASSERTS
 		int versionMajor;

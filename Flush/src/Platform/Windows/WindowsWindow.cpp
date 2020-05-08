@@ -35,7 +35,7 @@ namespace Flush {
 		m_Data.Width = props.Width;
 		m_Data.Height = props.Height;
 
-		Flush_CORE_INFO("Creating window {0} ({1}, {2})", props.Title, props.Width, props.Height);
+		FLUSH_CORE_INFO("Creating window {0} ({1}, {2})", props.Title, props.Width, props.Height);
 
 		if (!s_GLFWInitialized)
 		{
@@ -50,7 +50,7 @@ namespace Flush {
 
 		//glfwMakeContextCurrent(m_Window);
 		//int status = gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
-		//Flush_CORE_WARN("-----status:{0}", status);
+		//FLUSH_CORE_WARN("-----status:{0}", status);
 		m_Context = new OpenGLContext(m_Window);
 		m_Context->Init();
 
