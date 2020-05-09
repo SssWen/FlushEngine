@@ -61,13 +61,16 @@ void Sandbox2D::OnUpdate(Flush::Timestep ts)
 	// Update
 	m_CameraController.OnUpdate(ts);
 
+	// 每帧执行前 清空 stats 数据
+	Flush::Renderer2D::ResetStats();
 	// Render
 	Flush::RenderCommand::SetClearColor({ 0.1f, 0.1f, 0.1f, 1 });
 	Flush::RenderCommand::Clear();
-	{
-		// Draw Quad
+
+	{		
 		FLUSH_PROFILE_SCOPE("Draw Renderer");
 
+		// DrawCall + 1
 		Flush::Renderer2D::BeginScene(m_CameraController.GetCamera());
 		Flush::Renderer2D::DrawQuad({ 0.5f, -0.3f }, { 0.8f, 0.8f }, { 1.0f, 0.2f, 0.3f, 1.0f });
 		Flush::Renderer2D::DrawQuad({ 0.2f, -0.5f }, { 0.5f, 0.75f }, { 0.0f, 0.3f, 0.8f, 1.0f });
@@ -76,24 +79,38 @@ void Sandbox2D::OnUpdate(Flush::Timestep ts)
 		Flush::Renderer2D::DrawQuad({ -0.5f, -0.5f, 0.0f }, { 1.0f, 1.0f }, m_CheckerboardTexture, 20.0f);*/
 		Flush::Renderer2D::DrawQuad({ 0.0f, 0.0f, 0.0f }, { 1.0f, 1.0f }, m_CheckerboardTexture, 1.0f);
 		Flush::Renderer2D::EndScene();
+
+
+		// DrawCall + 1
+		Flush::Renderer2D::BeginScene(m_CameraController.GetCamera());
+		for (float y = -5.0f; y < 5.0f; y += 0.5f)
+		{
+			for (float x = -5.0f; x < 5.0f; x += 0.5f)
+			{
+				glm::vec4 color = { (x + 5.0f) / 10.0f, 0.4f, (y + 5.0f) / 10.0f, 0.7f };
+				Flush::Renderer2D::DrawQuad({ x, y }, { 0.45f, 0.45f }, color);
+			}
+		}
+		Flush::Renderer2D::EndScene();
 	}
 }
 
 void Sandbox2D::OnImGuiRender()
 {
-	//FLUSH_PROFILE_FUNCTION();
+	
 	ImGui::Begin("Settings");
+
+	auto stats = Flush::Renderer2D::GetStats();
+	ImGui::Text("Renderer2D Stats:");
+	ImGui::Text("Draw Calls: %d", stats.DrawCalls);
+	ImGui::Text("Quads: %d", stats.QuadCount);
+	ImGui::Text("Vertices: %d", stats.GetTotalVertexCount());
+	ImGui::Text("Indices: %d", stats.GetTotalIndexCount());
+
 	ImGui::ColorEdit4("Square Color", glm::value_ptr(m_SquareColor));
-	/*for (auto& result : m_ProfileResults)
-	{
-		char label[50];
-		strcpy(label, "%.3fms ");
-		strcat(label, result.Name);
-		ImGui::Text(label, result.Time);
-	}
-	m_ProfileResults.clear();*/	
-	ImGui::End();	
+	ImGui::End();
 }
+
 
 void Sandbox2D::OnEvent(Flush::Event& e)
 {
