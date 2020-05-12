@@ -120,6 +120,10 @@ project "Sandbox"
 		"Flush/src/Flush",
 		"Flush/vendor",		
 		"%{IncludeDir.glm}",
+		"%{IncludeDir.GLFW}",
+		"%{IncludeDir.glad}",
+		"%{IncludeDir.ImGui}",		
+		"%{IncludeDir.stb_image}",
 	}
 
 	links

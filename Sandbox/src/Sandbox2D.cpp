@@ -44,12 +44,23 @@
 Sandbox2D::Sandbox2D()
 	: Layer("Sandbox2D"), m_CameraController(1) // 1280.0f / 720.0f
 {
+	// Renderer::Init();‘⁄Application…œ
 }
 
 void Sandbox2D::OnAttach()
 {
 	//m_CheckerboardTexture = Flush::Texture2D::Create("assets/textures/Checkerboard.png");
 	m_CheckerboardTexture = Flush::Texture2D::Create("assets/textures/Alphaboard.png");
+
+	// Init here
+	m_Particle.ColorBegin = { 254 / 255.0f, 212 / 255.0f, 123 / 255.0f, 1.0f };
+	m_Particle.ColorEnd = { 254 / 255.0f, 109 / 255.0f, 41 / 255.0f, 1.0f };
+	m_Particle.SizeBegin = 0.5f, m_Particle.SizeVariation = 0.3f, m_Particle.SizeEnd = 0.0f;
+	m_Particle.LifeTime = 1.0f;
+	m_Particle.Velocity = { 0.0f, 0.0f };
+	m_Particle.VelocityVariation = { 3.0f, 1.0f };
+	m_Particle.Position = { 0.0f, 0.0f };
+
 }
 
 void Sandbox2D::OnDetach()
@@ -70,7 +81,7 @@ void Sandbox2D::OnUpdate(Flush::Timestep ts)
 	{		
 		FLUSH_PROFILE_SCOPE("Draw Renderer");
 
-		// DrawCall + 1
+		// DrawCall = 1
 		Flush::Renderer2D::BeginScene(m_CameraController.GetCamera());
 		Flush::Renderer2D::DrawQuad({ 0.5f, -0.3f }, { 0.8f, 0.8f }, { 1.0f, 0.2f, 0.3f, 1.0f });
 		Flush::Renderer2D::DrawQuad({ 0.2f, -0.5f }, { 0.5f, 0.75f }, { 0.0f, 0.3f, 0.8f, 1.0f });
@@ -81,7 +92,7 @@ void Sandbox2D::OnUpdate(Flush::Timestep ts)
 		Flush::Renderer2D::EndScene();
 
 
-		// DrawCall + 1
+		// DrawCall = 2
 		Flush::Renderer2D::BeginScene(m_CameraController.GetCamera());
 		for (float y = -5.0f; y < 5.0f; y += 0.5f)
 		{
@@ -93,6 +104,27 @@ void Sandbox2D::OnUpdate(Flush::Timestep ts)
 		}
 		Flush::Renderer2D::EndScene();
 	}
+
+	// ParticleSystem DrawCall = 3
+
+	if (Flush::Input::IsMouseButtonPressed(F_MOUSE_BUTTON_LEFT))
+	{
+		auto[x, y] = Flush::Input::GetMousePosition();
+		auto width = Flush::Application::Get().GetWindow().GetWidth();
+		auto height = Flush::Application::Get().GetWindow().GetHeight();
+
+		auto bounds = m_CameraController.GetBounds();
+		auto pos = m_CameraController.GetCamera().GetPosition();
+		x = (x / width) * bounds.GetWidth() - bounds.GetWidth() * 0.5f;
+		y = bounds.GetHeight() * 0.5f - (y / height) * bounds.GetHeight();
+		m_Particle.Position = { x + pos.x, y + pos.y };
+		for (int i = 0; i < 5; i++)
+			m_ParticleSystem.Emit(m_Particle);
+	}
+
+	m_ParticleSystem.OnUpdate(ts);
+	m_ParticleSystem.OnRender(m_CameraController.GetCamera());
+
 }
 
 void Sandbox2D::OnImGuiRender()
