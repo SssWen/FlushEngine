@@ -51,7 +51,11 @@ void Sandbox2D::OnAttach()
 {
 	//m_CheckerboardTexture = Flush::Texture2D::Create("assets/textures/Checkerboard.png");
 	m_CheckerboardTexture = Flush::Texture2D::Create("assets/textures/Alphaboard.png");
-
+	m_SpriteTexture = Flush::Texture2D::Create("assets/textures/RPGpack_sheet_2X.png");
+	
+	m_SubTexture1 = Flush::SubTexture2D::CreateFromCoords(m_SpriteTexture, { 2,1 }, { 128,128 }, {1,2});
+	m_SubTexture = Flush::SubTexture2D::CreateFromCoords(m_SpriteTexture, { 1,1 }, { 128,128 }, {1,2});
+	m_SubTexture2 = Flush::SubTexture2D::CreateFromCoords(m_SpriteTexture, { 4,1 }, { 128,128 }, {1,2});
 	// Init here
 	m_Particle.ColorBegin = { 254 / 255.0f, 212 / 255.0f, 123 / 255.0f, 1.0f };
 	m_Particle.ColorEnd = { 254 / 255.0f, 109 / 255.0f, 41 / 255.0f, 1.0f };
@@ -125,6 +129,14 @@ void Sandbox2D::OnUpdate(Flush::Timestep ts)
 	m_ParticleSystem.OnUpdate(ts);
 	m_ParticleSystem.OnRender(m_CameraController.GetCamera());
 
+	// draw sprite
+	{
+		Flush::Renderer2D::BeginScene(m_CameraController.GetCamera());
+		Flush::Renderer2D::DrawQuad({ 0.0,0.0,0.5f }, {1.0f,2.0f}, m_SubTexture);
+		Flush::Renderer2D::DrawQuad({ 0.8,0.0,0.6f }, {1.0f,2.0f}, m_SubTexture1);
+		Flush::Renderer2D::DrawQuad({ 1.6,0.0,0.7f }, {1.0f,2.0f}, m_SubTexture2);
+		Flush::Renderer2D::EndScene();
+	}
 }
 
 void Sandbox2D::OnImGuiRender()
