@@ -70,6 +70,7 @@ project "Flush"
 		"%{IncludeDir.ImGui}",
 		"%{IncludeDir.glm}",
 		"%{IncludeDir.stb_image}",
+		"%{prj.name}/vendor/assimp/include",
 	}
 
 	links
@@ -146,3 +147,83 @@ project "Sandbox"
 	filter "configurations:Release"
 		defines "FLUSH_RELEASE"			
 		optimize "On"
+
+
+project "FlushPBREditor"
+		location "FlushPBREditor"
+		kind "ConsoleApp"
+		language "C++"
+		cppdialect "C++17"
+		staticruntime "on"
+		
+		targetdir ("bin/" .. outputdir .. "/%{prj.name}")
+		objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
+	
+		links 
+		{ 
+			"Flush"
+		}
+		
+		files 
+		{ 
+			"%{prj.name}/src/**.h", 
+			"%{prj.name}/src/**.c", 
+			"%{prj.name}/src/**.hpp", 
+			"%{prj.name}/src/**.cpp" 
+		}
+	
+		includedirs
+		{
+			"Flush/vendor/spdlog/include",
+			"Flush/src",
+			"Flush/src/Flush",
+			"Flush/vendor",		
+			"%{IncludeDir.glm}",
+			"%{IncludeDir.GLFW}",
+			"%{IncludeDir.glad}",
+			"%{IncludeDir.ImGui}",		
+			"%{IncludeDir.stb_image}",
+		}
+	
+		postbuildcommands 
+		{
+			'{COPY} "../FlushPBREditor/assets" "%{cfg.targetdir}/assets"'
+		}
+		
+		filter "system:windows"
+			systemversion "latest"
+					
+			defines 
+			{ 
+				"FLUSH_PLATFORM_WINDOW"
+			}
+		
+		filter "configurations:Debug"
+			defines "HZ_DEBUG"
+			symbols "on"
+	
+			links
+			{
+				"Flush/vendor/assimp/bin/Debug/assimp-vc141-mtd.lib"
+			}
+	
+			postbuildcommands 
+			{
+				'{COPY} "../Flush/vendor/assimp/bin/Debug/assimp-vc141-mtd.dll" "%{cfg.targetdir}"'
+			}
+					
+		filter "configurations:Release"
+			defines "FLUSH_RELEASE"
+			optimize "on"
+	
+			links
+			{
+				"Flush/vendor/assimp/bin/Release/assimp-vc141-mt.lib"
+			}
+	
+			postbuildcommands 
+			{
+				'{COPY} "../Flush/vendor/assimp/bin/Release/assimp-vc141-mtd.dll" "%{cfg.targetdir}"'
+			}
+	
+	

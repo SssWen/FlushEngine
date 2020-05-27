@@ -1,56 +1,41 @@
 #include "flushpch.h"
 #include "Application.h"
-#include "Events/ApplicationEvent.h"
-#include "glad/glad.h"
-#include "Core/Input.h"
-#include "Renderer/Renderer.h"
-#include "Core/Timestep.h"
 
-#include <glfw/glfw3.h>
+#include "Renderer/Renderer.h"
+#include "Renderer/Framebuffer.h"
+#include <GLFW/glfw3.h>
+
+#include <imgui.h>
+
+#define GLFW_EXPOSE_NATIVE_WIN32
+#include <GLFW/glfw3native.h>
+#include <Windows.h>
 
 namespace Flush {
 
-	#define BIND_EVENT_FN(x) std::bind(&Application::x, this, std::placeholders::_1)
+#define BIND_EVENT_FN(fn) std::bind(&Application::##fn, this, std::placeholders::_1)
 
-	static GLenum ShaderDataTypeToOpenGLBaseType(ShaderDataType type)
-	{
-		switch (type)
-		{
-		case Flush::ShaderDataType::Float:    return GL_FLOAT;
-		case Flush::ShaderDataType::Float2:   return GL_FLOAT;
-		case Flush::ShaderDataType::Float3:   return GL_FLOAT;
-		case Flush::ShaderDataType::Float4:   return GL_FLOAT;
-		case Flush::ShaderDataType::Mat3:     return GL_FLOAT;
-		case Flush::ShaderDataType::Mat4:     return GL_FLOAT;
-		case Flush::ShaderDataType::Int:      return GL_INT;
-		case Flush::ShaderDataType::Int2:     return GL_INT;
-		case Flush::ShaderDataType::Int3:     return GL_INT;
-		case Flush::ShaderDataType::Int4:     return GL_INT;
-		case Flush::ShaderDataType::Bool:     return GL_BOOL;
-		}
-
-		//FLUSH_CORE_ASSERT(false, "Unknown ShaderDataType!");
-		return 0;
-	}
-	
 	Application* Application::s_Instance = nullptr;
-	Application::Application()
-	{
-		//FLUSH_CORE_ASSERT(!s_Instance, "Application already exists!");
-		s_Instance = this;
-		m_Window = std::unique_ptr<Window>(Window::Create());
 
+	Application::Application(const ApplicationProps& props)
+	{
+		s_Instance = this;
+
+		m_Window = std::unique_ptr<Window>(Window::Create(WindowProps(props.Name, props.WindowWidth, props.WindowHeight)));
 		m_Window->SetEventCallback(BIND_EVENT_FN(OnEvent));
+		m_Window->SetVSync(false);
+
+		m_ImGuiLayer = new ImGuiLayer("ImGui");
+		PushOverlay(m_ImGuiLayer);
 
 		Renderer::Init();
-
-		m_ImGuiLayer = new ImGuiLayer(); // 创建一个GUI 
-		PushOverlay(m_ImGuiLayer);
-		
-
+		Renderer::Get().WaitAndRender();
 	}
 
+	Application::~Application()
+	{
 
+	}
 
 	void Application::PushLayer(Layer* layer)
 	{
@@ -64,46 +49,80 @@ namespace Flush {
 		layer->OnAttach();
 	}
 
-	void Application::OnEvent(Event& e)
+	void Application::RenderImGui()
 	{
-		EventDispatcher dispatcher(e);
-		dispatcher.Dispatch<WindowCloseEvent>(BIND_EVENT_FN(OnWindowClose));
-		dispatcher.Dispatch<WindowResizeEvent>(BIND_EVENT_FN(OnWindowResize));
-		//FLUSH_CORE_TRACE("{0}", e);
-		for (auto it = m_LayerStack.end(); it != m_LayerStack.begin(); )
-		{
-			(*--it)->OnEvent(e);
-			if (e.Handled)
-				break;
-		}
+		m_ImGuiLayer->Begin();
+
+		ImGui::Begin("Renderer");
+		auto& caps = RendererAPI::GetCapabilities();
+		ImGui::Text("Vendor: %s", caps.Vendor.c_str());
+		ImGui::Text("Renderer: %s", caps.Renderer.c_str());
+		ImGui::Text("Version: %s", caps.Version.c_str());
+		ImGui::Text("Frame Time: %.2fms\n", m_TimeStep.GetMilliseconds());
+		ImGui::End();
+
+		for (Layer* layer : m_LayerStack)
+			layer->OnImGuiRender();
+
+		m_ImGuiLayer->End();
 	}
 
 	void Application::Run()
 	{
+		OnInit();
 		while (m_Running)
-		{			
-#pragma region --------Update Renderer-------------
-			float time = (float)glfwGetTime();
-			auto timestep = time - m_LastFrameTime;
-			m_LastFrameTime = time;
-
-			// 2D 3d renderer
+		{
 			if (!m_Minimized)
 			{
 				for (Layer* layer : m_LayerStack)
-					layer->OnUpdate(timestep);
+					layer->OnUpdate(m_TimeStep);
+
+				// Render ImGui on render thread
+				Application* app = this;
+				Renderer::Submit([app]() { app->RenderImGui(); });
+
+				Renderer::Get().WaitAndRender();
 			}
-
-			// draw gui
-			m_ImGuiLayer->Begin();
-			for (Layer* layer : m_LayerStack)
-				layer->OnImGuiRender(); // ShowDemoWindow
-			m_ImGuiLayer->End();
-#pragma endregion
-
 			m_Window->OnUpdate();
 
+			float time = GetTime();
+			m_TimeStep = time - m_LastFrameTime;
+			m_LastFrameTime = time;
 		}
+		OnShutdown();
+	}
+
+	void Application::OnEvent(Event& event)
+	{
+		EventDispatcher dispatcher(event);
+		dispatcher.Dispatch<WindowResizeEvent>(BIND_EVENT_FN(OnWindowResize));
+		dispatcher.Dispatch<WindowCloseEvent>(BIND_EVENT_FN(OnWindowClose));
+
+		for (auto it = m_LayerStack.end(); it != m_LayerStack.begin(); )
+		{
+			(*--it)->OnEvent(event);
+			if (event.Handled)
+				break;
+		}
+	}
+
+	bool Application::OnWindowResize(WindowResizeEvent& e)
+	{
+		int width = e.GetWidth(), height = e.GetHeight();
+		if (width == 0 || height == 0)
+		{
+			m_Minimized = true;
+			return false;
+		}
+		m_Minimized = false;
+		Renderer::Submit([=]() { glViewport(0, 0, width, height); });
+		auto& fbs = FramebufferPool::GetGlobal()->GetAll();
+		for (auto& fb : fbs)
+		{
+			if (auto fbp = fb.lock())
+				fbp->Resize(width, height);
+		}
+		return false;
 	}
 
 	bool Application::OnWindowClose(WindowCloseEvent& e)
@@ -111,16 +130,35 @@ namespace Flush {
 		m_Running = false;
 		return true;
 	}
-	bool Application::OnWindowResize(WindowResizeEvent& e)
-	{
-		if (e.GetWidth() == 0 || e.GetHeight() == 0)
-		{
-			m_Minimized = true;
-			return false;
-		}
-		m_Minimized = false;
-		Renderer::OnWindowResize(e.GetWidth(), e.GetHeight());
 
-		return false;
+	std::string Application::OpenFile(const std::string& filter) const
+	{
+		OPENFILENAMEA ofn;       // common dialog box structure
+		CHAR szFile[260] = { 0 };       // if using TCHAR macros
+
+		// Initialize OPENFILENAME
+		ZeroMemory(&ofn, sizeof(OPENFILENAME));
+		ofn.lStructSize = sizeof(OPENFILENAME);
+		ofn.hwndOwner = glfwGetWin32Window((GLFWwindow*)m_Window->GetNativeWindow());
+		ofn.lpstrFile = szFile;
+		ofn.nMaxFile = sizeof(szFile);
+		ofn.lpstrFilter = "All\0*.*\0";
+		ofn.nFilterIndex = 1;
+		ofn.lpstrFileTitle = NULL;
+		ofn.nMaxFileTitle = 0;
+		ofn.lpstrInitialDir = NULL;
+		ofn.Flags = OFN_PATHMUSTEXIST | OFN_FILEMUSTEXIST;
+
+		if (GetOpenFileNameA(&ofn) == TRUE)
+		{
+			return ofn.lpstrFile;
+		}
+		return std::string();
 	}
+
+	float Application::GetTime() const
+	{
+		return (float)glfwGetTime();
+	}
+
 }

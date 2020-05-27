@@ -1,75 +1,106 @@
 #include "flushpch.h"
 #include "OpenGLBuffer.h"
 
-#include <glad/glad.h>
+#include <Glad/glad.h>
+
+#include "Renderer/Renderer.h"
 
 namespace Flush {
 
-	/////////////////////////////////////////////////////////////////////////////
-	// VertexBuffer /////////////////////////////////////////////////////////////
-	/////////////////////////////////////////////////////////////////////////////
+	//////////////////////////////////////////////////////////////////////////////////
+	// VertexBuffer
+	//////////////////////////////////////////////////////////////////////////////////
 
-	// 只先定义空间大小,后面用SetData方法里的glBufferSubData\
-	 为vertex buffer[vbo]赋值
-	OpenGLVertexBuffer::OpenGLVertexBuffer(uint32_t size)
-	{	
-		glCreateBuffers(1, &m_RendererID);
-		glBindBuffer(GL_ARRAY_BUFFER, m_RendererID);
-		glBufferData(GL_ARRAY_BUFFER, size, nullptr, GL_DYNAMIC_DRAW);
-	}
-	// 设置 vbo 的数据 vertexbuffer 相关vertex数据{pos,color,uv}
-	void OpenGLVertexBuffer::SetData(const void* data, uint32_t size)
+	static GLenum OpenGLUsage(VertexBufferUsage usage)
 	{
-		glBindBuffer(GL_ARRAY_BUFFER, m_RendererID);
-		glBufferSubData(GL_ARRAY_BUFFER, 0, size, data);
+		switch (usage)
+		{
+		case VertexBufferUsage::Static:    return GL_STATIC_DRAW;
+		case VertexBufferUsage::Dynamic:   return GL_DYNAMIC_DRAW;
+		}
+		FLUSH_CORE_ASSERT(false, "Unknown vertex buffer usage");
+		return 0;
 	}
-	OpenGLVertexBuffer::OpenGLVertexBuffer(float* vertices, uint32_t size)
+
+	OpenGLVertexBuffer::OpenGLVertexBuffer(void* data, uint32_t size, VertexBufferUsage usage)
+		: m_Size(size), m_Usage(usage)
 	{
-		glCreateBuffers(1, &m_RendererID);
-		glBindBuffer(GL_ARRAY_BUFFER, m_RendererID);
-		glBufferData(GL_ARRAY_BUFFER, size, vertices, GL_STATIC_DRAW);
+		m_LocalData = Buffer::Copy(data, size);
+
+		Renderer::Submit([=]() {
+			glCreateBuffers(1, &m_RendererID);
+			glNamedBufferData(m_RendererID, m_Size, m_LocalData.Data, OpenGLUsage(m_Usage));
+		});
+	}
+
+	OpenGLVertexBuffer::OpenGLVertexBuffer(uint32_t size, VertexBufferUsage usage)
+		: m_Size(size), m_Usage(usage)
+	{
+		Renderer::Submit([this]() {
+			glCreateBuffers(1, &m_RendererID);
+			glNamedBufferData(m_RendererID, m_Size, nullptr, OpenGLUsage(m_Usage));
+		});
 	}
 
 	OpenGLVertexBuffer::~OpenGLVertexBuffer()
 	{
-		glDeleteBuffers(1, &m_RendererID);
+		Renderer::Submit([this]() {
+			glDeleteBuffers(1, &m_RendererID);
+		});
+	}
+
+	void OpenGLVertexBuffer::SetData(void* data, uint32_t size, uint32_t offset)
+	{
+		m_LocalData = Buffer::Copy(data, size);
+		m_Size = size;
+		Renderer::Submit([this, offset]() {
+			glNamedBufferSubData(m_RendererID, offset, m_Size, m_LocalData.Data);
+		});
 	}
 
 	void OpenGLVertexBuffer::Bind() const
 	{
-		glBindBuffer(GL_ARRAY_BUFFER, m_RendererID);
+		Renderer::Submit([this]() {
+			glBindBuffer(GL_ARRAY_BUFFER, m_RendererID);
+		});
 	}
 
-	void OpenGLVertexBuffer::Unbind() const
-	{
-		glBindBuffer(GL_ARRAY_BUFFER, 0);
-	}
+	//////////////////////////////////////////////////////////////////////////////////
+	// IndexBuffer
+	//////////////////////////////////////////////////////////////////////////////////
 
-	/////////////////////////////////////////////////////////////////////////////
-	// IndexBuffer //////////////////////////////////////////////////////////////
-	/////////////////////////////////////////////////////////////////////////////
-
-	OpenGLIndexBuffer::OpenGLIndexBuffer(uint32_t* indices, uint32_t count)
-		: m_Count(count)
+	OpenGLIndexBuffer::OpenGLIndexBuffer(void* data, uint32_t size)
+		: m_RendererID(0), m_Size(size)
 	{
-		glCreateBuffers(1, &m_RendererID);
-		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_RendererID);
-		glBufferData(GL_ELEMENT_ARRAY_BUFFER, count * sizeof(uint32_t), indices, GL_STATIC_DRAW);
+		m_LocalData = Buffer::Copy(data, size);
+
+		Renderer::Submit([this]() {
+			glCreateBuffers(1, &m_RendererID);
+			glNamedBufferData(m_RendererID, m_Size, m_LocalData.Data, GL_STATIC_DRAW);
+		});
 	}
 
 	OpenGLIndexBuffer::~OpenGLIndexBuffer()
 	{
-		glDeleteBuffers(1, &m_RendererID);
+		Renderer::Submit([this]() {
+			glDeleteBuffers(1, &m_RendererID);
+		});
+	}
+
+	void OpenGLIndexBuffer::SetData(void* data, uint32_t size, uint32_t offset)
+	{
+		m_LocalData = Buffer::Copy(data, size);
+		m_Size = size;
+		Renderer::Submit([this, offset]() {
+			glNamedBufferSubData(m_RendererID, offset, m_Size, m_LocalData.Data);
+		});
 	}
 
 	void OpenGLIndexBuffer::Bind() const
 	{
-		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_RendererID);
-	}
-
-	void OpenGLIndexBuffer::Unbind() const
-	{
-		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+		Renderer::Submit([this]() {
+			glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_RendererID);
+		});
 	}
 
 }

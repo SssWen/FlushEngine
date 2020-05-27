@@ -5,36 +5,102 @@
 
 namespace Flush {
 
-	Renderer::SceneData* Renderer::s_SceneData = new Renderer::SceneData; // ÄÚ´æÐ¹Â©£¬used  CreateScope<Renderer::SceneData>(); 
+	Renderer* Renderer::s_Instance = new Renderer();
+	RendererAPIType RendererAPI::s_CurrentRendererAPI = RendererAPIType::OpenGL;
 
 	void Renderer::Init()
 	{
-		RenderCommand::Init();
-		Renderer2D::Init();
+		s_Instance->m_ShaderLibrary = std::make_unique<ShaderLibrary>();
+		Renderer::Submit([]() { RendererAPI::Init(); });
+
+		Renderer::GetShaderLibrary()->Load("assets/shaders/HazelPBR_Static.glsl");
+		Renderer::GetShaderLibrary()->Load("assets/shaders/HazelPBR_Anim.glsl");
 	}
 
-	void Renderer::BeginScene(OrthographicCamera& camera)
+	void Renderer::Clear()
 	{
-		s_SceneData->ViewProjectionMatrix = camera.GetViewProjectionMatrix();
+		Renderer::Submit([]() {
+			RendererAPI::Clear(0.0f, 0.0f, 0.0f, 1.0f);
+		});
 	}
-	void Renderer::OnWindowResize(uint32_t width, uint32_t height)
+
+	void Renderer::Clear(float r, float g, float b, float a)
 	{
-		RenderCommand::SetViewport(0, 0, width, height);
+		Renderer::Submit([=]() {
+			RendererAPI::Clear(r, g, b, a);
+		});
 	}
-	void Renderer::EndScene()
+
+	void Renderer::ClearMagenta()
+	{
+		Clear(1, 0, 1);
+	}
+
+	void Renderer::SetClearColor(float r, float g, float b, float a)
 	{
 	}
 
-	void Renderer::Submit(const std::shared_ptr<Shader>& shader, const std::shared_ptr<VertexArray>& vertexArray, const glm::mat4& transform)
+	void Renderer::DrawIndexed(uint32_t count, bool depthTest)
 	{
-		shader->Bind();
-	/*	shader->UploadUniformMat4("u_ViewProjection",s_SceneData->ViewProjectionMatrix);
-		shader->UploadUniformMat4("u_Transform", transform);*/
-
-		std::dynamic_pointer_cast<OpenGLShader>(shader)->UploadUniformMat4("u_ViewProjection", s_SceneData->ViewProjectionMatrix);		
-		std::dynamic_pointer_cast<OpenGLShader>(shader)->UploadUniformMat4("u_Transform", transform);
-		vertexArray->Bind();
-		RenderCommand::DrawIndexed(vertexArray);
+		Renderer::Submit([=]() {
+			RendererAPI::DrawIndexed(count, depthTest);
+		});
 	}
 
+	void Renderer::WaitAndRender()
+	{
+		s_Instance->m_CommandQueue.Execute();
+	}
+
+	void Renderer::IBeginRenderPass(const Ref<RenderPass>& renderPass)
+	{
+		// TODO: Convert all of this into a render command buffer
+		m_ActiveRenderPass = renderPass;
+
+		renderPass->GetSpecification().TargetFramebuffer->Bind();
+		const glm::vec4& clearColor = renderPass->GetSpecification().TargetFramebuffer->GetSpecification().ClearColor;
+		Renderer::Submit([=]() {
+			RendererAPI::Clear(clearColor.r, clearColor.g, clearColor.b, clearColor.a);
+		});
+	}
+
+	void Renderer::IEndRenderPass()
+	{
+		HZ_CORE_ASSERT(m_ActiveRenderPass, "No active render pass! Have you called Renderer::EndRenderPass twice?");
+		m_ActiveRenderPass->GetSpecification().TargetFramebuffer->Unbind();
+		m_ActiveRenderPass = nullptr;
+	}
+
+	void Renderer::SubmitMeshI(const Ref<Mesh>& mesh, const glm::mat4& transform, const Ref<MaterialInstance>& overrideMaterial)
+	{
+		if (overrideMaterial)
+		{
+			overrideMaterial->Bind();
+		}
+		else
+		{
+			// Bind mesh material here
+		}
+
+		// TODO: Sort this out
+		mesh->m_VertexArray->Bind();
+
+		// TODO: replace with render API calls
+		Renderer::Submit([=]()
+		{
+			for (Submesh& submesh : mesh->m_Submeshes)
+			{
+				if (mesh->m_IsAnimated)
+				{
+					for (size_t i = 0; i < mesh->m_BoneTransforms.size(); i++)
+					{
+						std::string uniformName = std::string("u_BoneTransforms[") + std::to_string(i) + std::string("]");
+						mesh->m_MeshShader->SetMat4FromRenderThread(uniformName, mesh->m_BoneTransforms[i]);
+					}
+				}
+
+				glDrawElementsBaseVertex(GL_TRIANGLES, submesh.IndexCount, GL_UNSIGNED_INT, (void*)(sizeof(uint32_t) * submesh.BaseIndex), submesh.BaseVertex);
+			}
+		});
+	}
 }

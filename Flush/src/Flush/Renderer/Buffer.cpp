@@ -6,40 +6,38 @@
 
 namespace Flush {
 
-	Ref<VertexBuffer> VertexBuffer::Create(uint32_t size)
+	Ref<VertexBuffer> VertexBuffer::Create(void* data, uint32_t size, VertexBufferUsage usage)
 	{
-		switch (Renderer::GetAPI())
+		switch (RendererAPI::Current())
 		{
-		case RendererAPI::API::None:    FLUSH_CORE_ASSERT(false, "RendererAPI::None is currently not supported!"); return nullptr;
-		case RendererAPI::API::OpenGL:  return CreateRef<OpenGLVertexBuffer>(size);
+		case RendererAPIType::None:    return nullptr;
+		case RendererAPIType::OpenGL:  return std::make_shared<OpenGLVertexBuffer>(data, size, usage);
 		}
-
-		FLUSH_CORE_ASSERT(false, "Unknown RendererAPI!");
+		FLUSH_CORE_ASSERT(false, "Unknown RendererAPI");
 		return nullptr;
 	}
 
-	Ref<VertexBuffer> VertexBuffer::Create(float* vertices, uint32_t size)
+	Ref<VertexBuffer> VertexBuffer::Create(uint32_t size, VertexBufferUsage usage)
 	{
-		switch (Renderer::GetAPI())
+		switch (RendererAPI::Current())
 		{
-		case RendererAPI::API::None:    FLUSH_CORE_ASSERT(false, "RendererAPI::None is currently not supported!"); return nullptr;
-		case RendererAPI::API::OpenGL:  return  CreateRef<OpenGLVertexBuffer>(vertices, size);
+		case RendererAPIType::None:    return nullptr;
+		case RendererAPIType::OpenGL:  return std::make_shared<OpenGLVertexBuffer>(size, usage);
 		}
-
-		FLUSH_CORE_ASSERT(false, "Unknown RendererAPI!");
+		FLUSH_CORE_ASSERT(false, "Unknown RendererAPI");
 		return nullptr;
 	}
 
-	Ref<IndexBuffer> IndexBuffer::Create(uint32_t* indices, uint32_t size)
+	Ref<IndexBuffer> IndexBuffer::Create(void* data, uint32_t size)
 	{
-		switch (Renderer::GetAPI())
+		switch (RendererAPI::Current())
 		{
-		case RendererAPI::API::None:    FLUSH_CORE_ASSERT(false, "RendererAPI::None is currently not supported!"); return nullptr;
-		case RendererAPI::API::OpenGL:  return CreateRef<OpenGLIndexBuffer>(indices, size);
+		case RendererAPIType::None:    return nullptr;
+		case RendererAPIType::OpenGL:  return std::make_shared<OpenGLIndexBuffer>(data, size);
 		}
-
-		FLUSH_CORE_ASSERT(false, "Unknown RendererAPI!");
+		FLUSH_CORE_ASSERT(false, "Unknown RendererAPI");
 		return nullptr;
+
 	}
 }
 

@@ -3,7 +3,6 @@
 #include "Core/Window.h"
 #include "glad/glad.h"
 #include <GLFW/glfw3.h>
-#include "Renderer/GraphicsContext.h"
 
 namespace Flush {
 
@@ -15,30 +14,23 @@ namespace Flush {
 
 		void OnUpdate() override;
 
-		inline unsigned int GetWidth() const override 
-		{
-			return m_Data.Width; 
-		}
-		inline unsigned int GetHeight() const override 
-		{ 
-			return m_Data.Height; 
-		}
+		inline unsigned int GetWidth() const override { return m_Data.Width; }
+		inline unsigned int GetHeight() const override { return m_Data.Height; }
+
+		virtual std::pair<float, float> GetWindowPos() const override;
 
 		// Window attributes
-		inline void SetEventCallback(const EventCallbackFn& callback) override
-		{
-			m_Data.EventCallback = callback; 
-		}
-		void SetVSync(bool enabled) override;
-		bool IsVSync() const override;
-		inline virtual void* GetNativeWindow() const { return m_Window; }
+		inline void SetEventCallback(const EventCallbackFn& callback) override { m_Data.EventCallback = callback; }
+		void SetVSync(bool enabled);
+		bool IsVSync() const;
 
+		inline void* GetNativeWindow() const { return m_Window; }
 	private:
 		virtual void Init(const WindowProps& props);
 		virtual void Shutdown();
 	private:
 		GLFWwindow* m_Window;
-		GraphicsContext* m_Context; // [memory leak] used "Scope<GraphicsContext> m_Context" instead.
+		GLFWcursor* m_ImGuiMouseCursors[9] = { 0 };
 
 		struct WindowData
 		{
@@ -50,6 +42,8 @@ namespace Flush {
 		};
 
 		WindowData m_Data;
+		float m_LastFrameTime = 0.0f;
 	};
+
 
 }

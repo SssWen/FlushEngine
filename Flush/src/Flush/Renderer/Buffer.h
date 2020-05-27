@@ -8,6 +8,7 @@ namespace Flush
 	{
 		None = 0, Float, Float2, Float3, Float4, Mat3, Mat4, Int, Int2, Int3, Int4, Bool
 	};
+
 	static uint32_t ShaderDataTypeSize(ShaderDataType type)
 	{
 		switch (type)
@@ -25,10 +26,9 @@ namespace Flush
 		case ShaderDataType::Bool:     return 1;
 		}
 
-		//FLUSH_CORE_ASSERT(false, "Unknown ShaderDataType!");
+		HZ_CORE_ASSERT(false, "Unknown ShaderDataType!");
 		return 0;
 	}
-
 
 	struct BufferElement
 	{
@@ -38,7 +38,7 @@ namespace Flush
 		uint32_t Offset;
 		bool Normalized;
 
-		BufferElement() {}
+		BufferElement() = default;
 
 		BufferElement(ShaderDataType type, const std::string& name, bool normalized = false)
 			: Name(name), Type(type), Size(ShaderDataTypeSize(type)), Offset(0), Normalized(normalized)
@@ -62,10 +62,11 @@ namespace Flush
 			case ShaderDataType::Bool:    return 1;
 			}
 
-			//FLUSH_CORE_ASSERT(false, "Unknown ShaderDataType!");
+			HZ_CORE_ASSERT(false, "Unknown ShaderDataType!");
 			return 0;
 		}
 	};
+
 	class BufferLayout
 	{
 	public:
@@ -100,32 +101,44 @@ namespace Flush
 		std::vector<BufferElement> m_Elements;
 		uint32_t m_Stride = 0;
 	};
-	
+
+	enum class VertexBufferUsage
+	{
+		None = 0, Static = 1, Dynamic = 2
+	};
+
 	class VertexBuffer
 	{
 	public:
-		virtual ~VertexBuffer() = default;
+		virtual ~VertexBuffer() {}
 
+		virtual void SetData(void* buffer, uint32_t size, uint32_t offset = 0) = 0;
 		virtual void Bind() const = 0;
-		virtual void Unbind() const = 0;
 
 		virtual const BufferLayout& GetLayout() const = 0;
-		virtual void SetLayout(const BufferLayout& layout) = 0;	
-		virtual void SetData(const void* data, uint32_t size) = 0;		
-		static Ref<VertexBuffer> Create(float* vertices, uint32_t size);
-		static Ref<VertexBuffer> Create(uint32_t size);
+		virtual void SetLayout(const BufferLayout& layout) = 0;
+
+		virtual unsigned int GetSize() const = 0;
+		virtual RendererID GetRendererID() const = 0;
+
+		static Ref<VertexBuffer> Create(void* data, uint32_t size, VertexBufferUsage usage = VertexBufferUsage::Static);
+		static Ref<VertexBuffer> Create(uint32_t size, VertexBufferUsage usage = VertexBufferUsage::Dynamic);
 	};
 
 	class IndexBuffer
 	{
 	public:
-		virtual ~IndexBuffer() = default;
+		virtual ~IndexBuffer() {}
 
+		virtual void SetData(void* buffer, uint32_t size, uint32_t offset = 0) = 0;
 		virtual void Bind() const = 0;
-		virtual void Unbind() const = 0;
 
 		virtual uint32_t GetCount() const = 0;
 
-		static Ref<IndexBuffer> Create(uint32_t* indices, uint32_t size);
+		virtual unsigned int GetSize() const = 0;
+		virtual RendererID GetRendererID() const = 0;
+
+		static Ref<IndexBuffer> Create(void* data, uint32_t size = 0);
 	};
+
 }

@@ -12,6 +12,7 @@
 
 #include "Core/Layer.h"
 #include "ImGui/ImGuiLayer.h"
+#include "imgui.h"
 #include "Core/Timestep.h"
 
 #include "Debug/Profiler.h"

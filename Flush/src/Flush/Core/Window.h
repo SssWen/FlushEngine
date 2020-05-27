@@ -1,11 +1,9 @@
 #pragma once
 
-#include "flushpch.h"
+#include <functional>
 
-#include "Core/Core.h"
+#include "Core/Base.h"
 #include "Events/Event.h"
-#include "Events/ApplicationEvent.h"
-
 
 namespace Flush {
 
@@ -15,7 +13,7 @@ namespace Flush {
 		unsigned int Width;
 		unsigned int Height;
 
-		WindowProps(const std::string& title = "Flush Engine",
+		WindowProps(const std::string& title = "Hazel Engine",
 			unsigned int width = 1280,
 			unsigned int height = 720)
 			: Title(title), Width(width), Height(height)
@@ -24,7 +22,7 @@ namespace Flush {
 	};
 
 	// Interface representing a desktop system based Window
-	class FLUSH_API Window
+	class Window
 	{
 	public:
 		using EventCallbackFn = std::function<void(Event&)>;
@@ -35,6 +33,8 @@ namespace Flush {
 
 		virtual unsigned int GetWidth() const = 0;
 		virtual unsigned int GetHeight() const = 0;
+		virtual std::pair<float, float> GetWindowPos() const = 0;
+
 
 		// Window attributes
 		virtual void SetEventCallback(const EventCallbackFn& callback) = 0;
