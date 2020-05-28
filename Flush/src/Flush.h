@@ -7,12 +7,12 @@
 #include "Core/Log.h"
 #include "Core/Input.h"
 #include "Core/KeyCodes.h"
-
+#include "Core/Timestep.h"
 
 #include "Core/Layer.h"
 #include "ImGui/ImGuiLayer.h"
 #include "imgui.h"
-#include "Core/Timestep.h"
+
 
 #include "Debug/Profiler.h"
 
@@ -27,9 +27,7 @@
 #include "Renderer/Shader.h"
 #include "Renderer/VertexArray.h"
 #include "Renderer/Camera.h"
-// -----------------------------------
-// ----------------Entry Point ----------------
-//#include "Core/EntryPoint.h"
-// --------------------------------------------
+
+
 
 

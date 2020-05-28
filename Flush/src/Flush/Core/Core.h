@@ -16,7 +16,7 @@
 #else
 	#error Flush only supports Winodow
 #endif
-// HZ_PLATFORM_WINDOW
+
 
 #define BIT(x) (1 << x)
 

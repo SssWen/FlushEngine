@@ -122,7 +122,7 @@ namespace Flush {
 	};
 }
 
-#define FLUSH_PROFILE 1
+#define FLUSH_PROFILE 0
 #if FLUSH_PROFILE
 #define FLUSH_PROFILE_BEGIN_SESSION(name, filepath) ::Flush::Instrumentor::Get().BeginSession(name, filepath)
 #define FLUSH_PROFILE_END_SESSION() ::Flush::Instrumentor::Get().EndSession()

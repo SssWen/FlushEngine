@@ -48,7 +48,7 @@ namespace Flush{
 	void ShaderLibrary::Add(const Flush::Ref<Shader>& shader)
 	{
 		auto& name = shader->GetName();
-		//HZ_CORE_ASSERT(m_Shaders.find(name) == m_Shaders.end());
+		//FLUSH_CORE_ASSERT(m_Shaders.find(name) == m_Shaders.end());
 		m_Shaders[name] = shader;
 	}
 
@@ -56,19 +56,19 @@ namespace Flush{
 	{
 		auto shader = Ref<Shader>(Shader::Create(path));
 		auto& name = shader->GetName();
-		//HZ_CORE_ASSERT(m_Shaders.find(name) == m_Shaders.end());
+		//FLUSH_CORE_ASSERT(m_Shaders.find(name) == m_Shaders.end());
 		m_Shaders[name] = shader;
 	}
 
 	void ShaderLibrary::Load(const std::string& name, const std::string& path)
 	{
-		//HZ_CORE_ASSERT(m_Shaders.find(name) == m_Shaders.end());
+		//FLUSH_CORE_ASSERT(m_Shaders.find(name) == m_Shaders.end());
 		m_Shaders[name] = Ref<Shader>(Shader::Create(path));
 	}
 
 	Ref<Shader>& ShaderLibrary::Get(const std::string& name)
 	{
-		//HZ_CORE_ASSERT(m_Shaders.find(name) != m_Shaders.end());
+		//FLUSH_CORE_ASSERT(m_Shaders.find(name) != m_Shaders.end());
 		return m_Shaders[name];
 	}
 

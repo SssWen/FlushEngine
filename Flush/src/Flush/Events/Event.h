@@ -1,6 +1,5 @@
 #pragma once
 #include "flushpch.h"
-#include "Core/Core.h"
 
 namespace Flush {
 
@@ -45,10 +44,10 @@ namespace Flush {
 		virtual int GetCategoryFlags() const = 0;
 		virtual std::string ToString() const { return GetName(); }
 
-		inline bool IsInCategory(EventCategory category)
-		{
-			return GetCategoryFlags() & category;
-		}
+		/*	inline bool IsInCategory(EventCategory category)
+			{
+				return GetCategoryFlags() & category;
+			}*/
 	
 	};
 
