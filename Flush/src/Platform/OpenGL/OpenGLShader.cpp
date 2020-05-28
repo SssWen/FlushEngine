@@ -73,20 +73,20 @@ namespace Flush {
 
 	std::string OpenGLShader::ReadShaderFromFile(const std::string& filepath) const
 	{
-		std::string result;
-		//std::ifstream in(filepath, std::ios::in | std::ios::binary);
-		//if (in)
-		//{
-		//	in.seekg(0, std::ios::end);
-		//	result.resize(in.tellg());
-		//	in.seekg(0, std::ios::beg);
-		//	in.read(&result[0], result.size());
-		//	in.close();
-		//}
-		//else
-		//{
-		//	FLUSH_CORE_WARN("Could not read shader file {0}", filepath);
-		//}
+		std::string result;		
+		std::ifstream in(filepath, std::ios::in | std::ios::binary);
+		if (in)
+		{
+			in.seekg(0, std::ios::end);
+			result.resize(in.tellg());
+			in.seekg(0, std::ios::beg);
+			in.read(&result[0], result.size());
+			in.close();
+		}
+		else
+		{
+			FLUSH_CORE_WARN("Could not read shader file {0}", filepath);
+		}
 
 		return result;
 	}
