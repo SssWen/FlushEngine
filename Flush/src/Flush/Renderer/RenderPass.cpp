@@ -3,9 +3,9 @@
 
 #include "Renderer.h"
 
-#include "OpenGL/OpenGLRenderPass.h"
+#include "Platform/OpenGL/OpenGLRenderPass.h"
 
-namespace Hazel {
+namespace Flush {
 
 	Ref<RenderPass> RenderPass::Create(const RenderPassSpecification& spec)
 	{

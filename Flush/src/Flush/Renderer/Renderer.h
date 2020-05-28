@@ -1,8 +1,10 @@
 #pragma once
 
-#include "RenderCommand.h"
-#include "OrthographicCamera.h"
+#include "RenderCommandQueue.h"
 #include "Shader.h"
+#include "RenderPass.h"
+#include "Renderer/Material.h"
+#include "Renderer/Mesh.h"
 
 namespace Flush {
 	class ShaderLibrary;

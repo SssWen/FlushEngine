@@ -2,9 +2,12 @@
 
 #include "Event.h"
 
+#include <sstream>
+
 namespace Flush {
 
-	class FLUSH_API WindowResizeEvent : public Event
+	// TODO: Should this store previous size?
+	class WindowResizeEvent : public Event
 	{
 	public:
 		WindowResizeEvent(unsigned int width, unsigned int height)
@@ -26,7 +29,7 @@ namespace Flush {
 		unsigned int m_Width, m_Height;
 	};
 
-	class FLUSH_API WindowCloseEvent : public Event
+	class WindowCloseEvent : public Event
 	{
 	public:
 		WindowCloseEvent() {}
@@ -35,7 +38,7 @@ namespace Flush {
 			EVENT_CLASS_CATEGORY(EventCategoryApplication)
 	};
 
-	class FLUSH_API AppTickEvent : public Event
+	class AppTickEvent : public Event
 	{
 	public:
 		AppTickEvent() {}
@@ -44,7 +47,7 @@ namespace Flush {
 			EVENT_CLASS_CATEGORY(EventCategoryApplication)
 	};
 
-	class FLUSH_API AppUpdateEvent : public Event
+	class AppUpdateEvent : public Event
 	{
 	public:
 		AppUpdateEvent() {}
@@ -53,7 +56,7 @@ namespace Flush {
 			EVENT_CLASS_CATEGORY(EventCategoryApplication)
 	};
 
-	class FLUSH_API AppRenderEvent : public Event
+	class AppRenderEvent : public Event
 	{
 	public:
 		AppRenderEvent() {}

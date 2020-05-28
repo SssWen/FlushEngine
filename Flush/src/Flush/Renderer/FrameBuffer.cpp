@@ -1,7 +1,7 @@
 #include "flushpch.h"
 #include "Framebuffer.h"
 
-#include "OpenGL/OpenGLFramebuffer.h"
+#include "Platform/OpenGL/OpenGLFramebuffer.h"
 
 namespace Flush {
 

@@ -3,9 +3,8 @@
 #include "Renderer/Shader.h"
 #include <glad/glad.h>
 #include <glm/glm.hpp>
+#include "OpenGLShaderUniform.h"
 
-// TODO: REMOVE!
-typedef unsigned int GLenum;
 
 namespace Flush {
 

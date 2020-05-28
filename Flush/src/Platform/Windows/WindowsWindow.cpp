@@ -3,8 +3,6 @@
 #include "Core/Log.h"
 #include "Events/MouseEvent.h"
 #include "Events/KeyEvent.h"
-#include "Platform/OpenGL/OpenGLContext.h"
-
 
 #include <glad/glad.h>
 #include "Events/ApplicationEvent.h"

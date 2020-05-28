@@ -1,14 +1,16 @@
 #include "flushpch.h"
 #include "OpenGLTexture.h"
 
-#include "stb_image.h"
+#include "Renderer/RendererAPI.h"
+#include "Renderer/Renderer.h"
+
 #include <glad/glad.h>
-#include <Core/Log.h>
+#include "stb_image.h"
 
 namespace Flush {
 	
 
-	static GLenum HazelToOpenGLTextureFormat(TextureFormat format)
+	static GLenum FlushToOpenGLTextureFormat(TextureFormat format)
 	{
 		switch (format)
 		{
@@ -47,7 +49,7 @@ namespace Flush {
 			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, wrap);
 			glTextureParameterf(m_RendererID, GL_TEXTURE_MAX_ANISOTROPY, RendererAPI::GetCapabilities().MaxAnisotropy);
 
-			glTexImage2D(GL_TEXTURE_2D, 0, HazelToOpenGLTextureFormat(m_Format), m_Width, m_Height, 0, HazelToOpenGLTextureFormat(m_Format), GL_UNSIGNED_BYTE, nullptr);
+			glTexImage2D(GL_TEXTURE_2D, 0, FlushToOpenGLTextureFormat(m_Format), m_Width, m_Height, 0, FlushToOpenGLTextureFormat(m_Format), GL_UNSIGNED_BYTE, nullptr);
 			glGenerateMipmap(GL_TEXTURE_2D);
 
 			glBindTexture(GL_TEXTURE_2D, 0);
@@ -90,7 +92,7 @@ namespace Flush {
 				glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
 				glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
 
-				glTexImage2D(GL_TEXTURE_2D, 0, HazelToOpenGLTextureFormat(m_Format), m_Width, m_Height, 0, srgb ? GL_SRGB8 : HazelToOpenGLTextureFormat(m_Format), GL_UNSIGNED_BYTE, m_ImageData.Data);
+				glTexImage2D(GL_TEXTURE_2D, 0, FlushToOpenGLTextureFormat(m_Format), m_Width, m_Height, 0, srgb ? GL_SRGB8 : FlushToOpenGLTextureFormat(m_Format), GL_UNSIGNED_BYTE, m_ImageData.Data);
 				glGenerateMipmap(GL_TEXTURE_2D);
 
 				glBindTexture(GL_TEXTURE_2D, 0);
@@ -122,7 +124,7 @@ namespace Flush {
 	{
 		m_Locked = false;
 		Renderer::Submit([this]() {
-			glTextureSubImage2D(m_RendererID, 0, 0, 0, m_Width, m_Height, HazelToOpenGLTextureFormat(m_Format), GL_UNSIGNED_BYTE, m_ImageData.Data);
+			glTextureSubImage2D(m_RendererID, 0, 0, 0, m_Width, m_Height, FlushToOpenGLTextureFormat(m_Format), GL_UNSIGNED_BYTE, m_ImageData.Data);
 		});
 	}
 
@@ -213,7 +215,7 @@ namespace Flush {
 			glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
 			glTextureParameterf(m_RendererID, GL_TEXTURE_MAX_ANISOTROPY, RendererAPI::GetCapabilities().MaxAnisotropy);
 
-			auto format = HazelToOpenGLTextureFormat(m_Format);
+			auto format = FlushToOpenGLTextureFormat(m_Format);
 			glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X, 0, format, faceWidth, faceHeight, 0, format, GL_UNSIGNED_BYTE, faces[2]);
 			glTexImage2D(GL_TEXTURE_CUBE_MAP_NEGATIVE_X, 0, format, faceWidth, faceHeight, 0, format, GL_UNSIGNED_BYTE, faces[0]);
 

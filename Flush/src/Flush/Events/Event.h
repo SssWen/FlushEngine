@@ -1,7 +1,6 @@
 #pragma once
-
+#include "flushpch.h"
 #include "Core/Core.h"
-
 
 namespace Flush {
 
@@ -35,7 +34,7 @@ namespace Flush {
 
 #define EVENT_CLASS_CATEGORY(category) virtual int GetCategoryFlags() const override { return category; }
 
-	class FLUSH_API Event
+	class  Event
 	{
 		//friend class EventDispatcher;
 	public:

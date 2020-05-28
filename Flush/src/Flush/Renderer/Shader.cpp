@@ -45,7 +45,7 @@ namespace Flush{
 	{
 	}
 
-	void ShaderLibrary::Add(const Hazel::Ref<Shader>& shader)
+	void ShaderLibrary::Add(const Flush::Ref<Shader>& shader)
 	{
 		auto& name = shader->GetName();
 		//HZ_CORE_ASSERT(m_Shaders.find(name) == m_Shaders.end());

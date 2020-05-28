@@ -61,7 +61,7 @@ namespace Flush {
 		Buffer& GetUniformBufferTarget(ShaderUniformDeclaration* uniformDeclaration);
 	private:
 		Ref<Shader> m_Shader;
-		std::unordered_set<MaterialInstance*> m_MaterialInstances;
+		std::unordered_set<MaterialInstance*> m_MaterialInstances; // 这里和MaterialInstance相互引用
 
 		Buffer m_VSUniformStorageBuffer;
 		Buffer m_PSUniformStorageBuffer;

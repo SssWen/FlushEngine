@@ -25,10 +25,10 @@ namespace Flush {
 	PBREditorLayer::~PBREditorLayer()
 	{
 	}
-
+	// todo: 初始化 mesh,material,shader,renderPass[geoPass,finalPass]
 	void PBREditorLayer::OnAttach()
 	{
-		// ImGui Colors
+#pragma region ImGui Color 初始化
 		ImVec4* colors = ImGui::GetStyle().Colors;
 		colors[ImGuiCol_Text] = ImVec4(1.0f, 1.0f, 1.0f, 1.0f);
 		colors[ImGuiCol_TextDisabled] = ImVec4(0.5f, 0.5f, 0.5f, 1.0f);
@@ -72,8 +72,9 @@ namespace Flush {
 		colors[ImGuiCol_DragDropTarget] = ImVec4(1.0f, 1.0f, 0.0f, 0.9f);
 		colors[ImGuiCol_NavHighlight] = ImVec4(0.60f, 0.6f, 0.6f, 1.0f);
 		colors[ImGuiCol_NavWindowingHighlight] = ImVec4(1.0f, 1.0f, 1.0f, 0.7f);
-
+#pragma endregion 
 		using namespace glm;
+#pragma region 缓存本地mesh,material,shader
 
 		m_Mesh.reset(new Mesh("assets/models/m1911/m1911.fbx"));
 		m_MeshMaterial.reset(new MaterialInstance(m_Mesh->GetMaterial()));
@@ -97,7 +98,9 @@ namespace Flush {
 		//m_EnvironmentCubeMap.reset(TextureCube::Create("assets/textures/environments/DebugCubeMap.tga"));
 		m_EnvironmentIrradiance.reset(TextureCube::Create("assets/textures/environments/Arches_E_PineTree_Irradiance.tga"));
 		m_BRDFLUT.reset(Texture2D::Create("assets/textures/BRDF_LUT.tga"));
+#pragma endregion 
 
+#pragma region 设置2个Framebuffer,geoPassBuffer,finalScreenFrameBuffer
 		// Render Passes
 		FramebufferSpecification geoFramebufferSpec;
 		geoFramebufferSpec.Width = 1280;
@@ -106,7 +109,7 @@ namespace Flush {
 		geoFramebufferSpec.ClearColor = { 0.1f, 0.1f, 0.1f, 1.0f };
 
 		RenderPassSpecification geoRenderPassSpec;
-		geoRenderPassSpec.TargetFramebuffer = Hazel::Framebuffer::Create(geoFramebufferSpec);
+		geoRenderPassSpec.TargetFramebuffer = Flush::Framebuffer::Create(geoFramebufferSpec);
 		m_GeoPass = RenderPass::Create(geoRenderPassSpec);
 
 		FramebufferSpecification compFramebufferSpec;
@@ -116,8 +119,9 @@ namespace Flush {
 		compFramebufferSpec.ClearColor = { 0.1f, 0.1f, 0.1f, 1.0f };
 
 		RenderPassSpecification compRenderPassSpec;
-		compRenderPassSpec.TargetFramebuffer = Hazel::Framebuffer::Create(compFramebufferSpec);
+		compRenderPassSpec.TargetFramebuffer = Flush::Framebuffer::Create(compFramebufferSpec);
 		m_CompositePass = RenderPass::Create(compRenderPassSpec);
+#pragma endregion
 
 		float x = -4.0f;
 		float roughness = 0.0f;
@@ -199,7 +203,7 @@ namespace Flush {
 		// - BRDF LUT
 		// - Cubemap mips and filtering
 		// - Tonemapping and proper HDR pipeline
-		using namespace Hazel;
+		using namespace Flush;
 		using namespace glm;
 
 		m_Camera.Update(ts);
@@ -207,6 +211,7 @@ namespace Flush {
 
 		m_Mesh->OnUpdate(ts);
 
+#pragma region Geo RenderBuffer
 		Renderer::BeginRenderPass(m_GeoPass);
 		// TODO:
 		// Renderer::BeginScene(m_Camera);
@@ -214,10 +219,12 @@ namespace Flush {
 
 		m_QuadShader->Bind();
 		m_QuadShader->SetMat4("u_InverseVP", inverse(viewProjection));
-		m_EnvironmentIrradiance->Bind(0);
-		m_FullscreenQuadVertexArray->Bind();
-		Renderer::DrawIndexed(m_FullscreenQuadVertexArray->GetIndexBuffer()->GetCount(), false);
+		// TODO: Added skybox
+		{
 
+		}
+
+#pragma region 更新材质参数
 		m_MeshMaterial->Set("u_AlbedoColor", m_AlbedoInput.Color);
 		m_MeshMaterial->Set("u_Metalness", m_MetalnessInput.Value);
 		m_MeshMaterial->Set("u_Roughness", m_RoughnessInput.Value);
@@ -261,6 +268,7 @@ namespace Flush {
 			m_MeshMaterial->Set("u_MetalnessTexture", m_MetalnessInput.TextureMap);
 		if (m_RoughnessInput.TextureMap)
 			m_MeshMaterial->Set("u_RoughnessTexture", m_RoughnessInput.TextureMap);
+#pragma endregion
 
 		if (m_Scene == Scene::Spheres)
 		{
@@ -282,6 +290,7 @@ namespace Flush {
 		Renderer::SubmitMesh(m_PlaneMesh, glm::mat4(1.0f), m_GridMaterial);
 
 		Renderer::EndRenderPass();
+#pragma endregion
 
 		Renderer::BeginRenderPass(m_CompositePass);
 		m_HDRShader->Bind();
@@ -661,7 +670,8 @@ namespace Flush {
 	void PBREditorLayer::OnEvent(Event& event)
 	{
 		EventDispatcher dispatcher(event);
-		dispatcher.Dispatch<KeyPressedEvent>(HZ_BIND_EVENT_FN(PBREditorLayer::OnKeyPressedEvent));
+		// #define F_BIND_EVENT_FN(fn) std::bind(&##fn, this, std::placeholders::_1)
+		dispatcher.Dispatch<KeyPressedEvent>(F_BIND_EVENT_FN(PBREditorLayer::OnKeyPressedEvent));
 	}
 
 
@@ -669,16 +679,16 @@ namespace Flush {
 	{
 		switch (e.GetKeyCode())
 		{
-		case HZ_KEY_Q:
+		case F_KEY_Q:
 			m_GizmoType = -1;
 			break;
-		case HZ_KEY_W:
+		case F_KEY_W:
 			m_GizmoType = ImGuizmo::OPERATION::TRANSLATE;
 			break;
-		case HZ_KEY_E:
+		case F_KEY_E:
 			m_GizmoType = ImGuizmo::OPERATION::ROTATE;
 			break;
-		case HZ_KEY_R:
+		case F_KEY_R:
 			m_GizmoType = ImGuizmo::OPERATION::SCALE;
 			break;
 		}

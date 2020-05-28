@@ -11,7 +11,7 @@ int main(int argc, char** argv)
 	Flush::Log::GetCoreLogger()->info("Initianlize FlushEngine!");
 	Flush::Log::GetCoreLogger()->warn("Hello World!");
 	
-	FLUSH_PROFILE_BEGIN_SESSION("Startup", "HazelProfile-Startup.json");
+	FLUSH_PROFILE_BEGIN_SESSION("Startup", "FlushProfile-Startup.json");
 
 	auto app = Flush::CreateApplication();
 	app->Run();

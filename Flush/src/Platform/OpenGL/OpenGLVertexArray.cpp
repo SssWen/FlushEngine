@@ -2,6 +2,7 @@
 #include "OpenGLVertexArray.h"
 
 #include <glad/glad.h>
+#include "Renderer/Renderer.h"
 
 namespace Flush {
 

@@ -1,8 +1,7 @@
 #include "flushpch.h"
 #include "Renderer.h"
-#include "Platform/OpenGL/OpenGLShader.h"
-#include "Renderer2D.h"
-
+#include "Shader.h"
+#include <glad/glad.h>
 namespace Flush {
 
 	Renderer* Renderer::s_Instance = new Renderer();
@@ -13,8 +12,8 @@ namespace Flush {
 		s_Instance->m_ShaderLibrary = std::make_unique<ShaderLibrary>();
 		Renderer::Submit([]() { RendererAPI::Init(); });
 
-		Renderer::GetShaderLibrary()->Load("assets/shaders/HazelPBR_Static.glsl");
-		Renderer::GetShaderLibrary()->Load("assets/shaders/HazelPBR_Anim.glsl");
+		Renderer::GetShaderLibrary()->Load("assets/shaders/PBR_Static.glsl");
+		Renderer::GetShaderLibrary()->Load("assets/shaders/PBR_Anim.glsl");
 	}
 
 	void Renderer::Clear()
@@ -66,7 +65,7 @@ namespace Flush {
 
 	void Renderer::IEndRenderPass()
 	{
-		HZ_CORE_ASSERT(m_ActiveRenderPass, "No active render pass! Have you called Renderer::EndRenderPass twice?");
+		FLUSH_CORE_ASSERT(m_ActiveRenderPass, "No active render pass! Have you called Renderer::EndRenderPass twice?");
 		m_ActiveRenderPass->GetSpecification().TargetFramebuffer->Unbind();
 		m_ActiveRenderPass = nullptr;
 	}

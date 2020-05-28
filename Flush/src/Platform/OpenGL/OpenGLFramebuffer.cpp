@@ -42,7 +42,7 @@ namespace Flush{
 			glGenTextures(1, &m_ColorAttachment);
 			glBindTexture(GL_TEXTURE_2D, m_ColorAttachment);
 
-			// TODO: Create Hazel texture object based on format here
+			
 			if (m_Specification.Format == FramebufferFormat::RGBA16F)
 			{
 				glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA16F, m_Specification.Width, m_Specification.Height, 0, GL_RGBA, GL_FLOAT, nullptr);

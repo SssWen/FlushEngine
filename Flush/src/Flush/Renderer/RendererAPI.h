@@ -1,9 +1,5 @@
 #pragma once
 
-#include <glm/glm.hpp>
-
-#include "VertexArray.h"
-
 namespace Flush {
 
 	using RendererID = uint32_t;

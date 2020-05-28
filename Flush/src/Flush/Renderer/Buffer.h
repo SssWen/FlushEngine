@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Core/Core.h"
+#include "RendererAPI.h"
 
 namespace Flush
 {
@@ -26,7 +26,7 @@ namespace Flush
 		case ShaderDataType::Bool:     return 1;
 		}
 
-		HZ_CORE_ASSERT(false, "Unknown ShaderDataType!");
+		//FLUSH_CORE_ASSERT(false, "Unknown ShaderDataType!");
 		return 0;
 	}
 
@@ -62,7 +62,7 @@ namespace Flush
 			case ShaderDataType::Bool:    return 1;
 			}
 
-			HZ_CORE_ASSERT(false, "Unknown ShaderDataType!");
+			//FLUSH_CORE_ASSERT(false, "Unknown ShaderDataType!");
 			return 0;
 		}
 	};

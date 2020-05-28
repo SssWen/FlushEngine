@@ -20,7 +20,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-#include "flush.h"
+#include "flushpch.h"
 
 // Undef from Windows.h
 #undef min
@@ -828,7 +828,7 @@ namespace ImGuizmo
 	void BeginFrame()
 	{
 #ifdef IMGUI_HAS_VIEWPORT
-		gContext.mDrawList = ImGui::GetBackgroundDrawList(ImGui::GetMainViewport());
+		//gContext.mDrawList = ImGui::GetBackgroundDrawList(ImGui::GetMainViewport());
 #else
 		gContext.mDrawList = ImGui::GetBackgroundDrawList();
 #endif
