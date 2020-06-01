@@ -86,6 +86,7 @@ namespace Flush{
 		});
 	}
 
+	// bind FrameBufferµÄtarget attachment
 	void OpenGLFramebuffer::BindTexture(uint32_t slot) const
 	{
 		Renderer::Submit([this, slot]() {

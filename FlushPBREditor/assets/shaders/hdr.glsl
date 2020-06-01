@@ -39,5 +39,5 @@ void main()
 	vec3 mappedColor = (mappedLuminance / luminance) * color;
 
 	// Gamma correction.
-	outColor = vec4(pow(mappedColor, vec3(1.0/gamma)), 1.0);
+	outColor = vec4(pow(mappedColor, vec3(1.0/gamma)), 1.0);	
 }

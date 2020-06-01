@@ -30,6 +30,7 @@ namespace Flush {
 		Renderer::Submit([=]() {
 			glCreateBuffers(1, &m_RendererID);
 			glNamedBufferData(m_RendererID, m_Size, m_LocalData.Data, OpenGLUsage(m_Usage));
+			//glBufferData(m_RendererID, m_Size, m_LocalData.Data, OpenGLUsage(m_Usage));
 		});
 	}
 

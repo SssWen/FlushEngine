@@ -161,16 +161,16 @@ namespace Flush {
 
 		QuadVertex* data = new QuadVertex[4];
 
-		data[0].Position = glm::vec3(x, y, 0);
+		data[0].Position = glm::vec3(-1, -1, 0);
 		data[0].TexCoord = glm::vec2(0, 0);
 
-		data[1].Position = glm::vec3(x + width, y, 0);
+		data[1].Position = glm::vec3(1, -1, 0);
 		data[1].TexCoord = glm::vec2(1, 0);
 
-		data[2].Position = glm::vec3(x + width, y + height, 0);
+		data[2].Position = glm::vec3(1, 1, 0);
 		data[2].TexCoord = glm::vec2(1, 1);
 
-		data[3].Position = glm::vec3(x, y + height, 0);
+		data[3].Position = glm::vec3(-1, 1, 0);
 		data[3].TexCoord = glm::vec2(0, 1);
 
 		m_FullscreenQuadVertexArray = VertexArray::Create();
@@ -221,7 +221,9 @@ namespace Flush {
 		m_QuadShader->SetMat4("u_InverseVP", inverse(viewProjection));
 		// TODO: Added skybox
 		{
-
+			m_EnvironmentCubeMap->Bind(0);
+			m_FullscreenQuadVertexArray->Bind();
+			Renderer::DrawIndexed(m_FullscreenQuadVertexArray->GetIndexBuffer()->GetCount(), false);
 		}
 
 #pragma region 更新材质参数
@@ -301,6 +303,8 @@ namespace Flush {
 		Renderer::EndRenderPass();
 	}
 
+#pragma region GUI Properties
+
 	void PBREditorLayer::Property(const std::string& name, bool& value)
 	{
 		ImGui::Text(name.c_str());
@@ -368,7 +372,7 @@ namespace Flush {
 		ImGui::PopItemWidth();
 		ImGui::NextColumn();
 	}
-
+#pragma endregion
 	void PBREditorLayer::OnImGuiRender()
 	{
 		static bool p_open = true;
